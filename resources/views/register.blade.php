@@ -16,18 +16,17 @@
             align-items: center;
             min-height: 100vh;
         }
-
         .container {
             background-color: #FED8B1;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
             width: 400px;
-            padding: 30px;
-            text-align: center;
+            padding: 20px;
+            position: relative;
         }
 
         h2 {
-            color: #333;
+            color: #000000;
             margin-bottom: 20px;
         }
 
@@ -122,7 +121,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="{{ route('insertion') }}" method="post" class="form-container">
+    <form class="form-container" action="{{ route('form-container') }}" method="post">
         @csrf
         <h2>Sign up</h2>
         <div class="form-group">
@@ -156,8 +155,8 @@
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Sign up</button>
-        </form>
         <p class="text-muted mt-3">Already have an account? <a href="{{route('login')}}">Sign in here</a></p>
+    </form>
     
 </div>
 </body>

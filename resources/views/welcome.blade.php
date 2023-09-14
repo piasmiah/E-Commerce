@@ -204,9 +204,9 @@
 
         <div class="header-user-actions">
 
-          <a href="{{route('login')}}" class="action-btn">
+          <!-- <a href="{{route('login')}}" class="action-btn">
             <ion-icon name="person-outline"></ion-icon>
-        </a>
+        </a> -->
 
           <button class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
@@ -232,6 +232,12 @@
 
           <li class="menu-category">
             <a href="#" class="menu-title">Home</a>
+          </li>
+          <li class="menu-category">
+            <a href="{{route('login')}}" class="menu-title">Sign in</a>
+          </li>
+          <li class="menu-category">
+            <a href="{{route('register')}}" class="menu-title">Sign up</a>
           </li>
 
           <li class="menu-category">

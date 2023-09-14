@@ -31,10 +31,11 @@
 
         h2 {
             color: #000000;
+            margin-bottom: 20px;
         }
 
         .form-group {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: left;
         }
 
