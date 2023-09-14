@@ -243,18 +243,14 @@
             </form>
     <div class="text-center no-print">
         @php
-            $paymentCompleted = false;
+            $paymentCompleted = true;
             foreach ($paymentstatus as $orderStatus) {
-                if ($orderStatus->Payment_Status === 'paid') {
-                    $paymentCompleted = true;
+                if ($orderStatus->Payment_Status !== 'paid') {
+                    $paymentCompleted = false;
                      // No need to continue checking
                      break;
                 }
-                else
-                    {
-                        $paymentCompleted = false;
-
-                    }
+                
             }
         @endphp
 

@@ -91,7 +91,7 @@
     </button>
 
     <div class="toast-banner">
-      <img  src="{{asset('logo/all/jewellery-1.jpg')}}" alt="Rose Gold Earrings" width="80" height="70">
+      <img  src="{{asset('logo/all/jewellery-1.jpg')}}" alt="Lafz Perfume" width="80" height="70">
     </div>
 
     <div class="toast-detail">
@@ -101,7 +101,7 @@
       </p>
 
       <p class="toast-title">
-        Rose Gold Earrings
+      Buy LAFZ Meliha No Alcohol No Gas Premium Body Spray
       </p>
 
       <p class="toast-meta">
@@ -2134,7 +2134,7 @@
                     </div>
 
                     <a href="#">
-                      <h3 class="showcase-title">shampoo, conditioner & facewash packs</h3>
+                      <h3 class="showcase-title">CLEAR Men Anti-Hair Fall Anti-dandruff shampoo | CLEAR HAIR CARE</h3>
                     </a>
 
                     <p class="showcase-desc">
@@ -2224,7 +2224,7 @@
                     </div>
               
                     <h3 class="showcase-title">
-                      <a href="#" class="showcase-title">Rose Gold diamonds Earring</a>
+                      <a href="#" class="showcase-title">Buy LAFZ Meliha No Alcohol No Gas Premium Body Spray</a>
                     </h3>
               
                     <p class="showcase-desc">
@@ -3013,7 +3013,7 @@
 
               <p class="discount">25% Discount</p>
 
-              <h2 class="cta-title">Summer collection</h2>
+              <h2 class="cta-title">Gaming Season</h2>
 
               <p class="cta-text">Starting @ $10</p>
 
@@ -3059,7 +3059,7 @@
                 <div class="service-content">
               
                   <h3 class="service-title">Next Day delivery</h3>
-                  <p class="service-desc">UK Orders Only</p>
+                  <p class="service-desc">BD Orders Only</p>
               
                 </div>
               
@@ -3137,7 +3137,7 @@
           <div class="blog-card">
 
             <a href="#">
-              <img src="{{asset('logo/blog-1.jpg')}}" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" class="blog-banner">
+              <img src="{{asset('logo/blog-1.jpg')}}" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" height="200" class="blog-banner">
             </a>
 
             <div class="blog-content">
@@ -3160,7 +3160,7 @@
           
             <a href="#">
               <img src="{{asset('logo/blog-2.jpg')}}" alt="Curbside fashion Trends: How to Win the Pickup Battle."
-                class="blog-banner" width="300">
+                class="blog-banner" width="300" height="200">
             </a>
           
             <div class="blog-content">
@@ -3183,7 +3183,7 @@
           
             <a href="#">
               <img src="{{asset('logo/blog-3.jpg')}}" alt="EBT vendors: Claim Your Share of SNAP Online Revenue."
-                class="blog-banner" width="300">
+                class="blog-banner" width="300" height="200">
             </a>
           
             <div class="blog-content">
@@ -3206,7 +3206,7 @@
           
             <a href="#">
               <img src="{{asset('logo/blog-4.jpg')}}" alt="Curbside fashion Trends: How to Win the Pickup Battle."
-                class="blog-banner" width="300">
+                class="blog-banner" width="300" height="200">
             </a>
           
             <div class="blog-content">
@@ -3518,7 +3518,7 @@
         <img src="{{asset('logo/payment.png')}}" alt="payment method" class="payment-img">
 
         <p class="copyright">
-          Copyright &copy; <a href="#">Anon</a> all rights reserved.
+          Copyright &copy; <a href="#">E-Commerce</a> all rights reserved.
         </p>
 
       </div>
