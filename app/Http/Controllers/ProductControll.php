@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PendingOrder;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductControll extends Controller
 {
@@ -41,6 +43,21 @@ class ProductControll extends Controller
 
     public function showproduct(){
         $product = Product::all();
-        return view('maintainadmin',compact('product'));
+
+        $order = PendingOrder::all();
+
+
+        return view('maintainadmin',['product'=>$product,'order'=>$order]);
+    }
+
+    public function updateprod(Request $request)
+    {
+        $update = DB::table('orderstatus')
+            ->where('order_id',$request->input('id'))
+            ->where('customer_id',$request->input('ids'))
+            ->update([
+                'order_status'=>$request->input('status'),
+            ]);
+        return redirect()->route('maintainadmin');
     }
 }

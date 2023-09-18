@@ -136,3 +136,5 @@ Route::get('/payment/{id}', function () {
 Route::get('/payment/{id}',[\App\Http\Controllers\ProjectControll::class,'paymentoption'])->name('payment');
 
 Route::post('/donepayment',[\App\Http\Controllers\ProjectControll::class,'payment'])->name('donepayment');
+
+Route::post('/updatep',[\App\Http\Controllers\ProductControll::class,'updateprod'])->name('updatep');
