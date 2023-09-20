@@ -1,274 +1,185 @@
-{{--<!DOCTYPE html>--}}
-{{--<html>--}}
-{{--<head>--}}
-{{--    <title>Dashboard</title>--}}
-{{--    <!-- Include Bootstrap CSS -->--}}
-{{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">--}}
-{{--</head>--}}
-{{--<body>--}}
-{{--<div class="container">--}}
-{{--    <h1>Welcome to your Dashboard, {{$user->name}}!</h1>--}}
-
-
-{{--    <h2>You have {{ $total }} products in your cart.</h2>--}}
-
-{{--    <h3>Your Cart</h3>--}}
-
-{{--    <table class="table">--}}
-{{--        <thead>--}}
-{{--        <tr>--}}
-
-{{--            <th>Order ID</th>--}}
-{{--            <th>Product ID</th>--}}
-{{--            <th>Product Name</th>--}}
-{{--            <th>Quantity</th>--}}
-{{--            <th>Price</th>--}}
-{{--            <th>Stauts</th>--}}
-{{--            <th>Delete</th>--}}
-{{--        </tr>--}}
-{{--        </thead>--}}
-{{--        <tbody>--}}
-{{--        @php--}}
-{{--        $total = 0;--}}
-{{--        @endphp--}}
-{{--        @foreach ($orders as $cartItem)--}}
-{{--            <form action="{{ route('delete',['id'=>$user->id,'order_id' => $cartItem->order_id]) }}" method="post">--}}
-{{--                @csrf--}}
-{{--                <input type="hidden" name="name" value="{{$user->name}}">--}}
-{{--                <input type="hidden" name="id" value="{{$user->id}}">--}}
-{{--            <tr>--}}
-
-{{--                <td>{{ $cartItem->order_id }}</td>--}}
-{{--                <input type="hidden" name="orid" value="{{$cartItem->order_id}}">--}}
-{{--                <td>{{ $cartItem->product_id }}</td>--}}
-{{--                <td>{{ $cartItem->products }}</td>--}}
-{{--                <td>--}}
-{{--                    {{ $cartItem->Quantity }}--}}
-{{--                </td>--}}
-{{--                <td>{{ $cartItem->Price }}</td>--}}
-
-{{--                <td>--}}
-{{--                    {{ $cartItem->order_status }}--}}
-{{--                </td>--}}
-{{--                <td><button type="submit">Delete</button></td>--}}
-
-
-{{--            </tr>--}}
-{{--            @php      $total +=   $cartItem->Price;        @endphp--}}
-{{--        @endforeach--}}
-{{--        </tbody>--}}
-{{--        <tfoot>--}}
-{{--        <tr>--}}
-{{--            <th colspan="5">Total Price</th>--}}
-{{--            <th>{{$total}}</th>--}}
-{{--            <th></th>--}}
-{{--        </tr>--}}
-{{--        </tfoot>--}}
-{{--    </table>--}}
-{{--    </form>--}}
-
-{{--    <div class="row mt-4">--}}
-{{--        <div class="col-md-6">--}}
-{{--            <h3>Payment with:</h3>--}}
-{{--            <form action="{{ route('payment',['id'=>$user->id]) }}" method="post">--}}
-{{--                @csrf--}}
-{{--                <input type="hidden" name="id" value="{{$user->id}}">--}}
-{{--                @foreach ($orders as $cartItem)--}}
-
-{{--                    <input type="hidden" name="orid" value="{{$cartItem->order_id}}">--}}
-{{--                @endforeach--}}
-{{--                <div class="payment-options">--}}
-{{--                    <label>--}}
-{{--                        <input type="radio" name="payment_option" value="credit_card">--}}
-{{--                        Credit Card--}}
-{{--                    </label>--}}
-{{--                    <br>--}}
-{{--                    <label>--}}
-{{--                        <input type="radio" name="payment_option" value="Bkash">--}}
-{{--                        Bkash--}}
-{{--                    </label>--}}
-{{--                    <br>--}}
-{{--                    <label>--}}
-{{--                        <input type="radio" name="payment_option" value="Nagad">--}}
-{{--                        Nagad--}}
-{{--                    </label>--}}
-{{--                    <!-- Add more payment options here -->--}}
-{{--                </div>--}}
-{{--                <button type="submit">Submit</button>--}}
-{{--            </form>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-
-
-
-{{--</div>--}}
-
-{{--<!-- Include Bootstrap JS -->--}}
-{{--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>--}}
-{{--</body>--}}
-{{--</html>--}}
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        @page {
-            size: A4;
-        }
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .invoice {
-            padding: 20px;
-            background: #f8f9fa;
-            margin: 20px;
-        }
-        .invoice-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .invoice-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        .invoice-table th, .invoice-table td {
-            padding: 10px;
-            border: 1px solid #dee2e6;
-        }
-        .total {
-            text-align: right;
-        }
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        @media print {
-            .no-print {
-                display: none;
-            }
-            .row {
-                display: block;
-            }
-            .col-md-6 {
-                width: 100%;
-                float: none;
-            }
-        }
-    </style>
-    <title>Company Name - Invoice</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="{{asset('css/invoice.css')}}">
+
+    <title>Invoice..!</title>
 </head>
+
 <body>
-<div class="invoice">
-    <div class="invoice-header">
-        <h2>Invoice</h2>
-        <p>Company Name</p>
-        <p>123 Company Street, Cityville, State</p>
-        <p>Phone: (123) 456-7890</p>
-        <p>Email: info@example.com</p>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
+<div class="my-5 page" size="A4">
+    <div class="p-5">
+        <section class="top-content bb d-flex justify-content-between">
+            <div class="logo">
+                <img src="{{asset('logo/373424354_271132175678032_7983821530389921624_n.png')}}" alt="" class="img-fluid">
+            </div>
+            <div class="top-left">
+                <div class="graphic-path">
+                    <p>Invoice</p>
+                </div>
+                <div class="position-relative">
+                    <p>Invoice No. <span>XXXX</span></p>
+                </div>
+            </div>
+        </section>
 
-            <h4>User Information</h4>
-            <p><strong>Name:</strong> {{ $user->name }}</p>
-            <p><strong>User ID:</strong> {{ $user->id }}</p>
-            <p><strong>Phone Number:</strong> (123) 456-7890</p>
+        <section class="store-user mt-5">
+            <div class="col-10">
+                <div class="row bb pb-3">
+                    <div class="col-7">
+                        <p>Supplier,</p>
+                        <h2>E Commerce</h2>
+                        <p class="address"> 777 Brockton Avenue, <br> Abington MA 2351, <br>Vestavia Hills AL </p>
+                        <div class="txn mt-2">TXN: XXXXXXX</div>
+                    </div>
+                    <div class="col-5">
+                        <p>Client,</p>
+                        <h2>{{ $user->name }}</h2>
+                        <h3>{{ $user->id }}</h3>
+                        <p class="address"> {{$loc->location}} </p>
+                        <div class="txn mt-2">TXN: XXXXXXX</div>
+                    </div>
+                </div>
+                <div class="row extra-info pt-3">
+                    <div class="col-5">
+                        <p>Deliver Date: <span>10-04.2021</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        </div>
-        <div class="col-md-6">
-            <h4>Shipping Address</h4>
-            <p><strong>Address:</strong> {{$loc->location}}</p>
-        </div>
-    </div>
-    <table class="invoice-table">
-        <thead>
-        <tr>
-            <th>Order ID</th>
-            <th>Product ID</th>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Stauts</th>
-            <th>Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        @php
-            $total = 0; // Initialize total variable
-        @endphp
+        <section class="product-area mt-4">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <td>Item Description</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Total</td>
+                </tr>
+                </thead>
+                <tbody>
+                @php
+                    $total = 0; // Initialize total variable
+                @endphp
 
-        @foreach ($orders as $cartItem)
+                @foreach ($orders as $cartItem)
                     <form action="{{ route('delete',['id'=>$user->id,'order_id' => $cartItem->order_id]) }}" method="post">
                         @csrf
                         <input type="hidden" name="name" value="{{$user->name}}">
                         <input type="hidden" name="id" value="{{$user->id}}">
-                    <tr>
-
-                        <td>{{ $cartItem->order_id }}</td>
-                        <input type="hidden" name="orid" value="{{$cartItem->order_id}}">
-                        <td>{{ $cartItem->product_id }}</td>
-                        <td>{{ $cartItem->products }}</td>
-                        <td>
-                            {{ $cartItem->Quantity }}
-                        </td>
-                        <td>{{ $cartItem->Price }}</td>
-
-                        <td>
-                            {{ $cartItem->order_status }}
-                        </td>
-                        <td>
-                            @if ($cartItem)
-                                <!-- Check if payment is completed -->
-                                @if ($cartItem->Payment_Status !== 'paid')
-                                    <button type="submit">Delete</button>
-                                @endif
-                            @endif
-                        </td>
-
-
-                    </tr>
-                    @php      $total +=   $cartItem->Price;        @endphp
-                @endforeach
-                </tbody>
-                <tfoot>
                 <tr>
-                    <th colspan="5">Total Price</th>
-                    <th>{{$total}}</th>
-                    <th></th>
+                    <td>
+                        <div class="media">
+                            <input type="hidden" name="orid" value="{{$cartItem->order_id}}">
+                            <div class="media-body">
+                                <p class="mt-0 title">Product Id: {{ $cartItem->product_id }}</p>
+                                {{ $cartItem->products }}
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ $cartItem->Price/ $cartItem->Quantity}}</td>
+                    <td>{{ $cartItem->Quantity }}</td>
+                    <td>{{ $cartItem->Price }}</td>
                 </tr>
-                </tfoot>
+                    @php      $total +=   $cartItem->Price;        @endphp
+                        @endforeach
+                </tbody>
             </table>
-            </form>
-    <div class="text-center no-print">
-        @php
-            $paymentCompleted = true;
-            foreach ($paymentstatus as $orderStatus) {
-                if ($orderStatus->Payment_Status !== 'paid') {
-                    $paymentCompleted = false;
-                     // No need to continue checking
-                     break;
+        </section>
+
+        <section class="balance-info">
+            <div class="row">
+                <div class="col-8">
+                    <p class="m-0 font-weight-bold"> Note: </p>
+                    <p>It is very important for the customer to pay attention to the adipiscing process. To be chosen is to be gained by the suffering of those who are present.</p>
+                </div>
+                <div class="col-4">
+                    <table class="table border-0 table-hover">
+                        <tr>
+                            <td>Sub Total:</td>
+                            <td>{{$total}}</td>
+                        </tr>
+                        <tfoot>
+                        <tr>
+                            <td>Total:</td>
+                            <td>{{$total}}</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+
+                    <!-- Signature -->
+                    <div class="col-12">
+                        <img src="{{asset('logo/signature.png')}}" class="img-fluid" alt="">
+                        <p class="text-center m-0"> Director Signature </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cart BG -->
+        <img src="cart.jpg" class="img-fluid cart-bg" alt="">
+
+        <footer>
+            @php
+                $paymentCompleted = true;
+                foreach ($paymentstatus as $orderStatus) {
+                    if ($orderStatus->Payment_Status !== 'paid') {
+                        $paymentCompleted = false;
+                         // No need to continue checking
+                         break;
+                    }
+
                 }
-                
-            }
-        @endphp
+            @endphp
+            <hr>
 
-        @if ($paymentCompleted)
-            <p>Payment has been successfully completed.</p>
-            <button class="btn btn-secondary" onclick="printInvoice()">Print Invoice</button>
-        @else
-            <a href="{{ route('payment',['id'=>$user->id]) }}" class="btn btn-primary">Pay now</a>
-        @endif
+            @if ($paymentCompleted)
+
+{{--                <button class="btn btn-secondary" onclick="printInvoice()">Print Invoice</button>--}}
+
+            <p class="m-0 text-center">
+                Paid- <a href="#!"> invoice/saburbd.com/#868 </a>
+            </p>
+            @else
+                <a href="{{ route('payment',['id'=>$user->id]) }}" class="pay-now-link">Pay now</a>
+            @endif
+
+            <div class="social pt-3">
+                    <span class="pr-2">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>0123456789</span>
+                    </span>
+                <span class="pr-2">
+                        <i class="fas fa-envelope"></i>
+                        <span>me@saburali.com</span>
+                    </span>
+                <span class="pr-2">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>/sabur.7264</span>
+                    </span>
+                <span class="pr-2">
+                        <i class="fab fa-youtube"></i>
+                        <span>/abdussabur</span>
+                    </span>
+                <span class="pr-2">
+                        <i class="fab fa-github"></i>
+                        <span>/example</span>
+                    </span>
+            </div>
+        </footer>
     </div>
-
 </div>
 
-<script>
-    function printInvoice() {
-        window.print();
-    }
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

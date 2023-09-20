@@ -8,50 +8,91 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
+use App\Models\UserOtp;
+use Illuminate\Validation\Validate;
 
 class ProjectControll extends Controller
 {
-    // public function insert(Request $request)
-    // {
-    //     $name = $request->input('name');
-    //     $email = $request->input('email');
-    //     $password = $request->input('password');
+    public function otpcontrol()
+    {
+        return view('otps');
+    }
 
-    //     $insertdata=User::insert([
-    //         'name'=>$name,
-    //         'email'=>$email,
-    //         'password'=>$password,
-    //     ]);
+    public function otpgenerate(Request $request)
+    {
+        $request->validate([
+            'mobile' => 'required|exists:users,Phone'
+        ]);
 
-    //     if($insertdata){
+        $user2 = $this->OTPGEN($request->mobile);
 
-    //         return redirect('login');
-    //     }
-    //     else{
-    //         return redirect('/');
-    //     }
-    // }
+        if ($user2) {
+            $user2->sendSMS($request->mobile);
 
+            return redirect()->route('otp.verification', ['id' => $user2->user_id])
+                ->with('success', 'OTP has been sent!!');
+        } else {
+
+            return redirect()->back()->with('error', 'User or OTP record not found.');
+        }
+    }
+
+    public function OTPGEN($mobile)
+    {
+        $user = User::where('Phone', $mobile)->first();
+
+        if (!$user) {
+            // Handle the case when the user is not found.
+            // You can return an error message or perform other actions.
+            return null;
+        }
+
+        $user2 = UserOtp::where('user_id', $user->id)->latest()->first();
+
+        $now = now();
+        if ($user2 && $now->isBefore($user2->expire_at)) {
+            return $user2;
+        }
+
+        $otpRecord = UserOtp::create([
+            'user_id' => $user->id,
+            'otp' => rand(12345, 99999),
+            'expire_at' => $now->addMinutes(3)
+        ]);
+
+        return $otpRecord;
+
+    }
+
+    public function verify($id)
+    {
+        return view('verification')
+            ->with(['user_id'=>$id]);
+    }
     public function dataInsert(Request $request)
     {
         $name = $request->input('names');
+        $phone = $request->input('phone');
         $email = $request->input('email');
         $password = $request->input('password');
 
+        $hashedPassword = bcrypt($password);
+
         $data = User::insert([
             'name'=>$name,
+            'Phone'=>$phone,
             'email'=>$email,
-            'password'=>$password
+            'password'=>$hashedPassword
         ]);
 
         if($data)
         {
             $user = DB::table('users')
-            ->where('email',$request->input('email'))
-            ->where('password',$request->input('password'))
-            ->first();
-            if($user)
-            {
+                ->where('email', $request->input('email'))
+                ->first();
+            if ($user && Hash::check($request->input('password'), $user->password)) {
+                event(new Registered($user));
                 return redirect()->route('dashboard', ['id' => $user->id]);
             }
         }
@@ -59,14 +100,17 @@ class ProjectControll extends Controller
 
     public function login(Request $request)
     {
-        $user = DB::table('users')
-            ->where('email',$request->input('email'))
-            ->where('password',$request->input('password'))
-            ->first();
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-        if($user)
+        $user = DB::table('users')
+            ->where('email',$email)
+
+            ->first();
+//        event(new Registered($user));
+        if($user && Hash::check($password, $user->password) || $password === $user->password)
         {
-            event(new Registered($user));
+
             return redirect()->route('dashboard', ['id' => $user->id]);
         }
 
@@ -97,7 +141,7 @@ class ProjectControll extends Controller
     public function showDashboard($id)
     {
         $user=User::find($id);
-        $product = Product::all();
+        $product = Product::limit(4)->get();
         $total = DB::table('orderstatus')
             ->where('customer_id',$user->id)
             ->whereIn('order_status', ['Pending', 'Shipping'])
