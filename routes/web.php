@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\PasswordReset;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +25,67 @@ Route::get('/', function () {
 })->name('/');
 
 
+Route::get('/forget', function () {
+    return view('forget');
+})->name('password.request');
+
+Route::post('/forget', function (Request $request) {
+    $request->validate(['email' => 'required|email']);
+
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+
+    return $status === Password::RESET_LINK_SENT
+        ? back()->with(['status' => __($status)])
+        : back()->withErrors(['email' => __($status)]);
+})->name('password.email');
+
+Route::get('/reset/{token}', function (string $token) {
+    return view('reset', ['token' => $token]);
+})->name('password.reset');
+
+Route::post('/reset', function (Request $request) {
+    $request->validate([
+        'token' => 'required',
+        'email' => 'required|email',
+        'password' => 'required|confirmed',
+    ]);
+
+    $status = Password::reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function (User $user, string $password) {
+            $user->forceFill([
+                'password' => $password, // Do not hash the password
+            ])->setRememberToken(Str::random(60));
+
+            $user->save();
+
+            event(new PasswordReset($user));
+        }
+    );
+
+    return $status === Password::PASSWORD_RESET
+        ? redirect()->route('login')->with('status', __($status))
+        : back()->withErrors(['email' => [__($status)]]);
+})->name('password.update');
+
+Route::get('/email/verify', function () {
+    return view('verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 Route::get('/login', function () {
     return view('login');
 })->name('login');
@@ -39,7 +102,7 @@ Route::post('/form-container',[\App\Http\Controllers\ProjectControll::class,'log
 
 Route::get('/dashboard/{id}', function ($id) {
     return view('dashboard', ['userId' => $id]);
-})->name('dashboard');
+})->name('dashboard')->middleware(['verified']);
 
 Route::get('/dashboard/{id}',[\App\Http\Controllers\ProjectControll::class,'showDashboard'])->name('dashboard');
 
@@ -57,6 +120,7 @@ Route::post('/oder',[\App\Http\Controllers\OrderControll::class,'pendingorder'])
 
 Route::get('/cart/{id}', function ($id) {
     $user = User::find($id);
+
     $orders = DB::table('orderstatus')
         ->where('customer_id', $user->id)
         ->whereIn('order_status', ['Pending', 'Shipping'])
@@ -138,3 +202,9 @@ Route::get('/payment/{id}',[\App\Http\Controllers\ProjectControll::class,'paymen
 Route::post('/donepayment',[\App\Http\Controllers\ProjectControll::class,'payment'])->name('donepayment');
 
 Route::post('/updatep',[\App\Http\Controllers\ProductControll::class,'updateprod'])->name('updatep');
+
+Route::get('/otp/login',[ProjectControll::class,'otpcontrol'])->name('otp.login');
+
+Route::post('/otp/generate',[ProjectControll::class,'otpgenerate'])->name('otp.generate');
+
+Route::get('/otp/verification/{id}',[ProjectControll::class,'verify'])->name('otp.verification');

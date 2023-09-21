@@ -203,10 +203,9 @@
         </div>
 
         <div class="header-user-actions">
-
-          <!-- <a href="{{route('login')}}" class="action-btn">
-            <ion-icon name="person-outline"></ion-icon>
-        </a> -->
+{{--            <a href="{{route('login')}}" class="action-btn">--}}
+{{--            <ion-icon name="person-outline"></ion-icon>--}}
+{{--        </a>--}}
 
           <button class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>

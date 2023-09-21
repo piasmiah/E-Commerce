@@ -202,6 +202,9 @@
                         <input type="text" placeholder="Name" name="names" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                     <div class="form-group pb-3">
+                        <input type="phone" placeholder="Mobile Number" name="phone" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group pb-3">
                         <input type="email" placeholder="Email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                     <div class="form-group pb-3">
