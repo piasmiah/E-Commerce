@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 03, 2023 at 07:48 PM
+-- Generation Time: Sep 20, 2023 at 08:57 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -83,7 +83,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2023_09_20_162606_users_phone', 2),
+(6, '2023_09_20_163159_users_phone_otps_table', 3);
 
 -- --------------------------------------------------------
 
@@ -113,7 +115,12 @@ CREATE TABLE `orderstatus` (
 INSERT INTO `orderstatus` (`order_id`, `customer_id`, `customer_name`, `location`, `product_id`, `products`, `Quantity`, `Price`, `order_status`, `Payment`, `Payment_Status`, `Date`) VALUES
 (51, 1, 'Sheikh Md. Rubayet Islam Ifti', 'Mirpur, Dhaka', 3, 'Mouse', 1, 1000, 'Delivered', 'bkash', 'paid', '2023-08-24'),
 (52, 1, 'Sheikh Md. Rubayet Islam Ifti', 'Mirpur, Dhaka', 4, 'Earphone', 1, 400, 'Delivered', 'bkash', 'paid', '2023-08-24'),
-(54, 1, 'Sheikh Md. Rubayet Islam Ifti', 'Mirpur, Dhaka', 4, 'Earphone', 1, 400, 'Shipping', 'bkash', 'paid', '2023-08-27');
+(54, 1, 'Sheikh Md. Rubayet Islam Ifti', 'Mirpur, Dhaka', 4, 'Earphone', 1, 400, 'Delivered', 'bkash', 'paid', '2023-08-27'),
+(56, 1, 'Sheikh Md. Rubayet Islam Ifti', 'Mirpur, Dhaka', 6, 'RAM', 1, 450, 'Delivered', 'nagad', 'paid', '2023-09-07'),
+(57, 1, 'Sheikh Md. Rubayet Islam Ifti', 'Gulshan, Dhaka', 1, 'Keyboard', 1, 800, 'Delivered', 'nagad', 'paid', '2023-09-07'),
+(58, 1, 'Sheikh Md. Rubayet Islam Ifti', 'Mirpur, Dhaka', 4, 'Earphone', 2, 800, 'Shipping', 'bkash', 'paid', '2023-09-10'),
+(59, 1, 'Sheikh Md. Rubayet Islam Ifti', 'Mirpur, Dhaka', 1, 'Keyboard', 1, 7, 'Shipping', 'bkash', 'paid', '2023-09-18'),
+(62, 1, 'Sheikh Md. Rubayet Islam Ifti', 'Sirajagnj', 4, 'Earphone', 3, 9, 'Shipping', 'bkash', 'paid', '2023-09-19');
 
 -- --------------------------------------------------------
 
@@ -167,11 +174,12 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`pro_id`, `pro_name`, `category`, `pro_des`, `Quantity_Sold`, `price`, `pro_pic`) VALUES
-(1, 'Keyboard', 'Electronic', 'Apple Keyboard', 2, 800, 'product/clay-banks-PXaQXThG1FY-unsplash.jpg'),
-(3, 'Mouse', 'Electronic', 'Gaming Mouse', 2, 1000, 'product/mice.jpeg'),
-(4, 'Earphone', 'Electronic', 'Earphone', 1, 400, 'product/361157965_239171365721829_6516257995815106485_n.png'),
-(5, 'PS5', 'Electronic', 'PlayStation', 3, 150000, 'product/ps5.jpeg'),
-(6, 'RAM', 'Electronic', '8GB RAM', 0, 450, 'product/ram.jpeg');
+(1, 'Keyboard', 'Electronic', 'Apple Keyboard', 2, 7, 'product/clay-banks-PXaQXThG1FY-unsplash.jpg'),
+(3, 'Mouse', 'Electronic', 'Gaming Mouse', 2, 9, 'product/mice.jpeg'),
+(4, 'Earphone', 'Electronic', 'Earphone', 2, 3, 'product/361157965_239171365721829_6516257995815106485_n.png'),
+(5, 'PS5', 'Electronic', 'PlayStation', 3, 1367, 'product/ps5.jpeg'),
+(6, 'RAM', 'Electronic', '8GB RAM', 1, 4, 'product/ram.jpeg'),
+(7, 'Watch', 'Electronic', 'Olevs 5666 Men Watch Luxury Leather Luminous Hand Watch Full Black', NULL, 3, 'product/Watch.jpg');
 
 -- --------------------------------------------------------
 
@@ -187,15 +195,49 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `Phone` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Sheikh Md. Rubayet Islam Ifti', 'rubayetislam16@gmail.com', NULL, '123654', NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `Phone`) VALUES
+(1, 'Sheikh Md. Rubayet Islam Ifti', 'rubayetislam16@gmail.com', NULL, '$2y$10$xpdTUOR1O8YZn16EdVieXekUf9bMY0JtYtnx/qnHrhoZsUY/eAyiW', 'GU58R8fwMkmBQHKMVg9IWGwFfySMJh5MoaJOXUzXYOtRG3sKEb7jhb4a8dlP', NULL, '2023-09-20 08:08:46', NULL),
+(2, 'Shanu', 'shanu@gmail.com', NULL, '1234567', NULL, NULL, NULL, NULL),
+(8, 'Md. Rubayet Islam', 'imdrafiqul716@gmail.com', NULL, '$2y$10$a12XVBihAzfXucQJIN4L1egwfR7AtC0WCPy5Q5yVSPxkz0g6.ppee', NULL, NULL, NULL, '+8801744196827'),
+(9, 'Pias Miah', 'piyashasan08@gmail.com', NULL, '$2y$10$FZcmNc04OQIts4JKQ0PpyeK2IXp.aP.jtgC8PNh4XVUVK./32X2QO', NULL, NULL, NULL, '+8801906147033');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_otps`
+--
+
+CREATE TABLE `user_otps` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `otp` varchar(255) NOT NULL,
+  `expire_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_otps`
+--
+
+INSERT INTO `user_otps` (`id`, `user_id`, `otp`, `expire_at`, `created_at`, `updated_at`) VALUES
+(1, 1, '4283775947', '2023-09-20 12:08:03', NULL, NULL),
+(2, 8, '9625915813', '2023-09-20 12:29:00', NULL, NULL),
+(3, 9, '87588', '2023-09-20 12:35:24', NULL, NULL),
+(4, 8, '97928', '2023-09-20 12:42:17', NULL, NULL),
+(5, 8, '64481', '2023-09-20 12:43:12', NULL, NULL),
+(6, 8, '40737', '2023-09-20 12:43:30', NULL, NULL),
+(7, 8, '64752', '2023-09-20 12:45:37', NULL, NULL),
+(8, 8, '44743', '2023-09-20 12:47:15', '2023-09-20 12:44:15', '2023-09-20 12:44:15'),
+(9, 9, '71472', '2023-09-20 12:48:14', '2023-09-20 12:45:14', '2023-09-20 12:45:14');
 
 --
 -- Indexes for dumped tables
@@ -254,6 +296,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indexes for table `user_otps`
+--
+ALTER TABLE `user_otps`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -273,13 +321,13 @@ ALTER TABLE `invoice`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `orderstatus`
 --
 ALTER TABLE `orderstatus`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -291,13 +339,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `pro_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `pro_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `user_otps`
+--
+ALTER TABLE `user_otps`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

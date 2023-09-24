@@ -10,7 +10,7 @@
   <!--
     - favicon
   -->
-  <link rel="shortcut icon" href="./assets/images/logo/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="{{asset('logo/favicon.ico')}}" type="image/x-icon">
 
   <!--
     - custom css link
@@ -234,6 +234,7 @@
           </li>
 
 
+
           <li class="menu-category">
             <a href="#" class="menu-title">Categories</a>
 
@@ -242,27 +243,27 @@
               <ul class="dropdown-panel-list">
 
                 <li class="menu-title">
-                  <a href="#">Electronics</a>
+                  <a href="#">Kids</a>
                 </li>
 
                 <li class="panel-list-item">
-                  <a href="#">Desktop</a>
+                  <a href="#">Shirt</a>
                 </li>
 
                 <li class="panel-list-item">
-                  <a href="#">Laptop</a>
+                  <a href="#">T-Shirt</a>
                 </li>
 
                 <li class="panel-list-item">
-                  <a href="#">Camera</a>
+                  <a href="#">Shoes</a>
                 </li>
 
                 <li class="panel-list-item">
-                  <a href="#">Tablet</a>
+                  <a href="#">Diaper</a>
                 </li>
 
                 <li class="panel-list-item">
-                  <a href="#">Headphone</a>
+                  <a href="#">Toy</a>
                 </li>
 
                 <li class="panel-list-item">
@@ -379,104 +380,15 @@
             </div>
           </li>
 
-          <li class="menu-category">
-            <a href="#" class="menu-title">Men's</a>
 
-            <ul class="dropdown-list">
 
-              <li class="dropdown-item">
-                <a href="#">Shirt</a>
-              </li>
 
-              <li class="dropdown-item">
-                <a href="#">Shorts & Jeans</a>
-              </li>
 
-              <li class="dropdown-item">
-                <a href="#">Safety Shoes</a>
-              </li>
 
-              <li class="dropdown-item">
-                <a href="#">Wallet</a>
-              </li>
 
-            </ul>
-          </li>
 
           <li class="menu-category">
-            <a href="#" class="menu-title">Women's</a>
-
-            <ul class="dropdown-list">
-
-              <li class="dropdown-item">
-                <a href="#">Dress & Frock</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Earrings</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Necklace</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Makeup Kit</a>
-              </li>
-
-            </ul>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Jewelry</a>
-
-            <ul class="dropdown-list">
-
-              <li class="dropdown-item">
-                <a href="#">Earrings</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Couple Rings</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Necklace</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Bracelets</a>
-              </li>
-
-            </ul>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Perfume</a>
-
-            <ul class="dropdown-list">
-
-              <li class="dropdown-item">
-                <a href="#">Clothes Perfume</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Deodorant</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Flower Fragrance</a>
-              </li>
-
-              <li class="dropdown-item">
-                <a href="#">Air Freshener</a>
-              </li>
-
-            </ul>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Blog</a>
+            <a href="#" class="menu-title">About Us</a>
           </li>
 
           <li class="menu-category">
@@ -485,6 +397,10 @@
 
             <li class="menu-category">
                 <a href="{{route('login')}}" class="menu-title">Sign in</a>
+            </li>
+
+            <li class="menu-category">
+                <a href="{{route('register')}}" class="menu-title">Sign up</a>
             </li>
 
         </ul>

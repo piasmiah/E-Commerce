@@ -43,13 +43,21 @@
 <body>
 <div class="container">
     <h2>Enter Verification Code</h2>
-    <form action="verify.php" method="POST">
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    <form action="{{ route('otp.getLogin') }}" method="POST">
+        @csrf
+        <input type="hidden" name="user_id" value="{{ $user_id }}">
         <div class="form-group">
             <label for="verificationCode">Verification Code:</label>
-            <input type="text" id="verificationCode" name="verificationCode" placeholder="Enter your verification code" required>
+            <input type="text" id="verificationCode" name="otp" value="{{ old('otp') }}" placeholder="Enter your verification code" required>
         </div>
         <button type="submit">Verify</button>
     </form>
 </div>
+
 </body>
 </html>
