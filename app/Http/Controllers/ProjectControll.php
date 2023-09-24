@@ -11,6 +11,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use App\Models\UserOtp;
 use Illuminate\Validation\Validate;
+use Twilio\Rest\Client;
 
 class ProjectControll extends Controller
 {
@@ -31,7 +32,7 @@ class ProjectControll extends Controller
             $user2->sendSMS($request->mobile);
 
             return redirect()->route('otp.verification', ['id' => $user2->user_id])
-                ->with('success', 'OTP has been sent!!');
+                ->with('success', 'We sent an OTP to your mobile number.');
         } else {
 
             return redirect()->back()->with('error', 'User or OTP record not found.');
@@ -43,8 +44,6 @@ class ProjectControll extends Controller
         $user = User::where('Phone', $mobile)->first();
 
         if (!$user) {
-            // Handle the case when the user is not found.
-            // You can return an error message or perform other actions.
             return null;
         }
 
@@ -70,10 +69,34 @@ class ProjectControll extends Controller
         return view('verification')
             ->with(['user_id'=>$id]);
     }
+
+    public function loginOTP(Request $request)
+    {
+        $request->validate([
+            'otp' => 'required',
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $userOtp = UserOtp::where('user_id', $request->user_id)
+            ->where('otp', $request->otp)
+            ->where('expire_at', '>', now())
+            ->first();
+
+        if (!$userOtp) {
+            return redirect()->route('otp.login')->with('error', 'Invalid OTP or OTP expired.');
+        }
+
+        $userOtp->update(['expire_at' => now()]);
+
+
+        return redirect()->route('dashboard',['id'=>$request->user_id]);
+    }
+
     public function dataInsert(Request $request)
     {
         $name = $request->input('names');
         $phone = $request->input('phone');
+        $nid = $request->input('nid');
         $email = $request->input('email');
         $password = $request->input('password');
 
@@ -82,6 +105,7 @@ class ProjectControll extends Controller
         $data = User::insert([
             'name'=>$name,
             'Phone'=>$phone,
+            'NID'=>$nid,
             'email'=>$email,
             'password'=>$hashedPassword
         ]);
@@ -93,9 +117,18 @@ class ProjectControll extends Controller
                 ->first();
             if ($user && Hash::check($request->input('password'), $user->password)) {
                 event(new Registered($user));
+
+                $user2 = $this->OTPGEN($phone);
+                if ($user2)
+                {
+                    $user2->sendSMS($phone);
+                    return redirect()->route('otp.verification',['id' => $user2->user_id]);
+                }
+
                 return redirect()->route('dashboard', ['id' => $user->id]);
             }
         }
+
     }
 
     public function login(Request $request)
@@ -108,13 +141,13 @@ class ProjectControll extends Controller
 
             ->first();
 //        event(new Registered($user));
-        if($user && Hash::check($password, $user->password) || $password === $user->password)
+        if($user && Hash::check($password, $user->password))
         {
 
             return redirect()->route('dashboard', ['id' => $user->id]);
         }
 
-        if ($request->input('email') === 'addadmin@gmail.com' && $request->input('password') === 'admin')
+        elseif($request->input('email') === 'addadmin@gmail.com' && $request->input('password') === 'admin')
         {
             return redirect('maintainadmin');
         }
@@ -159,13 +192,17 @@ class ProjectControll extends Controller
         return view('welcome', compact('product'));
     }
 
-    public function purchase($id)
+    public function purchase($id,Request $request)
     {
         $id = User::find($id);
         $see = DB::table('orderstatus')
-            ->where('customer_id',$id->id)
-            ->where('order_status','Delivered')
+            ->join('product', 'orderstatus.product_id', '=', 'product.pro_id')
+            ->where('orderstatus.customer_id', $id->id)
+            ->where('orderstatus.order_status', 'Delivered')
+            ->select('orderstatus.*', 'product.pro_pic', 'product.pro_name', 'product.Price')
             ->get();
+
+
 
         return view('purchase',['id'=>$id,'see'=>$see]);
     }

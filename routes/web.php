@@ -203,8 +203,8 @@ Route::post('/donepayment',[\App\Http\Controllers\ProjectControll::class,'paymen
 
 Route::post('/updatep',[\App\Http\Controllers\ProductControll::class,'updateprod'])->name('updatep');
 
-Route::get('/otp/login',[ProjectControll::class,'otpcontrol'])->name('otp.login');
+Route::get('/otp/login', [ProjectControll::class, 'otpcontrol'])->name('otp.login');
+Route::post('/otp/generate', [ProjectControll::class, 'otpgenerate'])->name('otp.generate');
+Route::get('/otp/verification/{id}', [ProjectControll::class, 'verify'])->name('otp.verification');
+Route::post('/otp/login', [ProjectControll::class, 'loginOTP'])->name('otp.getLogin');
 
-Route::post('/otp/generate',[ProjectControll::class,'otpgenerate'])->name('otp.generate');
-
-Route::get('/otp/verification/{id}',[ProjectControll::class,'verify'])->name('otp.verification');

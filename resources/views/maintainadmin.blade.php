@@ -40,8 +40,8 @@
             </a>
         </li>
         <li>
-            <a href="#">
-                <i class='bx bxs-message-dots' ></i>
+            <a href="#" class="toggle-message">
+                <i class='bx bxs-message-dots'></i>
                 <span class="text">Message</span>
             </a>
         </li>
@@ -269,6 +269,10 @@
                 </div>
             </div>
         </section>
+
+        
+
+
     </main>
     <!-- MAIN -->
 </section>
