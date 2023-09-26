@@ -388,7 +388,7 @@
 
 
           <li class="menu-category">
-            <a href="#" class="menu-title">About Us</a>
+            <a href="{{route('aboutus')}}" class="menu-title">About Us</a>
           </li>
 
           <li class="menu-category">

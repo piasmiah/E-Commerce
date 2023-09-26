@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\PasswordReset;
-
+use Twilio\TwiML\Video\Room;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +24,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('/');
 
+Route::get('/aboutus', function () {
+    return view('aboutus');
+})->name('aboutus');
 
 Route::get('/forget', function () {
     return view('forget');
