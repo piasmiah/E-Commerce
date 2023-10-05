@@ -380,16 +380,8 @@
                     </div>
                 </li>
 
-
-
-
-
-
-
-
-
                 <li class="menu-category">
-                    <a href="#" class="menu-title">About Us</a>
+                    <a href="{{route('aboutus',['id'=>$user->id])}}" class="menu-title">About Us</a>
                 </li>
 
                 <li class="menu-category">
@@ -397,12 +389,8 @@
                 </li>
 
                 <li class="menu-category">
-                    <a href="{{ route('dashboard', ['id' => $user->id]) }}" class="menu-title">{{ $user->name }}</a>
+                    <a href="#" class="menu-title">{{ $user->name }}</a>
                     <ul class="dropdown-list">
-
-                        <li class="dropdown-item">
-                            <a href="{{ route('purchase',['id'=>$user->id]) }}">My Profile</a>
-                        </li>
 
                         <li class="dropdown-item">
                             <a href="{{ route('purchase',['id'=>$user->id]) }}">Purchase History</a>
@@ -531,79 +519,41 @@
 
             </li>
 
-            <li class="menu-category">
 
-                <button class="accordion-menu" data-accordion-btn>
-                    <p class="menu-title">Jewelry</p>
-
-                    <div>
-                        <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                        <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                    </div>
-                </button>
-
-                <ul class="submenu-category-list" data-accordion>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Earrings</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Couple Rings</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Necklace</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Bracelets</a>
-                    </li>
-
-                </ul>
-
-            </li>
 
             <li class="menu-category">
-
-                <button class="accordion-menu" data-accordion-btn>
-                    <p class="menu-title">Perfume</p>
-
-                    <div>
-                        <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                        <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                    </div>
-                </button>
-
-                <ul class="submenu-category-list" data-accordion>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Clothes Perfume</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Deodorant</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Flower Fragrance</a>
-                    </li>
-
-                    <li class="submenu-category">
-                        <a href="#" class="submenu-title">Air Freshener</a>
-                    </li>
-
-                </ul>
-
-            </li>
-
-            <li class="menu-category">
-                <a href="#" class="menu-title">Blog</a>
+                <a href="{{route('aboutus',['id'=>$user->id])}}" class="menu-title">About Us</a>
             </li>
 
             <li class="menu-category">
                 <a href="#" class="menu-title">Hot Offers</a>
             </li>
+
+            <li class="menu-category">
+
+                <button class="accordion-menu" data-accordion-btn>
+                    <p class="menu-title">{{ $user->name }}</p>
+
+                    <div>
+                        <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                        <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+                    </div>
+                </button>
+
+                <ul class="submenu-category-list" data-accordion>
+
+                    <li class="submenu-category">
+                        <a href="{{ route('purchase',['id'=>$user->id]) }}" class="submenu-title">Purchase History</a>
+                    </li>
+
+                    <li class="submenu-category">
+                        <a href="/" class="submenu-title">Logout</a>
+                    </li>
+
+                </ul>
+
+            </li>
+
 
         </ul>
 

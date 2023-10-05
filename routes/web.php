@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\PasswordReset;
-
+use Twilio\TwiML\Video\Room;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +24,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('/');
 
+Route::get('/aboutus/{id}',[ProjectControll::class,'showUs'])->name('aboutus');
 
 Route::get('/forget', function () {
     return view('forget');
@@ -171,6 +172,10 @@ Route::get('/invoice', function () {
     return view('invoice');
 })->name('invoice');
 
+Route::get('/aboutuser', function () {
+    return view('aboutuser');
+})->name('aboutuser');
+
 Route::get('/invoice/{id}',[\App\Http\Controllers\Invoice::class,'invo'])->name('invoice');
 
 Route::post('/generate-invoice', [\App\Http\Controllers\Invoice::class, 'generateInvoice'])->name('generate-invoice');
@@ -208,3 +213,4 @@ Route::post('/otp/generate', [ProjectControll::class, 'otpgenerate'])->name('otp
 Route::get('/otp/verification/{id}', [ProjectControll::class, 'verify'])->name('otp.verification');
 Route::post('/otp/login', [ProjectControll::class, 'loginOTP'])->name('otp.getLogin');
 
+Route::get('/show-chart',[\App\Http\Controllers\Chart::class,'load'])->name('show-chart');

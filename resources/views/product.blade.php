@@ -203,7 +203,7 @@
                                                 <div class="input-group">
 
 
-                                                        <input class="quantity fw-bold text-black" id="quantity" min="0" name="quantity" value="1" type="number">
+                                                        <input class="quantity fw-bold text-black" id="quantity" min="0" name="quantity"  type="number" style="border: black solid;">
 
                                                 </div>
                                             </div>

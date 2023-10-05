@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E-Commerce Website</title>
+
+    <title>E-Commerce Website</title>
 
   <!--
     - favicon
@@ -16,6 +17,10 @@
     - custom css link
   -->
   <link rel="stylesheet" href="{{asset('css/style-prefix.css')}}">
+{{--    <link rel="stylesheet" href="{{asset('css/card.css')}}">--}}
+{{--    <link rel="stylesheet" href="{{asset('css/product-style.css')}}">--}}
+{{--    <link rel="stylesheet" href="{{asset('css/about2.css')}}">--}}
+{{--    <link rel="stylesheet" href="{{asset('css/about.css')}}">--}}
 
   <!--
     - google font link*
@@ -225,12 +230,13 @@
 
     <nav class="desktop-navigation-menu">
 
+
       <div class="container">
 
         <ul class="desktop-menu-category-list">
 
           <li class="menu-category">
-            <a href="#" class="menu-title">Home</a>
+            <a href="#" class="menu-title  toggle">Home</a>
           </li>
 
 
@@ -380,15 +386,8 @@
             </div>
           </li>
 
-
-
-
-
-
-
-
           <li class="menu-category">
-            <a href="#" class="menu-title">About Us</a>
+              <a class="menu-title" href="{{route('aboutuser')}}">About Us</a>
           </li>
 
           <li class="menu-category">
@@ -450,7 +449,7 @@
       <ul class="mobile-menu-category-list">
 
         <li class="menu-category">
-          <a href="#" class="menu-title">Home</a>
+          <a href="#" class="menu-title" data-section="main">Home</a>
         </li>
 
         <li class="menu-category">
@@ -519,79 +518,22 @@
 
         </li>
 
-        <li class="menu-category">
-
-          <button class="accordion-menu" data-accordion-btn>
-            <p class="menu-title">Jewelry</p>
-
-            <div>
-              <ion-icon name="add-outline" class="add-icon"></ion-icon>
-              <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-            </div>
-          </button>
-
-          <ul class="submenu-category-list" data-accordion>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Earrings</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Couple Rings</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Necklace</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Bracelets</a>
-            </li>
-
-          </ul>
-
-        </li>
 
         <li class="menu-category">
-
-          <button class="accordion-menu" data-accordion-btn>
-            <p class="menu-title">Perfume</p>
-
-            <div>
-              <ion-icon name="add-outline" class="add-icon"></ion-icon>
-              <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-            </div>
-          </button>
-
-          <ul class="submenu-category-list" data-accordion>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Clothes Perfume</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Deodorant</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Flower Fragrance</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Air Freshener</a>
-            </li>
-
-          </ul>
-
-        </li>
-
-        <li class="menu-category">
-          <a href="#" class="menu-title">Blog</a>
+            <a class="menu-title" href="{{route('aboutuser')}}">About Us</a>
         </li>
 
         <li class="menu-category">
           <a href="#" class="menu-title">Hot Offers</a>
         </li>
+
+          <li class="menu-category">
+              <a href="{{route('login')}}" class="menu-title">Sign in</a>
+          </li>
+
+          <li class="menu-category">
+              <a href="{{route('register')}}" class="menu-title">Sign up</a>
+          </li>
 
       </ul>
 
@@ -1481,7 +1423,7 @@
 
                     <div class="showcase-content">
 
-                      <a href="#">
+                      <a href="{{route('login')}}">
                         <h4 class="showcase-title">{{$pro->pro_des}}</h4>
                       </a>
 
@@ -2130,7 +2072,7 @@
                 <div class="showcase">
 
                   <div class="showcase-banner">
-                    <img src="{{asset('logo/all/jewellery-1.jpg')}}"" alt="Rose Gold diamonds Earring" class="showcase-img">
+                    <img src="{{asset('logo/all/jewellery-1.jpg')}}" alt="Rose Gold diamonds Earring" class="showcase-img">
                   </div>
 
                   <div class="showcase-content">
@@ -3151,6 +3093,7 @@
 
     </div>
 
+{{-- --}}
   </main>
 
 
