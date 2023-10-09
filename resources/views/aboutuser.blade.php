@@ -143,7 +143,7 @@
             <ul class="desktop-menu-category-list">
 
                 <li class="menu-category">
-                    <a href="{{ route('dashboard', ['id' => $user->id]) }}" class="menu-title">Home</a>
+                    <a href="/" class="menu-title">Home</a>
                 </li>
 
                 <li class="menu-category">
@@ -300,21 +300,12 @@
                 </li>
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title">{{ $user->name }}</a>
-                    <ul class="dropdown-list">
-
-                        <li class="dropdown-item">
-                            <a href="{{ route('purchase',['id'=>$user->id]) }}">Purchase History</a>
-                        </li>
-
-                        <li class="dropdown-item">
-                            <a href="/">Logout</a>
-                        </li>
-
-                    </ul>
+                    <a href="{{route('login')}}" class="menu-title">Sign in</a>
                 </li>
 
-
+                <li class="menu-category">
+                    <a href="{{route('register')}}" class="menu-title">Sign up</a>
+                </li>
 
             </ul>
 
@@ -334,7 +325,7 @@
             <span class="count">0</span>
         </button>
 
-        <a href="{{ route('dashboard', ['id' => $user->id]) }}" class="action-btn">
+        <a href="/" class="action-btn">
             <ion-icon name="home-outline"></ion-icon>
         </a>
 

@@ -6,6 +6,7 @@ use App\Models\PendingOrder;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
 
 class ProductControll extends Controller
 {
@@ -52,12 +53,22 @@ class ProductControll extends Controller
 
     public function updateprod(Request $request)
     {
-        $update = DB::table('orderstatus')
-            ->where('order_id',$request->input('id'))
-            ->where('customer_id',$request->input('ids'))
-            ->update([
-                'order_status'=>$request->input('status'),
-            ]);
-        return redirect()->route('maintainadmin');
+        try {
+            $update = DB::table('orderstatus')
+                ->where('order_id', $request->input('id'))
+                ->where('customer_id', $request->input('ids'))
+                ->update([
+                    'order_status' => $request->input('status'),
+                ]);
+
+            $update2 = DB::table('product')
+                ->where('pro_id', $request->input('pro_id'))
+                ->increment('Quantity_Sold', $request->input('quan'));
+            return redirect()->route('maintainadmin');
+        }
+        catch (Exception $e)
+        {
+
+        }
     }
 }

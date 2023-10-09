@@ -2,7 +2,7 @@ body {
     padding: 0 ;
     margin: 0;
     font-size: 15px/1.5;
-    font-family: 'Karla', sans-serif;    
+    font-family: 'Karla', sans-serif;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -16,53 +16,53 @@ button::-moz-focus-inner {
   border: 0;
 }
 
-a:focus { 
-    outline: none; 
+a:focus {
+    outline: none;
 }
 
-a:visited { 
-    text-decoration: none; 
+a:visited {
+    text-decoration: none;
 }
 
 
 /* Header */
-header {
-    background: #455A64;
-    color:#FFFF;
-    margin: 0;
-    width: 100vw;
+/*header {*/
+/*    background: #455A64;*/
+/*    color:#FFFF;*/
+/*    margin: 0;*/
+/*    width: 100vw;*/
 
-}
+/*}*/
 
-header a {    
-    text-decoration: none;
-    color:#FFFF;
+/*header a {    */
+/*    text-decoration: none;*/
+/*    color:#FFFF;*/
 
-}
+/*}*/
 
-header li {
-    display: inline;
-    padding: 0 30px 0 20px;
-}
+/*header li {*/
+/*    display: inline;*/
+/*    padding: 0 30px 0 20px;*/
+/*}*/
 
-header h1 {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-}
+/*header h1 {*/
+/*    display: inline-block;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
 
 
-header ul {
-    margin: 0;
-    padding: 0;
-    text-align: center;
+/*header ul {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    text-align: center;*/
 
-}
+/*}*/
 
 
 
 /* Classes and IDs*/
-.container { 
+.container {
     width: 80%;
     margin: auto;
     overflow: hidden;
@@ -72,7 +72,7 @@ header ul {
     background-color: #607D8B;
     box-sizing: border-box;
     text-align: center;
-    
+
 }
 
 .top-ad p {
@@ -87,7 +87,7 @@ header ul {
     margin: 0;
 }
 
-.head-top ul { 
+.head-top ul {
     text-align: right;
 }
 
@@ -100,7 +100,7 @@ header ul {
 .search {
     float: right;
     line-height: 52px;
-    padding-right: 14px;   
+    padding-right: 14px;
 }
 
 .search-box {
@@ -115,15 +115,15 @@ header ul {
     color: #BDBDBD;
     flex-grow: 1;
     border-style: none;
-    
+
 }
 
 /* when screen device width < 800 pixels */
 @media screen and ( max-width:800px) {
     #search-bar {
-        float: none;                
-        width: 100%;        
-    }    
+        float: none;
+        width: 100%;
+    }
 
 }
 
@@ -133,7 +133,7 @@ header ul {
     height: 40px;
     font-weight: 500;
     margin: auto;
-    
+
 }
 
 #search-btn:hover {
@@ -189,9 +189,9 @@ header ul {
 
 .line-long {
     border-color: #F2F2F2;
-    
+
     border-width: 1px;
-    margin: 0;    
+    margin: 0;
     width: 100vw;
 
 }
@@ -251,7 +251,7 @@ header ul {
 /* Logo font */
 #logo-font {
     font-family: 'Roboto Mono', monospace;
-    
+
 }
 
 .maxWidth {

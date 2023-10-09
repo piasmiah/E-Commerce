@@ -1,58 +1,4 @@
-{{--<!DOCTYPE html>--}}
-{{--<html lang="en">--}}
-{{--<head>--}}
-{{--    <meta charset="UTF-8">--}}
-{{--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--}}
-{{--    <title>Admin Dashboard</title>--}}
-{{--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">--}}
-{{--    <style>--}}
-{{--        .dashboard-card--}}
-{{--        {--}}
-{{--            padding: 20px;--}}
-{{--            margin: 20px;--}}
-{{--            border: 1px solid #ccc;--}}
-{{--            border-radius: 5px;--}}
-{{--            text-align: center;--}}
-{{--        }--}}
-{{--    </style>--}}
-{{--</head>--}}
-{{--<body>--}}
-{{--<div class="container">--}}
-{{--    <h1 class="mt-4 mb-4">Admin Dashboard</h1>--}}
-{{--    <div class="row">--}}
-{{--        <div class="col-md-4">--}}
-{{--            <div class="dashboard-card">--}}
-{{--                <h2><a href="totalsells">Total Sales</a></h2>--}}
-{{--                <h4><strong>Tk. {{$total}}</strong></h4>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-{{--        <div class="col-md-4">--}}
-{{--            <div class="dashboard-card">--}}
-{{--                <h2>Total Pending Orders</h2>--}}
-{{--                <h4><strong>{{$pen}}</strong></h4>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-{{--        <div class="col-md-4">--}}
-{{--            <div class="dashboard-card">--}}
-{{--                <h2>Total Shipping Orders</h2>--}}
-{{--                <h4><strong>{{$ship}}</strong></h4>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-{{--        <div class="col-md-4">--}}
-{{--            <div class="dashboard-card">--}}
-{{--                <h2>Total Deliver Orders</h2>--}}
-{{--                <h4><strong>{{$total2}}</strong></h4>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
-{{--</body>--}}
-{{--</html>--}}
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -62,6 +8,7 @@
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- My CSS -->
     <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+    <link rel="stylesheet" href="{{asset('css/chart.css')}}">
     <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
 
     <title>AdminHub</title>
@@ -92,8 +39,8 @@
             </a>
         </li>
         <li>
-            <a href="#">
-                <i class='bx bxs-doughnut-chart' ></i>
+            <a href="#" class="toggle-analytics">
+                <i class='bx bxs-doughnut-chart'></i>
                 <span class="text">Analytics</span>
             </a>
         </li>
@@ -236,32 +183,13 @@
             </div>
             <div class="todo">
                 <div class="head">
-                    <h3>Todos</h3>
+                    <h3>Top Sold 5 Products</h3>
                     <i class='bx bx-plus' ></i>
                     <i class='bx bx-filter' ></i>
                 </div>
-                <ul class="todo-list">
-                    <li class="completed">
-                        <p>Todo List</p>
-                        <i class='bx bx-dots-vertical-rounded' ></i>
-                    </li>
-                    <li class="completed">
-                        <p>Todo List</p>
-                        <i class='bx bx-dots-vertical-rounded' ></i>
-                    </li>
-                    <li class="not-completed">
-                        <p>Todo List</p>
-                        <i class='bx bx-dots-vertical-rounded' ></i>
-                    </li>
-                    <li class="completed">
-                        <p>Todo List</p>
-                        <i class='bx bx-dots-vertical-rounded' ></i>
-                    </li>
-                    <li class="not-completed">
-                        <p>Todo List</p>
-                        <i class='bx bx-dots-vertical-rounded' ></i>
-                    </li>
-                </ul>
+                <div class="charts-card">
+                    <div id="bar-chart2"></div>
+                </div>
             </div>
         </div>
             </section>
@@ -427,6 +355,21 @@
                 </div>
             </div>
         </section>
+
+        <section id="analytics" style="display: none">
+            <div class="charts">
+
+                <div class="charts-card">
+                    <h2 class="chart-title">Top 5 Products</h2>
+                    <div id="bar-chart"></div>
+                </div>
+
+                <div class="charts-card">
+                    <h2 class="chart-title">Purchase and Sales Orders</h2>
+                    <div id="area-chart"></div>
+                </div>
+            </div>
+        </section>
     </main>
     <!-- MAIN -->
 </section>
@@ -435,5 +378,13 @@
 
 <script src="{{asset('js/scripts.js')}}"></script>
 <script src="{{asset('js/link.js')}}"></script>
+<script src="{{asset('js/chart.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.5/apexcharts.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script>
+    var product = @json($product);
+    var productNames = @json($product2);
+</script>
 </body>
 </html>

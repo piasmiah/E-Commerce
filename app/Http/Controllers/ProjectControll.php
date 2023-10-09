@@ -99,38 +99,57 @@ class ProjectControll extends Controller
         $nid = $request->input('nid');
         $email = $request->input('email');
         $password = $request->input('password');
+        $confirm = $request->input('confirm-password');
 
+        $existingUser = User::where('email', $email)->first();
         $hashedPassword = bcrypt($password);
 
-        $data = User::insert([
-            'name'=>$name,
-            'Phone'=>$phone,
-            'NID'=>$nid,
-            'email'=>$email,
-            'password'=>$hashedPassword
-        ]);
+        if ($password !== $confirm || $existingUser) {
+            $messages = [];
 
-        if($data)
-        {
-            $user = DB::table('users')
-                ->where('email', $request->input('email'))
-                ->first();
-            if ($user && Hash::check($request->input('password'), $user->password)) {
-                event(new Registered($user));
-
-                $user2 = $this->OTPGEN($phone);
-                if ($user2)
-                {
-                    $user2->sendSMS($phone);
-                    return redirect()->route('otp.verification',['id' => $user2->user_id]);
-                }
-
-                return redirect()->route('dashboard', ['id' => $user->id]);
+            if ($password !== $confirm) {
+                $messages[] = 'Password did not match';
             }
+
+            if ($existingUser) {
+                $messages[] = 'Email Already Exists';
+            }
+
+            return redirect()->back()->with('messages', $messages);
         }
 
-    }
+        else {
+            if($password === $confirm)
+            {
+                $data = User::insert([
+                    'name' => $name,
+                    'Phone' => $phone,
+                    'NID' => $nid,
+                    'email' => $email,
+                    'password' => $hashedPassword
+                ]);
 
+                if ($data) {
+                    $user = DB::table('users')
+                        ->where('email', $request->input('email'))
+                        ->first();
+                    if ($user && Hash::check($request->input('password'), $user->password)) {
+                        event(new Registered($user));
+
+                        $user2 = $this->OTPGEN($phone);
+                        if ($user2) {
+                            $user2->sendSMS($phone);
+                            return redirect()->route('otp.verification', ['id' => $user2->user_id]);
+                        }
+
+                        return redirect()->route('dashboard', ['id' => $user->id]);
+                    }
+                }
+            }
+
+            return response()->json(['message' => 'Registration successful'], 200);
+        }
+    }
     public function login(Request $request)
     {
         $email = $request->input('email');
@@ -184,6 +203,11 @@ class ProjectControll extends Controller
         } else {
 
         }
+    }
+
+    public function showUs($id){
+        $user = User::find($id);
+        return view('aboutus',compact('user'));
     }
 
     public function product(){

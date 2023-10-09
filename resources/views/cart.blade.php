@@ -12,7 +12,7 @@
     <!-- Custom Style -->
     <link rel="stylesheet" href="{{asset('css/invoice.css')}}">
 
-    <title>Invoice..!</title>
+    <title>E-Commerce | Invoice</title>
 </head>
 
 <body>
