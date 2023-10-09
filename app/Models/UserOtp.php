@@ -29,14 +29,14 @@ class UserOtp extends Model
 
             $client = new Client($account_id,$account_token);
 
-            $client->messages->create($receiver,[
+            $client->messages->create($receiver,array(
                 'from'=>$account_form,
                 'body'=>$message
-            ]);
+            ));
 
             info('OTP Send Successfully');
         }
-        catch (\Exception $e)
+        catch (Exception $e)
         {
          info("Error: ".$e->getMessage());
         }

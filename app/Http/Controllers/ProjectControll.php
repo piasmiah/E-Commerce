@@ -211,9 +211,9 @@ class ProjectControll extends Controller
     }
 
     public function product(){
-        $product = Product::limit(4)->get();
-
-        return view('welcome', compact('product'));
+        $product = Product::latest()->inRandomOrder()->limit(4)->get();
+        $product2 = Product::inRandomOrder()->limit(4)->get();
+        return view('welcome', compact('product','product2'));
     }
 
     public function purchase($id,Request $request)

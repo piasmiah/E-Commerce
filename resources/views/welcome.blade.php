@@ -1443,32 +1443,31 @@
                 </div>
 
                 <div class="showcase-container">
+                @foreach($product2 as $pro)
+                <div class="showcase">
 
-                  <div class="showcase">
+                        <a href="#" class="showcase-img-box">
+                          <img src="{{asset('storage/' .$pro->pro_pic)}}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
+                        </a>
 
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/jacket-5.jpg')}}" alt="men yarn fleece full-zip jacket" class="showcase-img"
-                        width="70">
-                    </a>
+                        <div class="showcase-content">
 
-                    <div class="showcase-content">
+                          <a href="{{route('login')}}">
+                            <h4 class="showcase-title">{{$pro->pro_des}}</h4>
+                          </a>
 
-                      <a href="#">
-                        <h4 class="showcase-title">MEN Yarn Fleece Full-Zip Jacket</h4>
-                      </a>
+                          <a href="#" class="showcase-category">{{$pro->category}}</a>
 
-                      <a href="#" class="showcase-category">Winter wear</a>
+                          <div class="price-box">
+                            <p class="price">${{$pro->price}}</p>
+                            <del>$12.00</del>
+                          </div>
 
-                      <div class="price-box">
-                        <p class="price">$61.00</p>
-                        <del>$11.00</del>
-                      </div>
+                        </div>
 
-                    </div>
-
-                  </div>
-
-                  <div class="showcase">
+                        </div>
+                  @endforeach
+                  <!-- <div class="showcase">
 
                     <a href="#" class="showcase-img-box">
                       <img src="{{asset('logo/all/jacket-1.jpg')}}" alt="mens winter leathers jackets" class="showcase-img"
@@ -1490,9 +1489,9 @@
 
                     </div>
 
-                  </div>
+                  </div> -->
 
-                  <div class="showcase">
+                  <!-- <div class="showcase">
 
                     <a href="#" class="showcase-img-box">
                       <img src="{{asset('logo/all/jacket-3.jpg')}}" alt="mens winter leathers jackets" class="showcase-img"
@@ -1514,9 +1513,9 @@
 
                     </div>
 
-                  </div>
+                  </div> -->
 
-                  <div class="showcase">
+                  <!-- <div class="showcase">
 
                     <a href="#" class="showcase-img-box">
                       <img src="{{asset('logo/all/shorts-1.jpg')}}" alt="better basics french terry sweatshorts" class="showcase-img"
@@ -1538,7 +1537,7 @@
 
                     </div>
 
-                  </div>
+                  </div> -->
 
                 </div>
 
