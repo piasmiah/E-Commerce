@@ -67,6 +67,7 @@
             <th>Order ID</th>
             <th>Product</th>
             <th>Image</th>
+            <th>Price</th>
             <th>Quantity</th>
             <th>Date</th>
         </tr>
@@ -80,6 +81,7 @@
             <td><img src="{{ asset('storage/' . $saw->pro_pic) }}" class="product-image" width="50" height="50"></td>
 
             <td>{{$saw->Price}}</td>
+            <td>{{$saw->Quantity}}</td>
             <td>{{$saw->Date}}</td>
 
         </tr>

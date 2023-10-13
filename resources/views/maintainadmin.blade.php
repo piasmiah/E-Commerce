@@ -233,6 +233,7 @@
                             <th>Products</th>
                             <th>Quantity</th>
                             <th>Price</th>
+                            <th>Date of Order</th>
                             <th>Status</th>
                         </tr>
                         </thead>
@@ -253,6 +254,7 @@
                                 <td>{{$oder->Quantity}}</td>
                                 <input type="hidden" name="quan" value="{{$oder->Quantity}}">
                                 <td>{{$oder->Price}}</td>
+                                <td>{{$oder->Date}}</td>
                                 @if($oder->order_status==='Delivered')
                                     <td><span class="status completed">{{$oder->order_status}}</span></td>
                                 @elseif($oder->order_status==='Shipping')

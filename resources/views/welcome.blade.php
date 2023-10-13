@@ -646,7 +646,7 @@
 
             <div class="banner-content">
 
-              <p class="banner-subtitle">Trending item</p>
+              <p class="banner-subtitle">25% Flat Sale On Trending item</p>
 
               <h2 class="banner-title">Women's latest fashion sale</h2>
 
@@ -666,7 +666,7 @@
 
             <div class="banner-content">
 
-              <p class="banner-subtitle">Trending accessories</p>
+              <p class="banner-subtitle">20% Flat Sale On Trending accessories</p>
 
               <h2 class="banner-title">Modern sunglasses</h2>
 
@@ -686,7 +686,7 @@
 
             <div class="banner-content">
 
-              <p class="banner-subtitle">Sale Offer</p>
+              <p class="banner-subtitle">30% Flat Sale On Sale Offer</p>
 
               <h2 class="banner-title">New fashion summer sale</h2>
 
