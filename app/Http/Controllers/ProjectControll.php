@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\PendingOrder;
 use App\Models\Product;
+use App\Models\Subscriber;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Auth\Events\Registered;
@@ -193,13 +196,24 @@ class ProjectControll extends Controller
     public function showDashboard($id)
     {
         $user=User::find($id);
-        $product = Product::limit(4)->get();
+        $product = Product::latest()->inRandomOrder()->limit(4)->get();
+        $product2 = Product::inRandomOrder()->limit(4)->get();
+        $product4 = Product::latest()->inRandomOrder()->get();
+        $category = Categories::get();
+        $product3 = DB::table('orderstatus')
+            ->join('product', 'orderstatus.product_id', '=', 'product.pro_id')
+            ->where('orderstatus.order_status', 'Delivered')
+            ->orderBy('orderstatus.created_at', 'desc') // Order by the creation time in descending order
+            ->select('product.pro_pic', 'product.pro_des', 'orderstatus.*')
+            ->first();
+
+        $subscribe = Subscriber::all();
         $total = DB::table('orderstatus')
             ->where('customer_id',$user->id)
             ->whereIn('order_status', ['Pending', 'Shipping'])
             ->count();
         if ($user) {
-            return view('dashboard', compact('user','product','total'));
+            return view('dashboard', compact('user','product','category','product4','product2','product3','total','subscribe'));
         } else {
 
         }
@@ -213,22 +227,36 @@ class ProjectControll extends Controller
     public function product(){
         $product = Product::latest()->inRandomOrder()->limit(4)->get();
         $product2 = Product::inRandomOrder()->limit(4)->get();
-        return view('welcome', compact('product','product2'));
+        $product4 = Product::latest()->inRandomOrder()->get();
+        $category = Categories::get();
+        $product3 = DB::table('orderstatus')
+            ->join('product', 'orderstatus.product_id', '=', 'product.pro_id')
+            ->where('orderstatus.order_status', 'Delivered')
+            ->orderBy('orderstatus.created_at', 'desc') // Order by the creation time in descending order
+            ->select('product.pro_pic', 'product.pro_des', 'orderstatus.*')
+            ->first();
+
+        return view('welcome', compact('product','product2','product3','product4','category'));
     }
 
     public function purchase($id,Request $request)
     {
         $id = User::find($id);
+        $category = Categories::get();
         $see = DB::table('orderstatus')
             ->join('product', 'orderstatus.product_id', '=', 'product.pro_id')
             ->where('orderstatus.customer_id', $id->id)
-            ->where('orderstatus.order_status', 'Delivered')
+            ->whereIn('orderstatus.order_status', ['Delivered', 'Shipping','Pending'])
             ->select('orderstatus.*', 'product.pro_pic', 'product.pro_name', 'product.Price')
-            ->get();
+            ->orderBy('orderstatus.created_at', 'desc')
+            ->paginate(5);
 
+        $orders = DB::table('orderstatus')
+            ->where('customer_id', $id->id)
+            ->where('order_status', 'Pending')
+            ->count();
 
-
-        return view('purchase',['id'=>$id,'see'=>$see]);
+        return view('purchase',['id'=>$id,'see'=>$see,'orders'=>$orders,'category'=>$category]);
     }
 
     public function paymentoption($id)
@@ -242,6 +270,7 @@ class ProjectControll extends Controller
 
     public function payment(Request $request)
     {
+        $now = Carbon::now();
         DB::table('orderstatus')
             ->where('customer_id',$request->input('id'))
             ->where('order_status','Pending')
@@ -249,11 +278,75 @@ class ProjectControll extends Controller
                 'Payment'=>$request->input('paymentMethod'),
                 'order_status'=>'Shipping',
                 'Payment_Status'=>'paid',
+                'created_at'=>$now->toDateTimeString(),
             ]);
 
         return redirect()->route('dashboard',['id'=>$request->input('id')]);
     }
 
+    public  function subscriber(Request $request)
+    {
+//        $id = $request->input('id');
+        $email = $request->input('email');
+        $time = Carbon::now();
 
+        $subs = Subscriber::insert([
+            'Subscriber'=>$email,
+            'created_at'=>$time
+        ]);
+        if ($subs)
+            return redirect()->route('/');
+//        else
+//            return redirect()->route('dashboard',['id'=>$id->id]);
+    }
+
+    public  function subscriber2(Request $request,$id)
+    {
+//        $id = $request->input('id');
+        $email = $request->input('email');
+        $time = Carbon::now();
+
+        $subs = Subscriber::insert([
+            'Subscriber'=>$email,
+            'created_at'=>$time
+        ]);
+        if ($subs)
+            return redirect()->route('dashboard',['id'=>$id]);
+//
+    }
+
+//    public function redirectpage($category)
+//    {
+//        if ($category === 'Electronic') {
+//            $products = Product::where('category', 'Electronic')->get();
+//            return redirect()->route('productlist', ['category' => $category])->with('products', $products);
+//        }
+//    }
+
+    public function showProductList($category)
+    {
+        $products = Product::where('category', $category)->latest()->get();
+        $categories = Categories::get();
+        return view('productlist', compact('category', 'products','categories'));
+    }
+
+    public function redirectpage2($category)
+    {
+        if ($category === 'Electronic') {
+
+
+            return redirect()->route('productlist2', ['category' => $category]);
+        }
+    }
+
+    public function showProductList2($category,$id)
+    {
+        $user = User::find($id);
+
+        $product = Product::where('category', $category)->latest()->get();
+
+        dd($category, $product);// Retrieve the products data from the session
+        return view('productlist2', compact('category', 'product','user'));
+    }
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\PendingOrder;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -54,7 +55,23 @@ class Admin extends Controller
         return view('totalsells',['sells'=>$sells,'total'=>$total]);
     }
 
+    public function addcategory(Request $request)
+    {
+        $add = Categories::insert([
+            'Category_Name'=>$request->input('category')
+        ]);
+        if ($add)
+        {
+            return redirect()->route('maintainadmin');
+        }
+    }
 
+//    public function showcata()
+//    {
+//        $show = Categories::get();
+//
+//        return view('maintainadmin',['show'=>$show]);
+//    }
 
 //    public function quantitysold(Request $request)
 //    {

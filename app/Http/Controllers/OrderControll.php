@@ -42,24 +42,60 @@ class OrderControll extends Controller
         $name = $request->input('name');
         $loc = $request->input('loc');
         $proname = $request->input('pro_name');
+        $size = $request->input('size');
         $quantity = $request->input('quantity');
         $price = $request->input('total_price');
         $status =$request->input('status');
         $currentDate = Carbon::now();
 
-        $isInsert = PendingOrder::insert([
-           'product_id'=>$id,
-            'customer_id'=>$cusid,
-            'customer_name'=>$name,
-            'location' => $loc,
-            'products'=>$proname,
-            'Quantity'=>$quantity,
-            'Price'=>$price,
-            'order_status'=>$status,
-            'Date'=>$currentDate
-        ]);
-        if($isInsert) {
-            return redirect()->route('dashboard', ['id' => $cusid]);
+        $action = $request->input('action');
+
+        if ($action === 'add_to_cart') {
+            $isInsert = PendingOrder::insert([
+                'product_id' => $id,
+                'customer_id' => $cusid,
+                'customer_name' => $name,
+                'location' => $loc,
+                'products' => $proname,
+                'Quantity' => $quantity,
+                'Size' => $size,
+                'Price' => $price,
+                'order_status' => $status,
+                'created_at' => $currentDate
+            ]);
+            $stock = Product::where('pro_id', $id)
+                ->update([
+                    'Stock' => $request->input('stock'),
+                    'Stock_Status' => $request->input('stockstatus')
+                ]);
+
+            if ($isInsert && $stock) {
+                return redirect()->route('dashboard', ['id' => $cusid]);
+            }
+        }
+        elseif($action === 'buy_now')
+        {
+            $isInsert = PendingOrder::insert([
+                'product_id' => $id,
+                'customer_id' => $cusid,
+                'customer_name' => $name,
+                'location' => $loc,
+                'products' => $proname,
+                'Quantity' => $quantity,
+                'Size' => $size,
+                'Price' => $price,
+                'order_status' => $status,
+                'created_at' => $currentDate
+            ]);
+            $stock = Product::where('pro_id', $id)
+                ->update([
+                    'Stock' => $request->input('stock'),
+                    'Stock_Status' => $request->input('stockstatus')
+                ]);
+
+            if ($isInsert && $stock) {
+                return redirect()->route('cart', ['id' => $cusid]);
+            }
         }
     }
 
@@ -71,17 +107,18 @@ class OrderControll extends Controller
         ]);
     }
 
-    public function addtocart($id,$ids)
+    public function addtocart($id,$ids,$category)
     {
         $id=Product::find($id);
         $ids=User::find($ids);
+        $category = Product::find($category);
         $show = DB::table('product')
             ->where('pro_id',$id->pro_id)
             ->first();
         $user = DB::table('users')
             ->where('id',$ids->id)
             ->first();
-        return view('product',['id'=>$id,'ids'=>$ids,'show'=>$show,'user'=>$user]);
+        return view('product',['id'=>$id,'ids'=>$ids,'category'=>$category,'show'=>$show,'user'=>$user]);
 
     }
 

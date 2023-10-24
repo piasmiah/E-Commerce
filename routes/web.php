@@ -124,7 +124,7 @@ Route::get('/cart/{id}', function ($id) {
 
     $orders = DB::table('orderstatus')
         ->where('customer_id', $user->id)
-        ->whereIn('order_status', ['Pending', 'Shipping'])
+        ->where('order_status', 'Pending')
         ->get();
 
     $total = $orders->count();
@@ -144,7 +144,7 @@ Route::post('/insertorder/{id}',[\App\Http\Controllers\OrderControll::class,'ord
 
 Route::get('/product/{id}/{ids}', [\App\Http\Controllers\OrderControll::class, 'order'])->name('product');
 
-Route::get('/product/{id}/{ids}', [\App\Http\Controllers\OrderControll::class, 'addtocart'])->name('product');
+Route::get('/product/userid:{id}/productid:{ids}/product:{category}', [\App\Http\Controllers\OrderControll::class, 'addtocart'])->name('product');
 
 Route::post('/delete/{id}',[\App\Http\Controllers\OrderControll::class,'deleteorder'])->name('delete');
 
@@ -202,6 +202,11 @@ Route::get('/payment/{id}', function () {
     return view('payment');
 })->name('payment');
 
+Route::get('/productlist/{category}',[ProjectControll::class,'showProductList'])->name('productlist');
+
+//Route::get('/{id}/productlist2/{category}',[\App\Http\Controllers\ProductControll::class,'showProductList2'])->name('productlist2');
+Route::get('/{id}/productlist2/{category}',[\App\Http\Controllers\ProductControll::class,'showProductList2'])->name('productlist2');
+
 Route::get('/payment/{id}',[\App\Http\Controllers\ProjectControll::class,'paymentoption'])->name('payment');
 
 Route::post('/donepayment',[\App\Http\Controllers\ProjectControll::class,'payment'])->name('donepayment');
@@ -214,3 +219,13 @@ Route::get('/otp/verification/{id}', [ProjectControll::class, 'verify'])->name('
 Route::post('/otp/login', [ProjectControll::class, 'loginOTP'])->name('otp.getLogin');
 
 Route::get('/show-chart',[\App\Http\Controllers\Chart::class,'load'])->name('show-chart');
+
+Route::post('/updatepro',[\App\Http\Controllers\ProductControll::class,'update'])->name('updatepro');
+
+Route::post('/subscribe',[ProjectControll::class,'subscriber'])->name('subscribe');
+
+Route::post('/subscribes/{id}',[ProjectControll::class,'subscriber2'])->name('subscribes');
+
+Route::post('/ctegory',[\App\Http\Controllers\Admin::class,'addcategory'])->name('ctegory');
+
+Route::post('/updateCata',[\App\Http\Controllers\ProductControll::class,'updateCategory'])->name('updateCata');
