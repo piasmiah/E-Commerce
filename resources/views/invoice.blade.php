@@ -52,7 +52,7 @@
                 <h4>User Information</h4>
                 <p><strong>Name:</strong> {{ $user2->user_name }}</p>
                 <p><strong>User ID:</strong> {{ $user2->user_id }}</p>
-                <p><strong>Phone Number:</strong> (123) 456-7890</p>
+                <p><strong>Phone Number:</strong> {{$user2->Phone}}</p>
 
         </div>
         <div class="col-md-6">

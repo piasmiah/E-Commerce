@@ -17,6 +17,7 @@
     - custom css link
   -->
   <link rel="stylesheet" href="{{asset('css/style-prefix.css')}}">
+    <script src="//code.tidio.co/2l8awmiopxub2rsj7vuajrnkxy2xnqln.js" async></script>
 {{--    <link rel="stylesheet" href="{{asset('css/card.css')}}">--}}
 {{--    <link rel="stylesheet" href="{{asset('css/product-style.css')}}">--}}
 {{--    <link rel="stylesheet" href="{{asset('css/about2.css')}}">--}}
@@ -31,6 +32,8 @@
     rel="stylesheet">
 
 </head>
+
+
 
 <body>
 
@@ -57,8 +60,8 @@
 
       <div class="newsletter">
 
-        <form action="#">
-
+        <form action="{{route('subscribe')}}" method="post">
+            @csrf
           <div class="newsletter-header">
 
             <h3 class="newsletter-title">Subscribe Newsletter.</h3>
@@ -96,20 +99,20 @@
     </button>
 
     <div class="toast-banner">
-      <img  src="{{asset('logo/all/jewellery-1.jpg')}}" alt="Lafz Perfume" width="80" height="70">
+      <img src="{{asset('storage/' . $product3->pro_pic)}}" alt="Lafz Perfume" width="80" height="70">
     </div>
 
     <div class="toast-detail">
 
       <p class="toast-message">
-        Someone in new just bought
+          {{$product3->customer_name}} just bought
       </p>
 
       <p class="toast-title">
-      Buy LAFZ Meliha No Alcohol No Gas Premium Body Spray
+      {{$product3->pro_des}}
       </p>
 
-      <p class="toast-meta">
+      <p class="toast-meta" id="timeElapsed">
         <time datetime="PT2M">2 Minutes</time> ago
       </p>
 
@@ -133,45 +136,46 @@
 
         <ul class="header-social-container">
 
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </a>
-          </li>
+{{--          <li>--}}
+{{--            <a href="#" class="social-link">--}}
+{{--              <ion-icon name="logo-facebook"></ion-icon>--}}
+{{--            </a>--}}
+{{--          </li>--}}
 
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-          </li>
+{{--          <li>--}}
+{{--            <a href="#" class="social-link">--}}
+{{--              <ion-icon name="logo-twitter"></ion-icon>--}}
+{{--            </a>--}}
+{{--          </li>--}}
 
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-          </li>
+{{--          <li>--}}
+{{--            <a href="#" class="social-link">--}}
+{{--              <ion-icon name="logo-instagram"></ion-icon>--}}
+{{--            </a>--}}
+{{--          </li>--}}
 
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </a>
-          </li>
+{{--          <li>--}}
+{{--            <a href="#" class="social-link">--}}
+{{--              <ion-icon name="logo-linkedin"></ion-icon>--}}
+{{--            </a>--}}
+{{--          </li>--}}
+            <li>
+                <a href="{{route('delivaryregistration')}}" class="social-link">
+                    <p style="font-size: 10px;">Want to our Delivary Boy?</p>
+                </a>
+            </li>
 
         </ul>
 
-        <div class="header-alert-news">
-          <p>
-            <b>Free Shipping</b>
-            This Week Order Over - $55
-          </p>
-        </div>
+
 
         <div class="header-top-actions">
 
-          <select name="currency">
+          <select name="currency" id="currency">
 
             <option value="usd">USD &dollar;</option>
             <option value="eur">EUR &euro;</option>
+              <option value="bdt">BDT &#2547;</option>
 
           </select>
 
@@ -199,11 +203,14 @@
 
         <div class="header-search-container">
 
-          <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
+            <form action="{{route('allproduct')}}" method="get">
+                @csrf
+          <input type="search" name="search" class="search-field" value="" placeholder="Enter your product name...">
 
-          <button class="search-btn">
+          <button class="search-btn" type="submit">
             <ion-icon name="search-outline"></ion-icon>
           </button>
+            </form>
 
         </div>
 
@@ -239,152 +246,171 @@
             <a href="#" class="menu-title  toggle">Home</a>
           </li>
 
+            <li class="menu-category">
+                <a href="{{route('login')}}" class="menu-title">Sign in</a>
+            </li>
 
+            <li class="menu-category">
+                <a href="{{route('register')}}" class="menu-title">Sign up</a>
+            </li>
 
-          <li class="menu-category">
-            <a href="#" class="menu-title">Categories</a>
+            <li class="menu-category">
+                <a href="#" class="menu-title">Categories</a>
+                <ul class="dropdown-list">
 
-            <div class="dropdown-panel">
+                    @foreach($category as $cata)
+                    <li class="dropdown-item">
+                        <a href="{{route('productlist',['category'=>$cata->Category_Name])}}">{{$cata->Category_Name}}</a>
+                    </li>
+                    @endforeach
 
-              <ul class="dropdown-panel-list">
+                </ul>
+            </li>
 
-                <li class="menu-title">
-                  <a href="#">Kids</a>
-                </li>
+{{--          <li class="menu-category">--}}
+{{--            <a href="#" class="menu-title">Categories</a>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Shirt</a>
-                </li>
+{{--            <div class="dropdown-panel">--}}
 
-                <li class="panel-list-item">
-                  <a href="#">T-Shirt</a>
-                </li>
+{{--              <ul class="dropdown-panel-list">--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Shoes</a>
-                </li>
+{{--                <li class="menu-title">--}}
+{{--                  <a href="#">Kids</a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Diaper</a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Shirt</a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Toy</a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">T-Shirt</a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">
-                    <img src="{{asset('logo/electronics-banner-1.jpg')}}" alt="headphone collection" width="250"
-                      height="119">
-                  </a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Shoes</a>--}}
+{{--                </li>--}}
 
-              </ul>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Diaper</a>--}}
+{{--                </li>--}}
 
-              <ul class="dropdown-panel-list">
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Toy</a>--}}
+{{--                </li>--}}
 
-                <li class="menu-title">
-                  <a href="#">Men's</a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">--}}
+{{--                    <img src="{{asset('logo/electronics-banner-1.jpg')}}" alt="headphone collection" width="250"--}}
+{{--                      height="119">--}}
+{{--                  </a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Formal</a>
-                </li>
+{{--              </ul>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Casual</a>
-                </li>
+{{--              <ul class="dropdown-panel-list">--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Sports</a>
-                </li>
+{{--                <li class="menu-title">--}}
+{{--                  <a href="#">Men's</a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Jacket</a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Formal</a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Sunglasses</a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Casual</a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">
-                    <img src="{{asset('logo/mens-banner.jpg')}}" alt="men's fashion" width="250" height="119">
-                  </a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Sports</a>--}}
+{{--                </li>--}}
 
-              </ul>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Jacket</a>--}}
+{{--                </li>--}}
 
-              <ul class="dropdown-panel-list">
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Sunglasses</a>--}}
+{{--                </li>--}}
 
-                <li class="menu-title">
-                  <a href="#">Women's</a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">--}}
+{{--                    <img src="{{asset('logo/mens-banner.jpg')}}" alt="men's fashion" width="250" height="119">--}}
+{{--                  </a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Formal</a>
-                </li>
+{{--              </ul>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Casual</a>
-                </li>
+{{--              <ul class="dropdown-panel-list">--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Perfume</a>
-                </li>
+{{--                <li class="menu-title">--}}
+{{--                  <a href="#">Women's</a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Cosmetics</a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Formal</a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Bags</a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Casual</a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">
-                    <img src="{{asset('logo/womens-banner.jpg')}}" alt="women's fashion" width="250" height="119">
-                  </a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Perfume</a>--}}
+{{--                </li>--}}
 
-              </ul>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Cosmetics</a>--}}
+{{--                </li>--}}
 
-              <ul class="dropdown-panel-list">
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Bags</a>--}}
+{{--                </li>--}}
 
-                <li class="menu-title">
-                  <a href="#">Electronics</a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">--}}
+{{--                    <img src="{{asset('logo/womens-banner.jpg')}}" alt="women's fashion" width="250" height="119">--}}
+{{--                  </a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Smart Watch</a>
-                </li>
+{{--              </ul>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Smart TV</a>
-                </li>
+{{--              <ul class="dropdown-panel-list">--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Keyboard</a>
-                </li>
+{{--                <li class="menu-title">--}}
+{{--                  <a href="#">Electronics</a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Mouse</a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Smart Watch</a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">Microphone</a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Smart TV</a>--}}
+{{--                </li>--}}
 
-                <li class="panel-list-item">
-                  <a href="#">
-                    <img src="{{asset('logo/electronics-banner-2.jpg')}}" alt="mouse collection" width="250" height="119">
-                  </a>
-                </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Keyboard</a>--}}
+{{--                </li>--}}
 
-              </ul>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Mouse</a>--}}
+{{--                </li>--}}
 
-            </div>
-          </li>
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">Microphone</a>--}}
+{{--                </li>--}}
+
+{{--                <li class="panel-list-item">--}}
+{{--                  <a href="#">--}}
+{{--                    <img src="{{asset('logo/electronics-banner-2.jpg')}}" alt="mouse collection" width="250" height="119">--}}
+{{--                  </a>--}}
+{{--                </li>--}}
+
+{{--              </ul>--}}
+
+{{--            </div>--}}
+{{--          </li>--}}
 
           <li class="menu-category">
               <a class="menu-title" href="{{route('aboutuser')}}">About Us</a>
@@ -394,13 +420,7 @@
             <a href="#" class="menu-title">Hot Offers</a>
           </li>
 
-            <li class="menu-category">
-                <a href="{{route('login')}}" class="menu-title">Sign in</a>
-            </li>
 
-            <li class="menu-category">
-                <a href="{{route('register')}}" class="menu-title">Sign up</a>
-            </li>
 
         </ul>
 
@@ -714,177 +734,177 @@
       - CATEGORY
     -->
 
-    <div class="category">
+{{--    <div class="category">--}}
 
-      <div class="container">
+{{--      <div class="container">--}}
 
-        <div class="category-item-container has-scrollbar">
+{{--        <div class="category-item-container has-scrollbar">--}}
 
-          <div class="category-item">
+{{--          <div class="category-item">--}}
 
-            <div class="category-img-box">
-              <img src="{{asset('logo/icons/dress.svg')}}" alt="dress & frock" width="30">
-            </div>
+{{--            <div class="category-img-box">--}}
+{{--              <img src="{{asset('logo/icons/dress.svg')}}" alt="dress & frock" width="30">--}}
+{{--            </div>--}}
 
-            <div class="category-content-box">
+{{--            <div class="category-content-box">--}}
 
-              <div class="category-content-flex">
-                <h3 class="category-item-title">Dress & frock</h3>
+{{--              <div class="category-content-flex">--}}
+{{--                <h3 class="category-item-title">Dress & frock</h3>--}}
 
-                <p class="category-item-amount">(53)</p>
-              </div>
+{{--                <p class="category-item-amount">(53)</p>--}}
+{{--              </div>--}}
 
-              <a href="#" class="category-btn">Show all</a>
+{{--              <a href="#" class="category-btn">Show all</a>--}}
 
-            </div>
+{{--            </div>--}}
 
-          </div>
+{{--          </div>--}}
 
-          <div class="category-item">
+{{--          <div class="category-item">--}}
 
-            <div class="category-img-box">
-              <img src="{{asset('logo/icons/coat.svg')}}" alt="winter wear" width="30">
-            </div>
+{{--            <div class="category-img-box">--}}
+{{--              <img src="{{asset('logo/icons/coat.svg')}}" alt="winter wear" width="30">--}}
+{{--            </div>--}}
 
-            <div class="category-content-box">
+{{--            <div class="category-content-box">--}}
 
-              <div class="category-content-flex">
-                <h3 class="category-item-title">Winter wear</h3>
+{{--              <div class="category-content-flex">--}}
+{{--                <h3 class="category-item-title">Winter wear</h3>--}}
 
-                <p class="category-item-amount">(58)</p>
-              </div>
+{{--                <p class="category-item-amount">(58)</p>--}}
+{{--              </div>--}}
 
-              <a href="#" class="category-btn">Show all</a>
+{{--              <a href="#" class="category-btn">Show all</a>--}}
 
-            </div>
+{{--            </div>--}}
 
-          </div>
+{{--          </div>--}}
 
-          <div class="category-item">
+{{--          <div class="category-item">--}}
 
-            <div class="category-img-box">
-              <img src="{{asset('logo/icons/glasses.svg')}}" alt="glasses & lens" width="30">
-            </div>
+{{--            <div class="category-img-box">--}}
+{{--              <img src="{{asset('logo/icons/glasses.svg')}}" alt="glasses & lens" width="30">--}}
+{{--            </div>--}}
 
-            <div class="category-content-box">
+{{--            <div class="category-content-box">--}}
 
-              <div class="category-content-flex">
-                <h3 class="category-item-title">Glasses & lens</h3>
+{{--              <div class="category-content-flex">--}}
+{{--                <h3 class="category-item-title">Glasses & lens</h3>--}}
 
-                <p class="category-item-amount">(68)</p>
-              </div>
+{{--                <p class="category-item-amount">(68)</p>--}}
+{{--              </div>--}}
 
-              <a href="#" class="category-btn">Show all</a>
+{{--              <a href="#" class="category-btn">Show all</a>--}}
 
-            </div>
+{{--            </div>--}}
 
-          </div>
+{{--          </div>--}}
 
-          <div class="category-item">
+{{--          <div class="category-item">--}}
 
-            <div class="category-img-box">
-              <img src="{{asset('logo/icons/shorts.svg')}}" alt="shorts & jeans" width="30">
-            </div>
+{{--            <div class="category-img-box">--}}
+{{--              <img src="{{asset('logo/icons/shorts.svg')}}" alt="shorts & jeans" width="30">--}}
+{{--            </div>--}}
 
-            <div class="category-content-box">
+{{--            <div class="category-content-box">--}}
 
-              <div class="category-content-flex">
-                <h3 class="category-item-title">Shorts & jeans</h3>
+{{--              <div class="category-content-flex">--}}
+{{--                <h3 class="category-item-title">Shorts & jeans</h3>--}}
 
-                <p class="category-item-amount">(84)</p>
-              </div>
+{{--                <p class="category-item-amount">(84)</p>--}}
+{{--              </div>--}}
 
-              <a href="#" class="category-btn">Show all</a>
+{{--              <a href="#" class="category-btn">Show all</a>--}}
 
-            </div>
+{{--            </div>--}}
 
-          </div>
+{{--          </div>--}}
 
-          <div class="category-item">
+{{--          <div class="category-item">--}}
 
-            <div class="category-img-box">
-              <img src="{{asset('logo/icons/tee.svg')}}" alt="t-shirts" width="30">
-            </div>
+{{--            <div class="category-img-box">--}}
+{{--              <img src="{{asset('logo/icons/tee.svg')}}" alt="t-shirts" width="30">--}}
+{{--            </div>--}}
 
-            <div class="category-content-box">
+{{--            <div class="category-content-box">--}}
 
-              <div class="category-content-flex">
-                <h3 class="category-item-title">T-shirts</h3>
+{{--              <div class="category-content-flex">--}}
+{{--                <h3 class="category-item-title">T-shirts</h3>--}}
 
-                <p class="category-item-amount">(35)</p>
-              </div>
+{{--                <p class="category-item-amount">(35)</p>--}}
+{{--              </div>--}}
 
-              <a href="#" class="category-btn">Show all</a>
+{{--              <a href="#" class="category-btn">Show all</a>--}}
 
-            </div>
+{{--            </div>--}}
 
-          </div>
+{{--          </div>--}}
 
-          <div class="category-item">
+{{--          <div class="category-item">--}}
 
-            <div class="category-img-box">
-              <img src="{{asset('logo/icons/jacket.svg')}}" alt="jacket" width="30">
-            </div>
+{{--            <div class="category-img-box">--}}
+{{--              <img src="{{asset('logo/icons/jacket.svg')}}" alt="jacket" width="30">--}}
+{{--            </div>--}}
 
-            <div class="category-content-box">
+{{--            <div class="category-content-box">--}}
 
-              <div class="category-content-flex">
-                <h3 class="category-item-title">Jacket</h3>
+{{--              <div class="category-content-flex">--}}
+{{--                <h3 class="category-item-title">Jacket</h3>--}}
 
-                <p class="category-item-amount">(16)</p>
-              </div>
+{{--                <p class="category-item-amount">(16)</p>--}}
+{{--              </div>--}}
 
-              <a href="#" class="category-btn">Show all</a>
+{{--              <a href="#" class="category-btn">Show all</a>--}}
 
-            </div>
+{{--            </div>--}}
 
-          </div>
+{{--          </div>--}}
 
-          <div class="category-item">
+{{--          <div class="category-item">--}}
 
-            <div class="category-img-box">
-              <img src="{{asset('logo/icons/watch.svg')}}" alt="watch" width="30">
-            </div>
+{{--            <div class="category-img-box">--}}
+{{--              <img src="{{asset('logo/icons/watch.svg')}}" alt="watch" width="30">--}}
+{{--            </div>--}}
 
-            <div class="category-content-box">
+{{--            <div class="category-content-box">--}}
 
-              <div class="category-content-flex">
-                <h3 class="category-item-title">Watch</h3>
+{{--              <div class="category-content-flex">--}}
+{{--                <h3 class="category-item-title">Watch</h3>--}}
 
-                <p class="category-item-amount">(27)</p>
-              </div>
+{{--                <p class="category-item-amount">(27)</p>--}}
+{{--              </div>--}}
 
-              <a href="#" class="category-btn">Show all</a>
+{{--              <a href="#" class="category-btn">Show all</a>--}}
 
-            </div>
+{{--            </div>--}}
 
-          </div>
+{{--          </div>--}}
 
-          <div class="category-item">
+{{--          <div class="category-item">--}}
 
-            <div class="category-img-box">
-              <img src="{{asset('logo/icons/hat.svg')}}" alt="hat & caps" width="30">
-            </div>
+{{--            <div class="category-img-box">--}}
+{{--              <img src="{{asset('logo/icons/hat.svg')}}" alt="hat & caps" width="30">--}}
+{{--            </div>--}}
 
-            <div class="category-content-box">
+{{--            <div class="category-content-box">--}}
 
-              <div class="category-content-flex">
-                <h3 class="category-item-title">Hat & caps</h3>
+{{--              <div class="category-content-flex">--}}
+{{--                <h3 class="category-item-title">Hat & caps</h3>--}}
 
-                <p class="category-item-amount">(39)</p>
-              </div>
+{{--                <p class="category-item-amount">(39)</p>--}}
+{{--              </div>--}}
 
-              <a href="#" class="category-btn">Show all</a>
+{{--              <a href="#" class="category-btn">Show all</a>--}}
 
-            </div>
+{{--            </div>--}}
 
-          </div>
+{{--          </div>--}}
 
-        </div>
+{{--        </div>--}}
 
-      </div>
+{{--      </div>--}}
 
-    </div>
+{{--    </div>--}}
 
 
 
@@ -903,498 +923,498 @@
           - SIDEBAR
         -->
 
-        <div class="sidebar  has-scrollbar" data-mobile-menu>
+{{--        <div class="sidebar  has-scrollbar" data-mobile-menu>--}}
 
-          <div class="sidebar-category">
+{{--          <div class="sidebar-category">--}}
 
-            <div class="sidebar-top">
-              <h2 class="sidebar-title">Category</h2>
+{{--            <div class="sidebar-top">--}}
+{{--              <h2 class="sidebar-title">Category</h2>--}}
 
-              <button class="sidebar-close-btn" data-mobile-menu-close-btn>
-                <ion-icon name="close-outline"></ion-icon>
-              </button>
-            </div>
+{{--              <button class="sidebar-close-btn" data-mobile-menu-close-btn>--}}
+{{--                <ion-icon name="close-outline"></ion-icon>--}}
+{{--              </button>--}}
+{{--            </div>--}}
 
-            <ul class="sidebar-menu-category-list">
-
-              <li class="sidebar-menu-category">
+{{--            <ul class="sidebar-menu-category-list">--}}
+
+{{--              <li class="sidebar-menu-category">--}}
 
-                <button class="sidebar-accordion-menu" data-accordion-btn>
+{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
 
-                  <div class="menu-title-flex">
-                    <img src="{{asset('logo/icons/dress.svg')}}" alt="clothes" width="20" height="20"
-                      class="menu-title-img">
+{{--                  <div class="menu-title-flex">--}}
+{{--                    <img src="{{asset('logo/icons/dress.svg')}}" alt="clothes" width="20" height="20"--}}
+{{--                      class="menu-title-img">--}}
 
-                    <p class="menu-title">Clothes</p>
-                  </div>
+{{--                    <p class="menu-title">Men's and Women's</p>--}}
+{{--                  </div>--}}
 
-                  <div>
-                    <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                  </div>
+{{--                  <div>--}}
+{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
+{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
+{{--                  </div>--}}
 
-                </button>
+{{--                </button>--}}
 
-                <ul class="sidebar-submenu-category-list" data-accordion>
+{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Shirt</p>
-                      <data value="300" class="stock" title="Available Stock">300</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Shirt</p>--}}
+{{--                      <data value="300" class="stock" title="Available Stock">300</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">shorts & jeans</p>
-                      <data value="60" class="stock" title="Available Stock">60</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Shorts & jeans</p>--}}
+{{--                      <data value="60" class="stock" title="Available Stock">60</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">jacket</p>
-                      <data value="50" class="stock" title="Available Stock">50</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Jacket</p>--}}
+{{--                      <data value="50" class="stock" title="Available Stock">50</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">dress & frock</p>
-                      <data value="87" class="stock" title="Available Stock">87</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Dress & frock</p>--}}
+{{--                      <data value="87" class="stock" title="Available Stock">87</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                </ul>
+{{--                </ul>--}}
 
-              </li>
+{{--              </li>--}}
 
-              <li class="sidebar-menu-category">
+{{--              <li class="sidebar-menu-category">--}}
 
-                <button class="sidebar-accordion-menu" data-accordion-btn>
+{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
 
-                  <div class="menu-title-flex">
-                    <img src="{{asset('logo/icons/shoes.svg')}}" alt="footwear" class="menu-title-img" width="20"
-                      height="20">
+{{--                  <div class="menu-title-flex">--}}
+{{--                    <img src="{{asset('logo/icons/shoes.svg')}}" alt="footwear" class="menu-title-img" width="20"--}}
+{{--                      height="20">--}}
 
-                    <p class="menu-title">Footwear</p>
-                  </div>
+{{--                    <p class="menu-title">Sports and Outdoors</p>--}}
+{{--                  </div>--}}
 
-                  <div>
-                    <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                  </div>
+{{--                  <div>--}}
+{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
+{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
+{{--                  </div>--}}
 
-                </button>
+{{--                </button>--}}
 
-                <ul class="sidebar-submenu-category-list" data-accordion>
+{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Sports</p>
-                      <data value="45" class="stock" title="Available Stock">45</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Sports</p>--}}
+{{--                      <data value="45" class="stock" title="Available Stock">45</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Formal</p>
-                      <data value="75" class="stock" title="Available Stock">75</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Formal</p>--}}
+{{--                      <data value="75" class="stock" title="Available Stock">75</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Casual</p>
-                      <data value="35" class="stock" title="Available Stock">35</data>
-                    </a>
-                  </li>
-
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Safety Shoes</p>
-                      <data value="26" class="stock" title="Available Stock">26</data>
-                    </a>
-                  </li>
-
-                </ul>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Casual</p>--}}
+{{--                      <data value="35" class="stock" title="Available Stock">35</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
+
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Safety Shoes</p>--}}
+{{--                      <data value="26" class="stock" title="Available Stock">26</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
+
+{{--                </ul>--}}
 
-              </li>
+{{--              </li>--}}
 
-              <li class="sidebar-menu-category">
+{{--              <li class="sidebar-menu-category">--}}
 
-                <button class="sidebar-accordion-menu" data-accordion-btn>
+{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
 
-                  <div class="menu-title-flex">
-                    <img src="{{asset('logo/icons/jewelry.svg')}}" alt="clothes" class="menu-title-img" width="20"
-                      height="20">
+{{--                  <div class="menu-title-flex">--}}
+{{--                    <img src="{{asset('logo/icons/jewelry.svg')}}" alt="clothes" class="menu-title-img" width="20"--}}
+{{--                      height="20">--}}
 
-                    <p class="menu-title">Jewelry</p>
-                  </div>
+{{--                    <p class="menu-title">Jewelry</p>--}}
+{{--                  </div>--}}
 
-                  <div>
-                    <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                  </div>
+{{--                  <div>--}}
+{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
+{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
+{{--                  </div>--}}
 
-                </button>
+{{--                </button>--}}
 
-                <ul class="sidebar-submenu-category-list" data-accordion>
+{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Earrings</p>
-                      <data value="46" class="stock" title="Available Stock">46</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Earrings</p>--}}
+{{--                      <data value="46" class="stock" title="Available Stock">46</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Couple Rings</p>
-                      <data value="73" class="stock" title="Available Stock">73</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Couple Rings</p>--}}
+{{--                      <data value="73" class="stock" title="Available Stock">73</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Necklace</p>
-                      <data value="61" class="stock" title="Available Stock">61</data>
-                    </a>
-                  </li>
-
-                </ul>
-
-              </li>
-
-              <li class="sidebar-menu-category">
-
-                <button class="sidebar-accordion-menu" data-accordion-btn>
-
-                  <div class="menu-title-flex">
-                    <img src="{{asset('logo/icons/perfume.svg')}}" alt="perfume" class="menu-title-img" width="20"
-                      height="20">
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Necklace</p>--}}
+{{--                      <data value="61" class="stock" title="Available Stock">61</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
+
+{{--                </ul>--}}
+
+{{--              </li>--}}
+
+{{--              <li class="sidebar-menu-category">--}}
+
+{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
+
+{{--                  <div class="menu-title-flex">--}}
+{{--                    <img src="{{asset('logo/icons/perfume.svg')}}" alt="perfume" class="menu-title-img" width="20"--}}
+{{--                      height="20">--}}
 
-                    <p class="menu-title">Perfume</p>
-                  </div>
+{{--                    <p class="menu-title">Health and Beauty</p>--}}
+{{--                  </div>--}}
 
-                  <div>
-                    <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                  </div>
+{{--                  <div>--}}
+{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
+{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
+{{--                  </div>--}}
 
-                </button>
+{{--                </button>--}}
 
-                <ul class="sidebar-submenu-category-list" data-accordion>
+{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Clothes Perfume</p>
-                      <data value="12" class="stock" title="Available Stock">12 pcs</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Clothes Perfume</p>--}}
+{{--                      <data value="12" class="stock" title="Available Stock">12 pcs</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Deodorant</p>
-                      <data value="60" class="stock" title="Available Stock">60 pcs</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Deodorant</p>--}}
+{{--                      <data value="60" class="stock" title="Available Stock">60 pcs</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">jacket</p>
-                      <data value="50" class="stock" title="Available Stock">50 pcs</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">jacket</p>--}}
+{{--                      <data value="50" class="stock" title="Available Stock">50 pcs</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">dress & frock</p>
-                      <data value="87" class="stock" title="Available Stock">87 pcs</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">dress & frock</p>--}}
+{{--                      <data value="87" class="stock" title="Available Stock">87 pcs</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                </ul>
+{{--                </ul>--}}
 
-              </li>
+{{--              </li>--}}
 
-              <li class="sidebar-menu-category">
+{{--              <li class="sidebar-menu-category">--}}
 
-                <button class="sidebar-accordion-menu" data-accordion-btn>
+{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
 
-                  <div class="menu-title-flex">
-                    <img src="{{asset('logo/icons/cosmetics.svg')}}" alt="cosmetics" class="menu-title-img" width="20"
-                      height="20">
+{{--                  <div class="menu-title-flex">--}}
+{{--                    <img src="{{asset('logo/icons/cosmetics.svg')}}" alt="cosmetics" class="menu-title-img" width="20"--}}
+{{--                      height="20">--}}
 
-                    <p class="menu-title">Cosmetics</p>
-                  </div>
+{{--                    <p class="menu-title">Women Accessories</p>--}}
+{{--                  </div>--}}
 
-                  <div>
-                    <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                  </div>
+{{--                  <div>--}}
+{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
+{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
+{{--                  </div>--}}
 
-                </button>
+{{--                </button>--}}
 
-                <ul class="sidebar-submenu-category-list" data-accordion>
+{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Shampoo</p>
-                      <data value="68" class="stock" title="Available Stock">68</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Shampoo</p>--}}
+{{--                      <data value="68" class="stock" title="Available Stock">68</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Sunscreen</p>
-                      <data value="46" class="stock" title="Available Stock">46</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Sunscreen</p>--}}
+{{--                      <data value="46" class="stock" title="Available Stock">46</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Body Wash</p>
-                      <data value="79" class="stock" title="Available Stock">79</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Body Wash</p>--}}
+{{--                      <data value="79" class="stock" title="Available Stock">79</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Makeup Kit</p>
-                      <data value="23" class="stock" title="Available Stock">23</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Makeup Kit</p>--}}
+{{--                      <data value="23" class="stock" title="Available Stock">23</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                </ul>
+{{--                </ul>--}}
 
-              </li>
+{{--              </li>--}}
 
-              <li class="sidebar-menu-category">
+{{--              <li class="sidebar-menu-category">--}}
 
-                <button class="sidebar-accordion-menu" data-accordion-btn>
+{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
 
-                  <div class="menu-title-flex">
-                    <img src="{{asset('logo/icons/glasses.svg')}}" alt="glasses" class="menu-title-img" width="20"
-                      height="20">
+{{--                  <div class="menu-title-flex">--}}
+{{--                    <img src="{{asset('logo/icons/glasses.svg')}}" alt="glasses" class="menu-title-img" width="20"--}}
+{{--                      height="20">--}}
 
-                    <p class="menu-title">Glasses</p>
-                  </div>
+{{--                    <p class="menu-title">Men Accessories</p>--}}
+{{--                  </div>--}}
 
-                  <div>
-                    <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                  </div>
+{{--                  <div>--}}
+{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
+{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
+{{--                  </div>--}}
 
-                </button>
+{{--                </button>--}}
 
-                <ul class="sidebar-submenu-category-list" data-accordion>
+{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Sunglasses</p>
-                      <data value="50" class="stock" title="Available Stock">50</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Sunglasses</p>--}}
+{{--                      <data value="50" class="stock" title="Available Stock">50</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Lenses</p>
-                      <data value="48" class="stock" title="Available Stock">48</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Lenses</p>--}}
+{{--                      <data value="48" class="stock" title="Available Stock">48</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                </ul>
+{{--                </ul>--}}
 
-              </li>
+{{--              </li>--}}
 
-              <li class="sidebar-menu-category">
+{{--              <li class="sidebar-menu-category">--}}
 
-                <button class="sidebar-accordion-menu" data-accordion-btn>
+{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
 
-                  <div class="menu-title-flex">
-                    <img src="{{asset('logo/icons/bag.svg')}}" alt="bags" class="menu-title-img" width="20" height="20">
+{{--                  <div class="menu-title-flex">--}}
+{{--                    <img src="{{asset('logo/icons/bag.svg')}}" alt="bags" class="menu-title-img" width="20" height="20">--}}
 
-                    <p class="menu-title">Bags</p>
-                  </div>
+{{--                    <p class="menu-title">Bags</p>--}}
+{{--                  </div>--}}
 
-                  <div>
-                    <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                  </div>
+{{--                  <div>--}}
+{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
+{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
+{{--                  </div>--}}
 
-                </button>
+{{--                </button>--}}
 
-                <ul class="sidebar-submenu-category-list" data-accordion>
+{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Shopping Bag</p>
-                      <data value="62" class="stock" title="Available Stock">62</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Shopping Bag</p>--}}
+{{--                      <data value="62" class="stock" title="Available Stock">62</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Gym Backpack</p>
-                      <data value="35" class="stock" title="Available Stock">35</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Gym Backpack</p>--}}
+{{--                      <data value="35" class="stock" title="Available Stock">35</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Purse</p>
-                      <data value="80" class="stock" title="Available Stock">80</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Purse</p>--}}
+{{--                      <data value="80" class="stock" title="Available Stock">80</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                  <li class="sidebar-submenu-category">
-                    <a href="#" class="sidebar-submenu-title">
-                      <p class="product-name">Wallet</p>
-                      <data value="75" class="stock" title="Available Stock">75</data>
-                    </a>
-                  </li>
+{{--                  <li class="sidebar-submenu-category">--}}
+{{--                    <a href="#" class="sidebar-submenu-title">--}}
+{{--                      <p class="product-name">Wallet</p>--}}
+{{--                      <data value="75" class="stock" title="Available Stock">75</data>--}}
+{{--                    </a>--}}
+{{--                  </li>--}}
 
-                </ul>
+{{--                </ul>--}}
 
-              </li>
+{{--              </li>--}}
 
-            </ul>
+{{--            </ul>--}}
 
-          </div>
+{{--          </div>--}}
 
-          <div class="product-showcase">
+{{--          <div class="product-showcase">--}}
 
-            <h3 class="showcase-heading">best sellers</h3>
+{{--            <h3 class="showcase-heading">best sellers</h3>--}}
 
-            <div class="showcase-wrapper">
+{{--            <div class="showcase-wrapper">--}}
 
-              <div class="showcase-container">
+{{--              <div class="showcase-container">--}}
 
-                <div class="showcase">
+{{--                <div class="showcase">--}}
 
-                  <a href="#" class="showcase-img-box">
-                    <img src="{{asset('logo/all/1.jpg')}}" alt="baby fabric shoes" width="75" height="75"
-                      class="showcase-img">
-                  </a>
+{{--                  <a href="#" class="showcase-img-box">--}}
+{{--                    <img src="{{asset('logo/all/1.jpg')}}" alt="baby fabric shoes" width="75" height="75"--}}
+{{--                      class="showcase-img">--}}
+{{--                  </a>--}}
 
-                  <div class="showcase-content">
+{{--                  <div class="showcase-content">--}}
 
-                    <a href="#">
-                      <h4 class="showcase-title">baby fabric shoes</h4>
-                    </a>
+{{--                    <a href="#">--}}
+{{--                      <h4 class="showcase-title">baby fabric shoes</h4>--}}
+{{--                    </a>--}}
 
-                    <div class="showcase-rating">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                    </div>
+{{--                    <div class="showcase-rating">--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                    </div>--}}
 
-                    <div class="price-box">
-                      <del>$5.00</del>
-                      <p class="price">$4.00</p>
-                    </div>
+{{--                    <div class="price-box">--}}
+{{--                      <del>$5.00</del>--}}
+{{--                      <p class="price">$4.00</p>--}}
+{{--                    </div>--}}
 
-                  </div>
+{{--                  </div>--}}
 
-                </div>
+{{--                </div>--}}
 
-                <div class="showcase">
+{{--                <div class="showcase">--}}
 
-                  <a href="#" class="showcase-img-box">
-                    <img src="{{asset('logo/all/2.jpg')}}" alt="men's hoodies t-shirt" class="showcase-img"
-                      width="75" height="75">
-                  </a>
+{{--                  <a href="#" class="showcase-img-box">--}}
+{{--                    <img src="{{asset('logo/all/2.jpg')}}" alt="men's hoodies t-shirt" class="showcase-img"--}}
+{{--                      width="75" height="75">--}}
+{{--                  </a>--}}
 
-                  <div class="showcase-content">
+{{--                  <div class="showcase-content">--}}
 
-                    <a href="#">
-                      <h4 class="showcase-title">men's hoodies t-shirt</h4>
-                    </a>
-                    <div class="showcase-rating">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star-half-outline"></ion-icon>
-                    </div>
+{{--                    <a href="#">--}}
+{{--                      <h4 class="showcase-title">men's hoodies t-shirt</h4>--}}
+{{--                    </a>--}}
+{{--                    <div class="showcase-rating">--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star-half-outline"></ion-icon>--}}
+{{--                    </div>--}}
 
-                    <div class="price-box">
-                      <del>$17.00</del>
-                      <p class="price">$7.00</p>
-                    </div>
+{{--                    <div class="price-box">--}}
+{{--                      <del>$17.00</del>--}}
+{{--                      <p class="price">$7.00</p>--}}
+{{--                    </div>--}}
 
-                  </div>
+{{--                  </div>--}}
 
-                </div>
+{{--                </div>--}}
 
-                <div class="showcase">
+{{--                <div class="showcase">--}}
 
-                  <a href="#" class="showcase-img-box">
-                    <img src="{{asset('logo/all/3.jpg')}}" alt="girls t-shirt" class="showcase-img" width="75"
-                      height="75">
-                  </a>
+{{--                  <a href="#" class="showcase-img-box">--}}
+{{--                    <img src="{{asset('logo/all/3.jpg')}}" alt="girls t-shirt" class="showcase-img" width="75"--}}
+{{--                      height="75">--}}
+{{--                  </a>--}}
 
-                  <div class="showcase-content">
+{{--                  <div class="showcase-content">--}}
 
-                    <a href="#">
-                      <h4 class="showcase-title">girls t-shirt</h4>
-                    </a>
-                    <div class="showcase-rating">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star-half-outline"></ion-icon>
-                    </div>
+{{--                    <a href="#">--}}
+{{--                      <h4 class="showcase-title">girls t-shirt</h4>--}}
+{{--                    </a>--}}
+{{--                    <div class="showcase-rating">--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star-half-outline"></ion-icon>--}}
+{{--                    </div>--}}
 
-                    <div class="price-box">
-                      <del>$5.00</del>
-                      <p class="price">$3.00</p>
-                    </div>
+{{--                    <div class="price-box">--}}
+{{--                      <del>$5.00</del>--}}
+{{--                      <p class="price">$3.00</p>--}}
+{{--                    </div>--}}
 
-                  </div>
+{{--                  </div>--}}
 
-                </div>
+{{--                </div>--}}
 
-                <div class="showcase">
+{{--                <div class="showcase">--}}
 
-                  <a href="#" class="showcase-img-box">
-                    <img src="{{asset('logo/all/4.jpg')}}" alt="woolen hat for men" class="showcase-img" width="75"
-                      height="75">
-                  </a>
+{{--                  <a href="#" class="showcase-img-box">--}}
+{{--                    <img src="{{asset('logo/all/4.jpg')}}" alt="woolen hat for men" class="showcase-img" width="75"--}}
+{{--                      height="75">--}}
+{{--                  </a>--}}
 
-                  <div class="showcase-content">
+{{--                  <div class="showcase-content">--}}
 
-                    <a href="#">
-                      <h4 class="showcase-title">woolen hat for men</h4>
-                    </a>
-                    <div class="showcase-rating">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                    </div>
+{{--                    <a href="#">--}}
+{{--                      <h4 class="showcase-title">woolen hat for men</h4>--}}
+{{--                    </a>--}}
+{{--                    <div class="showcase-rating">--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                      <ion-icon name="star"></ion-icon>--}}
+{{--                    </div>--}}
 
-                    <div class="price-box">
-                      <del>$15.00</del>
-                      <p class="price">$12.00</p>
-                    </div>
+{{--                    <div class="price-box">--}}
+{{--                      <del>$15.00</del>--}}
+{{--                      <p class="price">$12.00</p>--}}
+{{--                    </div>--}}
 
-                  </div>
+{{--                  </div>--}}
 
-                </div>
+{{--                </div>--}}
 
-              </div>
+{{--              </div>--}}
 
-            </div>
+{{--            </div>--}}
 
-          </div>
+{{--          </div>--}}
 
-        </div>
+{{--        </div>--}}
 
 
 
@@ -1430,8 +1450,12 @@
                       <a href="#" class="showcase-category">{{$pro->category}}</a>
 
                       <div class="price-box">
-                        <p class="price">${{$pro->price}}</p>
-                        <del>$12.00</del>
+                          <p class="price" data-price-usd="{{$pro->price}}">${{$pro->price}}</p>
+                          @if($pro->Previous_Price === NULL)
+
+                          @elseif($pro->Previous_Price !== NULL)
+                              <del data-previous-price-usd="{{$pro->Previous_Price}}">${{$pro->Previous_Price}}</del>
+                          @endif
                       </div>
 
                     </div>
@@ -1459,8 +1483,12 @@
                           <a href="#" class="showcase-category">{{$pro->category}}</a>
 
                           <div class="price-box">
-                            <p class="price">${{$pro->price}}</p>
-                            <del>$12.00</del>
+                              <p class="price" data-price-usd="{{$pro->price}}">${{$pro->price}}</p>
+                              @if($pro->Previous_Price === NULL)
+
+                              @elseif($pro->Previous_Price !== NULL)
+                                  <del data-previous-price-usd="{{$pro->Previous_Price}}">${{$pro->Previous_Price}}</del>
+                              @endif
                           </div>
 
                         </div>
@@ -2159,15 +2187,15 @@
             <h2 class="title">New Products</h2>
 
             <div class="product-grid">
-
+                @foreach($product4 as $prod)
               <div class="showcase">
 
                 <div class="showcase-banner">
 
-                  <img src="{{asset('logo/all/jacket-3.jpg')}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
-                  <img src="{{asset('logo/all/jacket-4.jpg')}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+                    <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
+                    <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
 
-                  <p class="showcase-badge">15%</p>
+{{--                    <p class="showcase-badge">15%</p>--}}
 
                   <div class="showcase-actions">
 
@@ -2193,600 +2221,43 @@
 
                 <div class="showcase-content">
 
-                  <a href="#" class="showcase-category">jacket</a>
+                  <a href="#" class="showcase-category">{{$prod->pro_name}}</a>
 
                   <a href="#">
-                    <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
+                    <h3 class="showcase-title">{{$prod->pro_des}}</h3>
                   </a>
 
-                  <div class="showcase-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                  </div>
+                    @if($averageRatings[$prod->pro_id] > 0)
+                        {{ $averageRatings[$prod->pro_id] }}
+
+
+                        <div class="showcase-rating">
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $averageRatings[$prod->pro_id])
+                                    <ion-icon name="star"></ion-icon>
+                                @else
+                                    <ion-icon name="star-outline"></ion-icon>
+                                @endif
+                            @endfor
+                        </div>
+                    @else
+
+                    @endif
 
                   <div class="price-box">
-                    <p class="price">$48.00</p>
-                    <del>$75.00</del>
+                      <p class="price" data-price-usd="{{$prod->price}}">${{$prod->price}}</p>
+                      @if($prod->Previous_Price === NULL)
+
+                      @elseif($prod->Previous_Price !== NULL)
+                          <del data-previous-price-usd="{{$prod->Previous_Price}}">${{$prod->Previous_Price}}</del>
+                      @endif
                   </div>
 
                 </div>
 
               </div>
+                @endforeach
 
-              <div class="showcase">
-
-                <div class="showcase-banner">
-                  <img src="{{asset('logo/all/shirt-1.jpg')}}" alt="Pure Garment Dyed Cotton Shirt" class="product-img default"
-                    width="300">
-                  <img src="{{asset('logo/all/shirt-2.jpg')}}" alt="Pure Garment Dyed Cotton Shirt" class="product-img hover"
-                    width="300">
-
-                  <p class="showcase-badge angle black">sale</p>
-
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="showcase-content">
-                  <a href="#" class="showcase-category">shirt</a>
-
-                  <h3>
-                    <a href="#" class="showcase-title">Pure Garment Dyed Cotton Shirt</a>
-                  </h3>
-
-                  <div class="showcase-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                  </div>
-
-                  <div class="price-box">
-                    <p class="price">$45.00</p>
-                    <del>$56.00</del>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="showcase">
-
-                <div class="showcase-banner">
-                  <img src="{{asset('logo/all/jacket-5.jpg')}}" alt="MEN Yarn Fleece Full-Zip Jacket" class="product-img default"
-                    width="300">
-                  <img src="{{asset('logo/all/jacket-6.jpg')}}" alt="MEN Yarn Fleece Full-Zip Jacket" class="product-img hover"
-                    width="300">
-
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="showcase-content">
-                  <a href="#" class="showcase-category">Jacket</a>
-
-                  <h3>
-                    <a href="#" class="showcase-title">MEN Yarn Fleece Full-Zip Jacket</a>
-                  </h3>
-
-                  <div class="showcase-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                  </div>
-
-                  <div class="price-box">
-                    <p class="price">$58.00</p>
-                    <del>$65.00</del>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="showcase">
-
-                <div class="showcase-banner">
-                  <img src="{{asset('logo/all/clothes-3.jpg')}}" alt="Black Floral Wrap Midi Skirt" class="product-img default"
-                    width="300">
-                  <img src="{{asset('logo/all/clothes-4.jpg')}}" alt="Black Floral Wrap Midi Skirt" class="product-img hover"
-                    width="300">
-
-                  <p class="showcase-badge angle pink">new</p>
-
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="showcase-content">
-                  <a href="#" class="showcase-category">skirt</a>
-
-                  <h3>
-                    <a href="#" class="showcase-title">Black Floral Wrap Midi Skirt</a>
-                  </h3>
-
-                  <div class="showcase-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                  </div>
-
-                  <div class="price-box">
-                    <p class="price">$25.00</p>
-                    <del>$35.00</del>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="showcase">
-
-                <div class="showcase-banner">
-                  <img src="{{asset('logo/all/shoe-2.jpg')}}" alt="Casual Men's Brown shoes" class="product-img default"
-                    width="300">
-                  <img src="{{asset('logo/all/shoe-2_1.jpg')}}" alt="Casual Men's Brown shoes" class="product-img hover"
-                    width="300">
-
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="showcase-content">
-                  <a href="#" class="showcase-category">casual</a>
-
-                  <h3>
-                    <a href="#" class="showcase-title">Casual Men's Brown shoes</a>
-                  </h3>
-
-                  <div class="showcase-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                  </div>
-
-                  <div class="price-box">
-                    <p class="price">$99.00</p>
-                    <del>$105.00</del>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="showcase">
-
-                <div class="showcase-banner">
-                  <img src="{{asset('logo/all/watch-3.jpg')}}" alt="Pocket Watch Leather Pouch" class="product-img default"
-                    width="300">
-                  <img src="{{asset('logo/all/watch-4.jpg')}}" alt="Pocket Watch Leather Pouch" class="product-img hover"
-                    width="300">
-
-                  <p class="showcase-badge angle black">sale</p>
-
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="showcase-content">
-                  <a href="#" class="showcase-category">watches</a>
-
-                  <h3>
-                    <a href="#" class="showcase-title">Pocket Watch Leather Pouch</a>
-                  </h3>
-
-                  <div class="showcase-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                  </div>
-
-                  <div class="price-box">
-                    <p class="price">$150.00</p>
-                    <del>$170.00</del>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="showcase">
-
-                <div class="showcase-banner">
-                  <img src="{{asset('logo/all/watch-1.jpg')}}" alt="Smart watche Vital Plus" class="product-img default"
-                    width="300">
-                  <img src="{{asset('logo/all/watch-2.jpg')}}" alt="Smart watche Vital Plus" class="product-img hover" width="300">
-
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="showcase-content">
-                  <a href="#" class="showcase-category">watches</a>
-
-                  <h3>
-                    <a href="#" class="showcase-title">Smart watche Vital Plus</a>
-                  </h3>
-
-                  <div class="showcase-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                  </div>
-
-                  <div class="price-box">
-                    <p class="price">$100.00</p>
-                    <del>$120.00</del>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="showcase">
-
-                <div class="showcase-banner">
-                  <img src="{{asset('logo/all/party-wear-1.jpg')}}" alt="Womens Party Wear Shoes" class="product-img default"
-                    width="300">
-                  <img src="{{asset('logo/all/party-wear-2.jpg')}}" alt="Womens Party Wear Shoes" class="product-img hover"
-                    width="300">
-
-                  <p class="showcase-badge angle black">sale</p>
-
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="showcase-content">
-                  <a href="#" class="showcase-category">party wear</a>
-
-                  <h3>
-                    <a href="#" class="showcase-title">Womens Party Wear Shoes</a>
-                  </h3>
-
-                  <div class="showcase-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                  </div>
-
-                  <div class="price-box">
-                    <p class="price">$25.00</p>
-                    <del>$30.00</del>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="showcase">
-
-                <div class="showcase-banner">
-                  <img src="{{asset('logo/all/jacket-1.jpg')}}" alt="Mens Winter Leathers Jackets" class="product-img default"
-                    width="300">
-                  <img src="{{asset('logo/all/jacket-2.jpg')}}" alt="Mens Winter Leathers Jackets" class="product-img hover"
-                    width="300">
-
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="showcase-content">
-                  <a href="#" class="showcase-category">jacket</a>
-
-                  <h3>
-                    <a href="#" class="showcase-title">Mens Winter Leathers Jackets</a>
-                  </h3>
-
-                  <div class="showcase-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                  </div>
-
-                  <div class="price-box">
-                    <p class="price">$32.00</p>
-                    <del>$45.00</del>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="showcase">
-
-                <div class="showcase-banner">
-                  <img src="{{asset('logo/all/sports-3.jpg')}}" alt="Trekking & Running Shoes - black" class="product-img default"
-                    width="300">
-                  <img src="{{asset('logo/all/sports-4.jpg')}}" alt="Trekking & Running Shoes - black" class="product-img hover"
-                    width="300">
-
-                  <p class="showcase-badge angle black">sale</p>
-
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="showcase-content">
-                  <a href="#" class="showcase-category">sports</a>
-
-                  <h3>
-                    <a href="#" class="showcase-title">Trekking & Running Shoes - black</a>
-                  </h3>
-
-                  <div class="showcase-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                  </div>
-
-                  <div class="price-box">
-                    <p class="price">$58.00</p>
-                    <del>$64.00</del>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="showcase">
-
-                <div class="showcase-banner">
-                  <img src="{{asset('logo/all/shoe-1.jpg')}}" alt="Men's Leather Formal Wear shoes" class="product-img default"
-                    width="300">
-                  <img src="{{asset('logo/all/shoe-1_1.jpg')}}" alt="Men's Leather Formal Wear shoes" class="product-img hover"
-                    width="300">
-
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="showcase-content">
-                  <a href="#" class="showcase-category">formal</a>
-
-                  <h3>
-                    <a href="#" class="showcase-title">Men's Leather Formal Wear shoes</a>
-                  </h3>
-
-                  <div class="showcase-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                  </div>
-
-                  <div class="price-box">
-                    <p class="price">$50.00</p>
-                    <del>$65.00</del>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="showcase">
-
-                <div class="showcase-banner">
-                  <img src="{{asset('logo/all/shorts-1.jpg')}}" alt="Better Basics French Terry Sweatshorts"
-                    class="product-img default" width="300">
-                  <img src="{{asset('logo/all/shorts-2.jpg')}}" alt="Better Basics French Terry Sweatshorts"
-                    class="product-img hover" width="300">
-
-                  <p class="showcase-badge angle black">sale</p>
-
-                  <div class="showcase-actions">
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="showcase-content">
-                  <a href="#" class="showcase-category">shorts</a>
-
-                  <h3>
-                    <a href="#" class="showcase-title">Better Basics French Terry Sweatshorts</a>
-                  </h3>
-
-                  <div class="showcase-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                  </div>
-
-                  <div class="price-box">
-                    <p class="price">$78.00</p>
-                    <del>$85.00</del>
-                  </div>
-
-                </div>
-
-              </div>
 
             </div>
 
@@ -3402,8 +2873,86 @@
   <!--
     - ionicon link
   -->
+  <script>
+      // JavaScript code to calculate and update the time elapsed
+      var soldTime = new Date("{{$product3->created_at}}");
+      var currentTime = new Date();
+      var timeDifference = currentTime - soldTime;
+
+      var timeElapsed = document.getElementById("timeElapsed");
+
+      function updateElapsedTime() {
+          var timeDifferenceMinutes = Math.floor(timeDifference / 60000); // Convert milliseconds to minutes
+          if (timeDifferenceMinutes < 120) {
+              // Less than 2 hours, show in minutes
+              timeElapsed.textContent = timeDifferenceMinutes + " Minute(s) ago";
+          } else {
+              // More than 2 hours, switch to hours
+              var timeDifferenceHours = Math.floor(timeDifferenceMinutes / 60); // Convert minutes to hours
+              timeElapsed.textContent = timeDifferenceHours + " Hour(s) ago";
+          }
+      }
+
+      // Update the time every minute
+      setInterval(updateElapsedTime, 60000); // Update every minute (60,000 milliseconds)
+      updateElapsedTime();
+
+      const exchangeRates = {
+          usd: 1,    // 1 USD to USD (base currency)
+          eur: 0.85, // Example: 1 USD to EUR is 0.85
+          bdt: 110.32 // Example: 1 USD to BDT is 110.32
+          // Add more currencies and exchange rates as needed
+      };
+
+      // Function to update the displayed price
+      function updatePrice(currency) {
+          const priceElements = document.querySelectorAll('.price');
+          const previousPriceElements = document.querySelectorAll('del[data-previous-price-usd]');
+          const selectedCurrency = document.getElementById('currency').value;
+          const exchangeRate = exchangeRates[selectedCurrency];
+          const currencySymbol = getCurrencySymbol(selectedCurrency);
+
+          priceElements.forEach(priceElement => {
+              const priceInUSD = parseFloat(priceElement.getAttribute('data-price-usd'));
+              const convertedPrice = (priceInUSD * exchangeRate).toFixed(2);
+              const formattedPrice = currency === 'usd' ? `$${priceInUSD}` : `${currencySymbol}${convertedPrice}`;
+              priceElement.textContent = formattedPrice;
+          });
+
+          previousPriceElements.forEach(previousPriceElement => {
+              const previousPriceInUSD = parseFloat(previousPriceElement.getAttribute('data-previous-price-usd'));
+              const convertedPreviousPrice = (previousPriceInUSD * exchangeRate).toFixed(2);
+              const formattedPreviousPrice = currency === 'usd' ? `$${previousPriceInUSD}` : `${currencySymbol}${convertedPreviousPrice}`;
+              previousPriceElement.textContent = formattedPreviousPrice;
+          });
+      }
+
+      // Function to get the currency symbol
+      function getCurrencySymbol(currency) {
+          switch (currency) {
+              case 'usd':
+                  return '$';
+              case 'eur':
+                  return '€'; // Euro symbol
+              case 'bdt':
+                  return '৳'; // BDT symbol
+              default:
+                  return currency;
+          }
+      }
+
+
+      document.getElementById('currency').addEventListener('change', function() {
+          const selectedCurrency = this.value;
+          updatePrice(selectedCurrency);
+      });
+
+      updatePrice('usd');
+  </script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
 
 </body>
 

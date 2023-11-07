@@ -10,10 +10,22 @@
     <link rel="stylesheet" href="{{asset('css/styles.css')}}">
     <link rel="stylesheet" href="{{asset('css/chart.css')}}">
     <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <title>AdminHub</title>
+    <title>Admin</title>
 </head>
-
+<style>
+    a:hover{
+        text-decoration: none;
+    }
+</style>
 
 
 <body>
@@ -51,9 +63,9 @@
             </a>
         </li>
         <li>
-            <a href="#">
-                <i class='bx bxs-group' ></i>
-                <span class="text">Team</span>
+            <a href="#" class="toggle-visitors">
+                <i class='bx bxs-group'></i>
+                <span class="text">Visitor</span>
             </a>
         </li>
     </ul>
@@ -116,7 +128,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="#" class="btn-download">
+            <a href="{{route('report')}}" class="btn-download">
                 <i class='bx bxs-cloud-download' ></i>
                 <span class="text">Download PDF</span>
             </a>
@@ -234,7 +246,7 @@
                 <tr>
                     <td>{{$prod->pro_name}}</td>
                     <td>{{$prod->category}}</td>
-                    <td>{{$prod->pro_des}}</td>
+                    <td>{{ Str::limit($prod->pro_des, 30) }}</td>
                     <td>${{$prod->price}}</td>
                     <td><img src="{{asset('storage/' .$prod->pro_pic)}}"></td>
                 </tr>
@@ -367,6 +379,36 @@
                 <div class="charts-card">
                     <h2 class="chart-title">Purchase and Sales Orders</h2>
                     <div id="area-chart"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="visiotr" style="display: none">
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Visitor</h3>
+                    </div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Ip Address</th>
+                            <th>Visit Count</th>
+                            <th>Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($visitor as $visit)
+                            <tr>
+                                <td>{{$visit->id}}</td>
+                                <td>{{$visit->ip_address}}</td>
+                                <td>{{$visit->visit_count}}</td>
+                                <td>{{$visit->visited_at}}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>

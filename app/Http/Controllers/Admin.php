@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\PendingOrder;
 use App\Models\Product;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 
 class Admin extends Controller
@@ -41,9 +43,9 @@ class Admin extends Controller
 
         $product = $randomTopProducts->pluck('sold');
 
+        $visitor = Visitor::all();
 
-
-        return view('admin',['product' => $product, 'product2' => $product2,'total'=>$total,'pen'=>$pen,'ship'=>$ship,'total2'=>$total2,'products'=>$products,'orderinfo'=>$orderinfo,'orderinfo2'=>$orderinfo2,'sells'=>$sells,'total3'=>$total3]);
+        return view('admin',['visitor'=>$visitor,'product' => $product, 'product2' => $product2,'total'=>$total,'pen'=>$pen,'ship'=>$ship,'total2'=>$total2,'products'=>$products,'orderinfo'=>$orderinfo,'orderinfo2'=>$orderinfo2,'sells'=>$sells,'total3'=>$total3]);
     }
 
     public function totalsellsreport(Request $request)
@@ -54,7 +56,24 @@ class Admin extends Controller
         return view('totalsells',['sells'=>$sells,'total'=>$total]);
     }
 
+    public function addcategory(Request $request)
+    {
+        $add = Categories::insert([
+            'Category_Name'=>$request->input('category')
+        ]);
+        if ($add)
+        {
+            return redirect()->route('maintainadmin');
+        }
+    }
 
+
+//    public function showcata()
+//    {
+//        $show = Categories::get();
+//
+//        return view('maintainadmin',['show'=>$show]);
+//    }
 
 //    public function quantitysold(Request $request)
 //    {

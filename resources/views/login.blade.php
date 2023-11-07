@@ -114,11 +114,13 @@
         </div>
         <div class="col-md-6 bg-white p-5">
             <h3 class="pb-3">Signin</h3>
-            @if(session('error'))
+
+            @if ($errors->has('error'))
                 <div class="alert alert-danger">
-                    {{ session('error') }}
+                    {{ $errors->first('error') }}
                 </div>
             @endif
+
             <div class="form-style">
                 <form action="{{ route('form-container') }}" method="post">
                     @csrf

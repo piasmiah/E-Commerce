@@ -68,20 +68,14 @@
         </div>
         <div class="col-md-6 bg-white p-5">
             <h3 class="pb-3">Signup</h3>
-{{--            @if(session('error'))--}}
-{{--                <div class="alert alert-danger">--}}
-{{--                    {{ session('error') }}--}}
-{{--                </div>--}}
-{{--            @endif--}}
 
-            @if(session('messages'))
+            @if(session()->has('messages'))
                 <div class="alert alert-danger">
                     @foreach(session('messages') as $message)
                         {{ $message }}<br>
                     @endforeach
                 </div>
             @endif
-
             <div class="form-style">
                 <form action="{{ route('insertion') }}" method="post">
                     @csrf

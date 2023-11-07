@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CommentRating;
 use App\Models\PendingOrder;
 use App\Models\Product;
 use App\Models\User;
@@ -35,6 +36,7 @@ class OrderControll extends Controller
         }
     }
 
+
     public function orders(Request $request)
     {
         $id = $request->input('ids');
@@ -42,24 +44,60 @@ class OrderControll extends Controller
         $name = $request->input('name');
         $loc = $request->input('loc');
         $proname = $request->input('pro_name');
+        $size = $request->input('size');
         $quantity = $request->input('quantity');
         $price = $request->input('total_price');
         $status =$request->input('status');
         $currentDate = Carbon::now();
 
-        $isInsert = PendingOrder::insert([
-           'product_id'=>$id,
-            'customer_id'=>$cusid,
-            'customer_name'=>$name,
-            'location' => $loc,
-            'products'=>$proname,
-            'Quantity'=>$quantity,
-            'Price'=>$price,
-            'order_status'=>$status,
-            'Date'=>$currentDate
-        ]);
-        if($isInsert) {
-            return redirect()->route('dashboard', ['id' => $cusid]);
+        $action = $request->input('action');
+
+        if ($action === 'add_to_cart') {
+            $isInsert = PendingOrder::insert([
+                'product_id' => $id,
+                'customer_id' => $cusid,
+                'customer_name' => $name,
+                'location' => $loc,
+                'products' => $proname,
+                'Quantity' => $quantity,
+                'Size' => $size,
+                'Price' => $price,
+                'order_status' => $status,
+                'created_at' => $currentDate
+            ]);
+            $stock = Product::where('pro_id', $id)
+                ->update([
+                    'Stock' => $request->input('stock'),
+                    'Stock_Status' => $request->input('stockstatus')
+                ]);
+
+            if ($isInsert && $stock) {
+                return redirect()->route('dashboard', ['id' => $cusid]);
+            }
+        }
+        elseif($action === 'buy_now')
+        {
+            $isInsert = PendingOrder::insert([
+                'product_id' => $id,
+                'customer_id' => $cusid,
+                'customer_name' => $name,
+                'location' => $loc,
+                'products' => $proname,
+                'Quantity' => $quantity,
+                'Size' => $size,
+                'Price' => $price,
+                'order_status' => $status,
+                'created_at' => $currentDate
+            ]);
+            $stock = Product::where('pro_id', $id)
+                ->update([
+                    'Stock' => $request->input('stock'),
+                    'Stock_Status' => $request->input('stockstatus')
+                ]);
+
+            if ($isInsert && $stock) {
+                return redirect()->route('cart', ['id' => $cusid]);
+            }
         }
     }
 
@@ -71,18 +109,51 @@ class OrderControll extends Controller
         ]);
     }
 
-    public function addtocart($id,$ids)
+    public function addtocart($id,$ids,$category)
     {
         $id=Product::find($id);
         $ids=User::find($ids);
-        $show = DB::table('product')
-            ->where('pro_id',$id->pro_id)
-            ->first();
-        $user = DB::table('users')
-            ->where('id',$ids->id)
-            ->first();
-        return view('product',['id'=>$id,'ids'=>$ids,'show'=>$show,'user'=>$user]);
+        $category = Product::find($category);
 
+
+            $show = DB::table('product')
+                ->where('pro_id', $id->pro_id)
+                ->first();
+
+            $user = DB::table('users')
+                ->where('id', $ids->id)
+                ->first();
+
+            $comment = CommentRating::where('item_id', $id->pro_id)
+                ->join('users', 'users.id', '=', 'comments_ratings.user_id')
+                ->select('comments_ratings.*', 'users.name as name')
+                ->get();
+
+            $show2 = Product::take(6)->inRandomOrder()->get();
+            $rating = CommentRating::where('item_id', $id->pro_id)->pluck('rating')->all();
+            $averageRating = count($rating) > 0 ? array_sum($rating) / count($rating) : 0;
+
+            return view('product', ['rating' => $rating, 'show2'=>$show2, 'averageRating' => $averageRating, 'id' => $id, 'ids' => $ids, 'category' => $category, 'show' => $show, 'user' => $user, 'comment' => $comment]);
+
+
+    }
+
+    public function commentrating(Request $request, $id)
+    {
+        $id = User::find($id);
+
+//
+        $now = Carbon::now();
+
+        CommentRating::insert([
+            'user_id' => $id->id,
+            'item_id' => $request->input('ids'),
+            'commenttxt' => $request->input('comment'),
+            'rating' => $request->input('rating'),
+            'time' =>$now
+        ]);
+
+        return redirect()->route('dashboard',['id'=>$id->id]);
     }
 
     public function deleteorder($id,Request $request)
