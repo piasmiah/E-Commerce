@@ -1461,9 +1461,8 @@
                             <div class="showcase-container">
                                 <input type="hidden" name="user_id" value="{{ $user->id }}">
                                 @foreach($product as $pro)
-                                    <div class="showcase">
-
-                                        <a href="#" class="showcase-img-box">
+                                <div class="showcase">
+                                        <a href="{{ route('product', ['id' => $pro->pro_id,'ids'=>$user->id,'category'=>$pro->category]) }}" class="showcase-img-box">
                                             <img src="{{asset('storage/' .$pro->pro_pic)}}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
                                         </a>
 
@@ -1473,7 +1472,7 @@
                                                 <h4 class="showcase-title">{{$pro->pro_des}}</h4>
                                             </a>
 
-                                            <a href="#" class="showcase-category">{{$pro->category}}</a>
+                                            <a href="{{ route('product', ['id' => $pro->pro_id,'ids'=>$user->id,'category'=>$pro->category]) }}" class="showcase-category">{{$pro->category}}</a>
 
                                             <div class="price-box">
                                                 <p class="price" data-price-usd="{{$pro->price}}">${{$pro->price}}</p>
@@ -2148,9 +2147,10 @@
 
                             <div class="showcase-banner">
 
+                                <a href="{{ route('product', ['id' => $prod->pro_id,'ids'=>$user->id,'category'=>$prod->category]) }}">
                                 <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
                                 <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
-
+                                </a>
                                 @if($prod->Discount_Rate && $prod->Activate === 'ON')
                                     <p class="showcase-badge angle black pink">{{$prod->Discount_Rate}}%</p>
                                 @else

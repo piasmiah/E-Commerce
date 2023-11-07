@@ -411,6 +411,7 @@
             <th scope="col">Quantity</th>
             <th scope="col">Purchase Date</th>
             <th scope="col">Delivary Date</th>
+            <th scope="col">Order Status</th>
         </tr>
         </thead>
         <tbody>
@@ -425,6 +426,7 @@
             <td>{{$saw->Quantity}}</td>
             <td>{{$saw->created_at}}</td>
             <td>{{$saw->Date}}</td>
+            <td>{{$saw->order_status}}</td>
 
         </tr>
         @endforeach

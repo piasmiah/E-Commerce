@@ -291,7 +291,7 @@ class ProjectControll extends Controller
         $see = DB::table('orderstatus')
             ->join('product', 'orderstatus.product_id', '=', 'product.pro_id')
             ->where('orderstatus.customer_id', $id->id)
-            ->whereIn('orderstatus.order_status', ['Delivered', 'Shipping','Pending'])
+            ->whereIn('orderstatus.order_status', ['Delivered', 'Shipping','Pending','On the Way'])
             ->select('orderstatus.*', 'product.pro_pic', 'product.pro_name', 'product.Price')
             ->orderBy('orderstatus.created_at', 'desc')
             ->paginate(5);

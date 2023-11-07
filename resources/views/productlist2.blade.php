@@ -433,9 +433,11 @@
                         <div class="showcase">
 
                             <div class="showcase-banner">
-
+                            <a href="{{route('product',['ids'=>$user->id,'id'=>$prod->pro_id,'category'=>$prod->category])}}">
                                 <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
+                  
                                 <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+                            </a>
 
 {{--                                                            <p class="showcase-badge">15%</p>--}}
 
