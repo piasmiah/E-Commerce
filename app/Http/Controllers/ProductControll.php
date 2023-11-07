@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use App\Models\Discount;
 use App\Models\PendingOrder;
 use App\Models\Product;
 use App\Models\User;
@@ -25,13 +26,20 @@ class ProductControll extends Controller
         $stock = $request->input('stock');
         $date = Carbon::now();
 
+        if ($product_name !== 'other') {
+            $custom_product_name = $product_name;
+        } else {
+            $custom_product_name = $request->input('custom_product_name');
+        }
+
+
         if ($picture) {
             $originalname = $picture->getClientOriginalName();
             $path = $picture->storeAs('public/product', $originalname);
             $path = str_replace('public/', '', $path);
 
             $insertdata = Product::insert([
-                'pro_name' => $product_name,
+                'pro_name' => $custom_product_name,
                 'category' => $category,
                 'pro_des' => $description,
                 'price' => $price,
@@ -51,15 +59,36 @@ class ProductControll extends Controller
 
     }
 
-    public function showproduct(){
-        $product = Product::all();
+    public function showproduct(Request $request){
+        $product = Product::select('product.*', 'discount_offer.Discount_Rate')
+            ->leftJoin('discount_offer', 'product.category', '=', 'discount_offer.Name')
+            ->latest()
+            ->inRandomOrder()
+            ->get();
+
+        $product2 = Product::select('pro_name')
+            ->distinct()
+            ->get();
         $count = Product::where('Stock_Status','Out of Stock')->count();
         $countLowStock = Product::where('Stock', '>=', 1)->where('Stock', '<=', 2)->count();
         $show = Categories::all();
         $order = PendingOrder::all();
 
-        return view('maintainadmin',['product'=>$product,'order'=>$order,'show'=>$show,'count'=>$count,'countLowStock'=>$countLowStock]);
+        $get=Discount::all();
+
+        return view('maintainadmin',['get'=>$get,'product'=>$product,'product2'=>$product2,'order'=>$order,'show'=>$show,'count'=>$count,'countLowStock'=>$countLowStock]);
+
     }
+
+//    public function getProductsByCategory(Request $request)
+//    {
+//        $category = $request->input('category');
+//
+//
+//        $subcategories = Product::where('category', $category)->pluck('pro_name'); // Adjust the model and column names accordingly
+//
+//        return response()->json($subcategories);
+//    }
 
     public function updateCategory(Request $request)
     {
@@ -123,7 +152,7 @@ class ProductControll extends Controller
                 ->where('order_id', $request->input('id'))
                 ->where('customer_id', $request->input('ids'))
                 ->update([
-                    'order_status' => $request->input('status'),
+                    'order_status' => 'Shipping',
                     'Date' => $request->input('date'),
                 ]);
 
@@ -156,7 +185,7 @@ class ProductControll extends Controller
     {
         $user = User::where('id',$id)->first();
         $products = Product::where('category', $category)->latest()->get();
-        $categories = Categories::get();// Retrieve the products data from the session
+        $categories = Categories::get();
         return view('productlist2', compact('user','category','products','categories'));
     }
 }

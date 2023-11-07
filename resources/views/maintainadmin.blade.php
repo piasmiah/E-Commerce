@@ -22,6 +22,7 @@
     <title>AdminHub</title>
 </head>
 <style>
+
     .success-message {
         background-color: #4CAF50; /* Green background color */
         color: #fff; /* White text color */
@@ -134,19 +135,19 @@
     </a>
     <ul class="side-menu top">
         <li class="active">
-            <a href="#" class="toggle-dashboard">
+            <a href="#dashboard" class="toggle-dashboard">
                 <i class='bx bxs-dashboard' ></i>
                 <span class="text">Dashboard</span>
             </a>
         </li>
         <li>
-            <a href="#" class="toggle-table">
+            <a href="#mystore" class="toggle-table">
                 <i class='bx bxs-shopping-bag-alt' ></i>
                 <span class="text">My Store</span>
             </a>
         </li>
         <li>
-            <a href="#" class="toggle-order">
+            <a href="#orders" class="toggle-order">
                 <i class='bx bxs-doughnut-chart' ></i>
                 <span class="text">Orders</span>
             </a>
@@ -161,6 +162,12 @@
             <a href="#" class="category">
                 <i class='bx bx-plus'></i>
                 <span class="text">Add Categories</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="discount">
+                <i class='bx bx-plus'></i>
+                <span class="text">Discount Offer</span>
             </a>
         </li>
     </ul>
@@ -228,20 +235,30 @@
             <form class="product-form" action="{{ route('product-form') }}" method="post" enctype="multipart/form-data">
         @csrf
             <div class="input-fields">
-                <label>Name</label>
-                <input type="text" placeholder="Enter product name" name="product_name">
-            </div>
-
-            <div class="input-fields">
                 <label>Category</label>
                 <select id="category" name="category">
                     <option value="-">Select</option>
                     @foreach($show as $ss)
-                    <option value="{{$ss->Category_Name}}">{{$ss->Category_Name}}</option>
+                        <option value="{{$ss->Category_Name}}">{{$ss->Category_Name}}</option>
                     @endforeach
-                    <!-- Add more options as needed -->
                 </select>
             </div>
+
+            <div class="input-fields">
+                <label>Name</label>
+                <div>
+
+                    <select id="product_name_select" name="product_name">
+                        <option value="-">Select</option>
+                        @foreach($product2 as $pro)
+                            <option value="{{$pro->pro_name}}">{{$pro->pro_name}}</option>
+                        @endforeach
+                        <option value="other">Other</option>
+                    </select>
+                    <input type="text" name="custom_product_name" id="custom_product_name" placeholder="Enter product name" style="display: none;">
+                </div>
+            </div>
+
 
             <div class="input-fields">
                 <label>Description</label>
@@ -251,7 +268,7 @@
 
             <div class="input-fields">
                 <label>Price</label>
-                <input type="number" placeholder="Price" name="price">
+                <input type="number" step="0.01" placeholder="Price" name="price">
             </div>
             <div class="input-fields">
                 <label>Stock</label>
@@ -307,6 +324,15 @@
                         </div>
                     @endif
                     </div>
+                    <div class="input-fields">
+                        <select id="categoryFilter">
+                            <option value="all">All Categories</option>
+                            @foreach($show as $ss)
+                                <option value="{{$ss->Category_Name}}">{{$ss->Category_Name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <table>
                         <thead>
                         <tr>
@@ -316,6 +342,7 @@
                             <th>Description</th>
                             <th>Stock</th>
                             <th>Price</th>
+                            <th>Discount</th>
 
                         </tr>
                         </thead>
@@ -328,6 +355,7 @@
                                 <td>{{ Str::limit($pro->pro_des, 30) }}</td>
                                 <td>{{$pro->Stock}}</td>
                                 <td>${{$pro->price}}</td>
+                                <td>{{$pro->Discount_Rate}}%</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -401,7 +429,7 @@
                                 <td>${{$oder->Price}}</td>
                                 <td>{{ date('M d, Y', strtotime($oder->created_at)) }}</td>
                                     <td>
-                                        @if($oder->order_status==='Delivered')
+                                        @if($oder->order_status==='Delivered' || $oder->order_status==='Shipping')
                                             {{$oder->Date}}
                                         @else
                                         <input type="date" name="date" id="calendar" min="2023-01-01" max="2023-12-31">
@@ -411,10 +439,9 @@
                                 @if($oder->order_status==='Delivered')
                                     <td><span class="status completed">{{$oder->order_status}}</span></td>
                                 @elseif($oder->order_status==='Shipping')
-                                    <td><button type="submit" class="status pending">{{$oder->order_status}}</button></td>
-                                    <input type="hidden" name="status" value="Delivered">
-                                @else
-                                    <td><span class="status process">{{$oder->order_status}}</span></td>
+                                    <td><span class="status pending">{{$oder->order_status}}</span></td>
+                                @elseif($oder->Payment_Status==='paid')
+                                    <td><button type="submit" class="status process">{{$oder->order_status}}</button></td>
                                 @endif
                                 </form>
                             </tr>
@@ -449,7 +476,14 @@
                 <div class="order">
                     <div class="head">
                         <h3>Products</h3>
-
+                    </div>
+                    <div class="input-fields">
+                        <select id="categoryFilter2" onchange="filterTable()">
+                            <option value="all2">All Categories</option>
+                            @foreach($show as $ss)
+                                <option value="{{$ss->Category_Name}}">{{$ss->Category_Name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <table>
                         @php
@@ -637,7 +671,107 @@
             </div>
         </section>
 
+        <section id="creatediscount" style="display: none">
+            <div class="head-title">
+                <div class="left">
+                    <h1>My Store</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">My Store</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right' ></i></li>
+                        <li>
+                            <a class="active" href="#">Home</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="#" class="btn-download">
+                    <i class='bx bxs-cloud-download' ></i>
+                    <span class="text">Download PDF</span>
+                </a>
+            </div>
 
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Discount</h3>
+
+                    </div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Discount Rate</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Activate</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                            <form method="post" action="{{ route('discount') }}" id="myForm">
+                                @csrf
+                            <tr class="input-fields">
+                                <td>
+                                <select name="category" style="width: 60%;">
+                                    <option value="-">Select</option>
+                                    @foreach($show as $ss)
+                                        <option value="{{$ss->Category_Name}}">{{$ss->Category_Name}}</option>
+                                    @endforeach
+                                </select>
+                                </td>
+                                <td> <input type="number" name="discount" style="width: 50%; border-radius: 5px;"></td>
+                                <td><input type="date" name="startdate" style="width: 70%; border-radius: 5px;"></td>
+                                <td>
+                                    <input type="datetime-local" name="enddate" style="width: 70%; border-radius: 5px;">
+                                </td>
+                                <td>
+                                    <button type="submit" name="radioOption" value="On">Update</button>
+                                </td>
+                            </tr>
+                            </form>
+
+                        </tbody>
+                    </table>
+
+                    <table>
+                        <thead>
+                        <th>SL_NO</th>
+                            <th>Name</th>
+                            <th>Discount Rate</th>
+                            <th>End Date</th>
+                            <th>Active/Deactive</th>
+                        </thead>
+                        <tbody>
+                        <form method="post" action="{{ route('updatediscount') }}">
+                            @csrf
+                            @foreach($get as $gets)
+                            <tr>
+                                <td>
+                                    {{$gets->ID}}
+                                    <input type="hidden" name="ID" value="{{$gets->ID}}">
+                                </td>
+                                <td>
+                                    {{$gets->Name}}
+                                </td>
+                                <td>
+                                    {{$gets->Discount_Rate}}
+                                </td>
+                                <td>
+                                    {{$gets->End_Date}}
+                                </td>
+                                <td>
+                                    <button type="submit" value="Off" name="radioOption">{{$gets->Activate}}</button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
     </main>
     <!-- MAIN -->
 </section>
@@ -647,6 +781,10 @@
 <script src="{{asset('js/scripts.js')}}"></script>
 <script src="{{asset('js/links.js')}}"></script>
 <script>
+    function submitForm() {
+        document.getElementById("myForm").submit();
+    }
+
     const showButtons = document.querySelectorAll(".show-newprice");
 
     // Attach click event listener to each "Show" button
@@ -778,6 +916,54 @@
             }, 5000);
         }
     });
+
+    document.getElementById('categoryFilter').addEventListener('change', function () {
+        const selectedCategory = this.value;
+        const tableRows = document.querySelectorAll('tbody tr');
+
+        tableRows.forEach(function (row) {
+            const categoryCell = row.querySelector('td:nth-child(3)'); // Assuming category is in the 3rd cell
+            if (selectedCategory === 'all' || categoryCell.textContent === selectedCategory) {
+                row.style.display = 'table-row';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+    function filterTable() {
+        var selectedCategory = $("#categoryFilter2").val();
+
+        // Hide all table rows first
+        $("table tbody tr").hide();
+
+        if (selectedCategory === "all2") {
+            // Show all rows if "All Categories" is selected
+            $("table tbody tr").show();
+        } else {
+            // Show rows with matching category
+            $("table tbody tr").each(function () {
+                var category = $(this).find(".category-name2").text();
+                if (category === selectedCategory) {
+                    $(this).show();
+                }
+            });
+        }
+    }
+
+    document.getElementById('product_name_select').addEventListener('change', function () {
+        const select = this;
+        const customProductNameInput = document.getElementById('custom_product_name');
+
+        if (select.value === 'other') {
+            customProductNameInput.style.display = 'block';
+            // customProductNameInput.setAttribute('name', 'custom_product_name');
+        } else {
+            customProductNameInput.style.display = 'none';
+            // customProductNameInput.setAttribute('name', 'product_name');
+        }
+    });
+
 </script>
 
 </body>

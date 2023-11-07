@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CommentRating;
 use App\Models\PendingOrder;
 use App\Models\Product;
 use App\Models\User;
@@ -34,6 +35,7 @@ class OrderControll extends Controller
             return redirect()->route('dashboard', ['id' => $id]); // No need for $id->id here
         }
     }
+
 
     public function orders(Request $request)
     {
@@ -112,14 +114,46 @@ class OrderControll extends Controller
         $id=Product::find($id);
         $ids=User::find($ids);
         $category = Product::find($category);
-        $show = DB::table('product')
-            ->where('pro_id',$id->pro_id)
-            ->first();
-        $user = DB::table('users')
-            ->where('id',$ids->id)
-            ->first();
-        return view('product',['id'=>$id,'ids'=>$ids,'category'=>$category,'show'=>$show,'user'=>$user]);
 
+
+            $show = DB::table('product')
+                ->where('pro_id', $id->pro_id)
+                ->first();
+
+            $user = DB::table('users')
+                ->where('id', $ids->id)
+                ->first();
+
+            $comment = CommentRating::where('item_id', $id->pro_id)
+                ->join('users', 'users.id', '=', 'comments_ratings.user_id')
+                ->select('comments_ratings.*', 'users.name as name')
+                ->get();
+
+            $show2 = Product::take(6)->inRandomOrder()->get();
+            $rating = CommentRating::where('item_id', $id->pro_id)->pluck('rating')->all();
+            $averageRating = count($rating) > 0 ? array_sum($rating) / count($rating) : 0;
+
+            return view('product', ['rating' => $rating, 'show2'=>$show2, 'averageRating' => $averageRating, 'id' => $id, 'ids' => $ids, 'category' => $category, 'show' => $show, 'user' => $user, 'comment' => $comment]);
+
+
+    }
+
+    public function commentrating(Request $request, $id)
+    {
+        $id = User::find($id);
+
+//
+        $now = Carbon::now();
+
+        CommentRating::insert([
+            'user_id' => $id->id,
+            'item_id' => $request->input('ids'),
+            'commenttxt' => $request->input('comment'),
+            'rating' => $request->input('rating'),
+            'time' =>$now
+        ]);
+
+        return redirect()->route('dashboard',['id'=>$id->id]);
     }
 
     public function deleteorder($id,Request $request)

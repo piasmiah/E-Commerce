@@ -63,9 +63,9 @@
             </a>
         </li>
         <li>
-            <a href="#">
-                <i class='bx bxs-group' ></i>
-                <span class="text">Team</span>
+            <a href="#" class="toggle-visitors">
+                <i class='bx bxs-group'></i>
+                <span class="text">Visitor</span>
             </a>
         </li>
     </ul>
@@ -128,7 +128,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="#" class="btn-download">
+            <a href="{{route('report')}}" class="btn-download">
                 <i class='bx bxs-cloud-download' ></i>
                 <span class="text">Download PDF</span>
             </a>
@@ -379,6 +379,36 @@
                 <div class="charts-card">
                     <h2 class="chart-title">Purchase and Sales Orders</h2>
                     <div id="area-chart"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="visiotr" style="display: none">
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Visitor</h3>
+                    </div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Ip Address</th>
+                            <th>Visit Count</th>
+                            <th>Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($visitor as $visit)
+                            <tr>
+                                <td>{{$visit->id}}</td>
+                                <td>{{$visit->ip_address}}</td>
+                                <td>{{$visit->visit_count}}</td>
+                                <td>{{$visit->visited_at}}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>

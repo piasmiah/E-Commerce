@@ -3,6 +3,7 @@ const myStoreSection = document.getElementById('my-store');
 const deliverSection = document.getElementById('delivar');
 const totalSection = document.getElementById('totalsells');
 const analytics = document.getElementById('analytics');
+const visitor = document.getElementById('visiotr');
 
 
 // Get references to the links that trigger the toggle
@@ -13,6 +14,7 @@ const myStoreLink = document.querySelector('.toggle-table');
 const deliverLink = document.querySelector('.toggle-deliver');
 const totalsellsLink = document.querySelector('.toggle-sells');
 const analyticsLink = document.querySelector('.toggle-analytics');
+const visitorLink = document.querySelector('.toggle-visitors');
 
 dashboardLink3.addEventListener('click', () => {
     dashboardSection.style.display = 'block';
@@ -45,6 +47,7 @@ myStoreLink.addEventListener('click', () => {
     deliverSection.style.display = 'none';
     totalSection.style.display = 'none';
     analytics.style.display='none';
+    visitor.style.display='block';
 });
 
 deliverLink.addEventListener('click', () => {
@@ -53,6 +56,7 @@ deliverLink.addEventListener('click', () => {
     deliverSection.style.display = 'block';
     totalSection.style.display = 'none';
     analytics.style.display='none';
+    visitor.style.display='block';
 });
 
 totalsellsLink.addEventListener('click', () => {
@@ -61,6 +65,7 @@ totalsellsLink.addEventListener('click', () => {
     deliverSection.style.display = 'none';
     totalSection.style.display = 'block';
     analytics.style.display='none';
+    visitor.style.display='block';
 });
 
 analyticsLink.addEventListener('click', () => {
@@ -69,4 +74,14 @@ analyticsLink.addEventListener('click', () => {
     deliverSection.style.display = 'none';
     totalSection.style.display = 'none';
     analytics.style.display='block';
+    visitor.style.display='block';
+});
+
+visitorLink.addEventListener('click', () => {
+    dashboardSection.style.display = 'none';
+    myStoreSection.style.display = 'none';
+    deliverSection.style.display = 'none';
+    totalSection.style.display = 'none';
+    analytics.style.display='none';
+    visitor.style.display='block';
 });

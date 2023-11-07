@@ -3,18 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use App\Models\CommentRating;
+use App\Models\Discount;
 use App\Models\PendingOrder;
 use App\Models\Product;
 use App\Models\Subscriber;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use App\Models\UserOtp;
 use Illuminate\Validation\Validate;
 use Twilio\Rest\Client;
+use App\Models\TimerTask;
+use Illuminate\Support\Facades\Session;
 
 class ProjectControll extends Controller
 {
@@ -118,6 +123,8 @@ class ProjectControll extends Controller
                 $messages[] = 'Email Already Exists';
             }
 
+            Session::flash('messages', $messages);
+
             return redirect()->back()->with('messages', $messages);
         }
 
@@ -160,13 +167,19 @@ class ProjectControll extends Controller
 
         $user = DB::table('users')
             ->where('email',$email)
+            ->first();
 
+        $user2 = DB::table('delivary')
+            ->where('email',$email)
             ->first();
 //        event(new Registered($user));
         if($user && Hash::check($password, $user->password))
         {
-
             return redirect()->route('dashboard', ['id' => $user->id]);
+        }
+        elseif ($user2 && ($user2->password))
+        {
+            return redirect()->route('delivaryboy', ['id' => $user2->id]);
         }
 
         elseif($request->input('email') === 'addadmin@gmail.com' && $request->input('password') === 'admin')
@@ -189,7 +202,7 @@ class ProjectControll extends Controller
         }
         else
         {
-            return redirect()->back()->with('error', 'Please check your credentials first!!!');
+            return redirect()->back()->withErrors(['error' => 'Please check your credentials first!!!']);
         }
     }
 
@@ -198,7 +211,25 @@ class ProjectControll extends Controller
         $user=User::find($id);
         $product = Product::latest()->inRandomOrder()->limit(4)->get();
         $product2 = Product::inRandomOrder()->limit(4)->get();
-        $product4 = Product::latest()->inRandomOrder()->get();
+        $product4 = Product::select('product.*', 'discount_offer.Discount_Rate')
+            ->leftJoin('discount_offer', 'product.category', '=', 'discount_offer.Name')
+            ->latest()
+            ->inRandomOrder()
+            ->get();
+
+        $averageRatings = [];
+
+        foreach ($product4 as $prod) {
+            $ratings = CommentRating::where('item_id', $prod->pro_id)->pluck('rating');
+
+            if ($ratings->isNotEmpty()) {
+                $averageRatings[$prod->pro_id] = $ratings->avg();
+            } else {
+                $averageRatings[$prod->pro_id] = 0; // No ratings available, set the average to 0.
+            }
+        }
+
+//        $averageRating = $product4->avg('rating');
         $category = Categories::get();
         $product3 = DB::table('orderstatus')
             ->join('product', 'orderstatus.product_id', '=', 'product.pro_id')
@@ -212,8 +243,10 @@ class ProjectControll extends Controller
             ->where('customer_id',$user->id)
             ->whereIn('order_status', ['Pending', 'Shipping'])
             ->count();
+
+
         if ($user) {
-            return view('dashboard', compact('user','product','category','product4','product2','product3','total','subscribe'));
+            return view('dashboard', compact('user','averageRatings','product','category','product4','product2','product3','total','subscribe'));
         } else {
 
         }
@@ -224,11 +257,23 @@ class ProjectControll extends Controller
         return view('aboutus',compact('user'));
     }
 
-    public function product(){
+    public function product(Request $request){
         $product = Product::latest()->inRandomOrder()->limit(4)->get();
         $product2 = Product::inRandomOrder()->limit(4)->get();
         $product4 = Product::latest()->inRandomOrder()->get();
         $category = Categories::get();
+        $averageRatings = [];
+
+        foreach ($product4 as $prod) {
+            $ratings = CommentRating::where('item_id', $prod->pro_id)->pluck('rating');
+
+            if ($ratings->isNotEmpty()) {
+                $averageRatings[$prod->pro_id] = $ratings->avg();
+            } else {
+                $averageRatings[$prod->pro_id] = 0; // No ratings available, set the average to 0.
+            }
+        }
+        $category2 = Categories::first();
         $product3 = DB::table('orderstatus')
             ->join('product', 'orderstatus.product_id', '=', 'product.pro_id')
             ->where('orderstatus.order_status', 'Delivered')
@@ -236,7 +281,7 @@ class ProjectControll extends Controller
             ->select('product.pro_pic', 'product.pro_des', 'orderstatus.*')
             ->first();
 
-        return view('welcome', compact('product','product2','product3','product4','category'));
+        return view('welcome', compact('product','averageRatings','category2','product2','product3','product4','category'));
     }
 
     public function purchase($id,Request $request)
@@ -276,7 +321,6 @@ class ProjectControll extends Controller
             ->where('order_status','Pending')
             ->update([
                 'Payment'=>$request->input('paymentMethod'),
-                'order_status'=>'Shipping',
                 'Payment_Status'=>'paid',
                 'created_at'=>$now->toDateTimeString(),
             ]);
@@ -323,11 +367,16 @@ class ProjectControll extends Controller
 //        }
 //    }
 
-    public function showProductList($category)
+    public function showProductList($category, Request $request)
     {
         $products = Product::where('category', $category)->latest()->get();
         $categories = Categories::get();
-        return view('productlist', compact('category', 'products','categories'));
+        $categories2 = Categories::first();
+
+        $search = $request->input('search');
+
+
+        return view('productlist', compact('category', 'products','categories','categories2'));
     }
 
     public function redirectpage2($category)
@@ -348,5 +397,103 @@ class ProjectControll extends Controller
         dd($category, $product);// Retrieve the products data from the session
         return view('productlist2', compact('category', 'product','user'));
     }
+
+    public function discountoffer(Request $request)
+    {
+
+            $startDate = Carbon::parse($request->input('startdate'));
+            $endDate = Carbon::parse($request->input('enddate'));
+            $now = Carbon::now();
+
+
+                $discountrate = $request->input('discount');
+
+                $discountamount = $discountrate / 100;
+                $category = $request->input('category');
+
+                $products = Product::where('category', $category)->get();
+
+                foreach ($products as $product) {
+
+                    $originalPrice = $product->price;
+                    $discountedPrice = $originalPrice - ($originalPrice * $discountamount);
+
+
+                    $product->Previous_Price = $originalPrice;
+                    $product->price = $discountedPrice;
+                    $product->save();
+                }
+
+
+                Discount::insert([
+                    'Name' => $category,
+                    'Discount_Rate' => $discountrate,
+                    'Start_Date' => $startDate->toDateTimeString(),
+                    'End_Date' => $endDate->toDateTimeString(),
+                    'Activate' => $request->input('radioOption')
+                ]);
+
+        return redirect('maintainadmin');
+    }
+
+    public function updateDiscount(Request $request)
+    {
+        $category = $request->input('category');
+        $products = Product::where('category', $category)->get();
+        foreach ($products as $product) {
+            $product->update([
+                'price' => $product->Previous_Price,
+            ]);
+        }
+        Discount::where('ID', $request->input('ID'))
+            ->update([
+                'Activate' => $request->input('radioOption')
+            ]);
+        return redirect('maintainadmin');
+    }
+
+
+    public function searchProduct(Request $request){
+        $search = $request->input('search');
+
+
+        $products = Product::where('pro_des', 'like', '%' . $search . '%')
+            ->get();
+
+
+        if($products){
+            return view('allproduct', ['products' => $products]);
+
+        }
+
+    }
+
+    public function searchProduct2(Request $request, $id){
+        $search = $request->input('search');
+
+        $user2 = User::where('id',$id)->first();
+
+        $products = Product::where('pro_des', 'like', '%' . $search . '%')
+            ->get();
+
+        $categories = Categories::get();
+
+            return view('allproduct2', ['products' => $products,'id'=>$user2,'categories'=>$categories]);
+
+
+    }
+
+//    public function testshoe($id){
+//        $user2 = User::find($id);
+//
+//        return view('test',['id'=>$user2]);
+//    }
+
+
+//    public function logout(){
+//        Auth::logout();
+//        session()->flash();
+//        return redirect('/');
+//    }
 
 }

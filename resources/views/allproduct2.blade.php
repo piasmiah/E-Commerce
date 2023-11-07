@@ -61,13 +61,19 @@
 
             </ul>
 
+            <div class="header-alert-news">
+                <p>
+                    <b>Free Shipping</b>
+                    This Week Order Over - $55
+                </p>
+            </div>
+
             <div class="header-top-actions">
 
-                <select name="currency" id="currency">
+                <select name="currency">
 
                     <option value="usd">USD &dollar;</option>
                     <option value="eur">EUR &euro;</option>
-                    <option value="bdt">BDT &#2547;</option>
 
                 </select>
 
@@ -105,8 +111,8 @@
 
             <div class="header-user-actions">
                 {{--            <a href="{{route('login')}}" class="action-btn">--}}
-                {{--            <ion-icon name="person-outline"></ion-icon>--}}
-                {{--        </a>--}}
+                    {{--            <ion-icon name="person-outline"></ion-icon>--}}
+                    {{--        </a>--}}
 
                 <button class="action-btn">
                     <ion-icon name="heart-outline"></ion-icon>
@@ -132,13 +138,13 @@
             <ul class="desktop-menu-category-list">
 
                 <li class="menu-category">
-                    <a href="{{route('dashboard',['id'=>$user->id])}}" class="menu-title  toggle">Home</a>
+                    <a href="{{route('dashboard',['id'=>$id->id])}}" class="menu-title  toggle">Home</a>
                 </li>
 
 
 
                 <li class="menu-category">
-                    <a href="{{route('aboutus',['id'=>$user->id])}}" class="menu-title">About Us</a>
+                    <a href="{{route('aboutus',['id'=>$id->id])}}" class="menu-title">About Us</a>
 
                 </li>
 
@@ -148,7 +154,7 @@
 
                         @foreach($categories as $cata)
                             <li class="dropdown-item">
-                                <a href="{{route('productlist2',['id'=>$user->id,'category'=>$cata->Category_Name])}}">{{$cata->Category_Name}}</a>
+                                <a href="{{route('productlist2',['id'=>$id->id,'category'=>$cata->Category_Name])}}">{{$cata->Category_Name}}</a>
                             </li>
                         @endforeach
 
@@ -161,11 +167,11 @@
                 </li>
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title">{{$user->name}}</a>
+                    <a href="#" class="menu-title">{{$id->name}}</a>
                     <ul class="dropdown-list">
 
                         <li class="dropdown-item">
-                            <a href="{{ route('purchase',['id'=>$user->id]) }}">Purchase History</a>
+                            <a href="{{ route('purchase',['id'=>$id->id]) }}">Purchase History</a>
                         </li>
 
                         <li class="dropdown-item">
@@ -174,6 +180,154 @@
 
                     </ul>
                 </li>
+
+                {{--          <li class="menu-category">--}}
+                    {{--            <a href="#" class="menu-title">Categories</a>--}}
+
+                    {{--            <div class="dropdown-panel">--}}
+
+                        {{--              <ul class="dropdown-panel-list">--}}
+
+                            {{--                <li class="menu-title">--}}
+                                {{--                  <a href="#">Kids</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Shirt</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">T-Shirt</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Shoes</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Diaper</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Toy</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">--}}
+                                    {{--                    <img src="{{asset('logo/electronics-banner-1.jpg')}}" alt="headphone collection" width="250"--}}
+                                                                 {{--                      height="119">--}}
+                                    {{--                  </a>--}}
+                                {{--                </li>--}}
+
+                            {{--              </ul>--}}
+
+                        {{--              <ul class="dropdown-panel-list">--}}
+
+                            {{--                <li class="menu-title">--}}
+                                {{--                  <a href="#">Men's</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Formal</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Casual</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Sports</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Jacket</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Sunglasses</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">--}}
+                                    {{--                    <img src="{{asset('logo/mens-banner.jpg')}}" alt="men's fashion" width="250" height="119">--}}
+                                    {{--                  </a>--}}
+                                {{--                </li>--}}
+
+                            {{--              </ul>--}}
+
+                        {{--              <ul class="dropdown-panel-list">--}}
+
+                            {{--                <li class="menu-title">--}}
+                                {{--                  <a href="#">Women's</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Formal</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Casual</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Perfume</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Cosmetics</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Bags</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">--}}
+                                    {{--                    <img src="{{asset('logo/womens-banner.jpg')}}" alt="women's fashion" width="250" height="119">--}}
+                                    {{--                  </a>--}}
+                                {{--                </li>--}}
+
+                            {{--              </ul>--}}
+
+                        {{--              <ul class="dropdown-panel-list">--}}
+
+                            {{--                <li class="menu-title">--}}
+                                {{--                  <a href="#">Electronics</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Smart Watch</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Smart TV</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Keyboard</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Mouse</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">Microphone</a>--}}
+                                {{--                </li>--}}
+
+                            {{--                <li class="panel-list-item">--}}
+                                {{--                  <a href="#">--}}
+                                    {{--                    <img src="{{asset('logo/electronics-banner-2.jpg')}}" alt="mouse collection" width="250" height="119">--}}
+                                    {{--                  </a>--}}
+                                {{--                </li>--}}
+
+                            {{--              </ul>--}}
+
+                        {{--            </div>--}}
+                    {{--          </li>--}}
+
+
+
 
             </ul>
 
@@ -430,65 +584,65 @@
 
                 <div class="product-grid">
                     @foreach($products as $prod)
-                        <div class="showcase">
+                    <div class="showcase">
 
-                            <div class="showcase-banner">
+                        <div class="showcase-banner">
 
-                                <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
-                                <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+                            <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
+                            <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
 
-{{--                                                            <p class="showcase-badge">15%</p>--}}
+                            {{--                                                            <p class="showcase-badge">15%</p>--}}
 
-                                <div class="showcase-actions">
+                            <div class="showcase-actions">
 
-                                    <button class="btn-action">
-                                        <ion-icon name="heart-outline"></ion-icon>
-                                    </button>
+                                <button class="btn-action">
+                                    <ion-icon name="heart-outline"></ion-icon>
+                                </button>
 
-                                    <button class="btn-action">
-                                        <ion-icon name="eye-outline"></ion-icon>
-                                    </button>
+                                <button class="btn-action">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                </button>
 
-                                    <button class="btn-action">
-                                        <ion-icon name="repeat-outline"></ion-icon>
-                                    </button>
+                                <button class="btn-action">
+                                    <ion-icon name="repeat-outline"></ion-icon>
+                                </button>
 
-                                    <button class="btn-action">
-                                        <ion-icon name="bag-add-outline"></ion-icon>
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                            <div class="showcase-content">
-
-                                <a href="{{route('product',['ids'=>$user->id,'id'=>$prod->pro_id,'category'=>$prod->category])}}" class="showcase-category">{{$prod->pro_name}}</a>
-
-                                <a href="{{route('product',['ids'=>$user->id,'id'=>$prod->pro_id,'category'=>$prod->category])}}">
-                                    <h3 class="showcase-title">{{$prod->pro_des}}</h3>
-                                </a>
-
-{{--                                                            <div class="showcase-rating">--}}
-{{--                                                                <ion-icon name="star"></ion-icon>--}}
-{{--                                                                <ion-icon name="star"></ion-icon>--}}
-{{--                                                                <ion-icon name="star"></ion-icon>--}}
-{{--                                                                <ion-icon name="star-outline"></ion-icon>--}}
-{{--                                                                <ion-icon name="star-outline"></ion-icon>--}}
-{{--                                                            </div>--}}
-
-                                <div class="price-box">
-                                    <p class="price" data-price-usd="{{$prod->price}}">${{$prod->price}}</p>
-                                    @if($prod->Previous_Price === NULL)
-
-                                    @elseif($prod->Previous_Price !== NULL)
-                                        <del data-previous-price-usd="{{$prod->Previous_Price}}">${{$prod->Previous_Price}}</del>
-                                    @endif
-                                </div>
+                                <button class="btn-action">
+                                    <ion-icon name="bag-add-outline"></ion-icon>
+                                </button>
 
                             </div>
 
                         </div>
+
+                        <div class="showcase-content">
+
+                            <a href="{{route('product',['ids'=>$id->id,'id'=>$prod->pro_id,'category'=>$prod->category])}}" class="showcase-category">{{$prod->pro_name}}</a>
+
+                            <a href="{{route('product',['ids'=>$id->id,'id'=>$prod->pro_id,'category'=>$prod->category])}}">
+                                <h3 class="showcase-title">{{$prod->pro_des}}</h3>
+                            </a>
+
+                            <div class="showcase-rating">
+                                <ion-icon name="star"></ion-icon>
+                                <ion-icon name="star"></ion-icon>
+                                <ion-icon name="star"></ion-icon>
+                                <ion-icon name="star-outline"></ion-icon>
+                                <ion-icon name="star-outline"></ion-icon>
+                            </div>
+
+                            <div class="price-box">
+                                <p class="price">${{$prod->price}}</p>
+                                @if($prod->Previous_Price === NULL)
+
+                                @elseif($prod->Previous_Price !== NULL)
+                                <del>${{$prod->Previous_Price}}</del>
+                                @endif
+                            </div>
+
+                        </div>
+
+                    </div>
                     @endforeach
                 </div>
 
@@ -789,59 +943,5 @@
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-<script>
-    const exchangeRates = {
-        usd: 1,    // 1 USD to USD (base currency)
-        eur: 0.85, // Example: 1 USD to EUR is 0.85
-        bdt: 110.32 // Example: 1 USD to BDT is 110.32
-        // Add more currencies and exchange rates as needed
-    };
-
-    // Function to update the displayed price
-    function updatePrice(currency) {
-        const priceElements = document.querySelectorAll('.price');
-        const previousPriceElements = document.querySelectorAll('del[data-previous-price-usd]');
-        const selectedCurrency = document.getElementById('currency').value;
-        const exchangeRate = exchangeRates[selectedCurrency];
-        const currencySymbol = getCurrencySymbol(selectedCurrency);
-
-        priceElements.forEach(priceElement => {
-            const priceInUSD = parseFloat(priceElement.getAttribute('data-price-usd'));
-            const convertedPrice = (priceInUSD * exchangeRate).toFixed(2);
-            const formattedPrice = currency === 'usd' ? `$${priceInUSD}` : `${currencySymbol}${convertedPrice}`;
-            priceElement.textContent = formattedPrice;
-        });
-
-        previousPriceElements.forEach(previousPriceElement => {
-            const previousPriceInUSD = parseFloat(previousPriceElement.getAttribute('data-previous-price-usd'));
-            const convertedPreviousPrice = (previousPriceInUSD * exchangeRate).toFixed(2);
-            const formattedPreviousPrice = currency === 'usd' ? `$${previousPriceInUSD}` : `${currencySymbol}${convertedPreviousPrice}`;
-            previousPriceElement.textContent = formattedPreviousPrice;
-        });
-    }
-
-    // Function to get the currency symbol
-    function getCurrencySymbol(currency) {
-        switch (currency) {
-            case 'usd':
-                return '$';
-            case 'eur':
-                return '€'; // Euro symbol
-            case 'bdt':
-                return '৳'; // BDT symbol
-            default:
-                return currency;
-        }
-    }
-
-    // Attach an event listener to the currency select element
-    document.getElementById('currency').addEventListener('change', function() {
-        const selectedCurrency = this.value;
-        updatePrice(selectedCurrency);
-    });
-
-    // Initialize the price with the default currency (USD)
-    updatePrice('usd');
-</script>
 </body>
 </html>

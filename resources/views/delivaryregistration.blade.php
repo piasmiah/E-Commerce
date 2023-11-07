@@ -64,23 +64,33 @@
 <div class="container">
     <div class="row m-3 no-gutters shadow-lg">
         <div class="col-md-6 d-none d-md-block">
-            <img src="https://img.freepik.com/free-vector/ecommerce-web-page-concept-illustration_114360-8204.jpg?w=900&t=st=1694803375~exp=1694803975~hmac=78af47a1399bf77457225b656d874130e10a0c2a798f1df63cb40178d1586f8f" class="img-fluid" style="min-height:100%;" />
+            <img src="{{asset('logo/delivary.png')}}" class="img-fluid" style="min-height:100%;" />
         </div>
         <div class="col-md-6 bg-white p-5">
             <h3 class="pb-3">Signup</h3>
+            {{--            @if(session('error'))--}}
+            {{--                <div class="alert alert-danger">--}}
+            {{--                    {{ session('error') }}--}}
+            {{--                </div>--}}
+            {{--            @endif--}}
 
-            @if(session()->has('messages'))
+            @if(session('messages'))
                 <div class="alert alert-danger">
                     @foreach(session('messages') as $message)
                         {{ $message }}<br>
                     @endforeach
                 </div>
             @endif
+
             <div class="form-style">
-                <form action="{{ route('insertion') }}" method="post">
+                <form action="{{route('delivar')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group pb-3">
                         <input type="text" placeholder="Name" name="names" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" required>
+                    </div>
+
+                    <div class="form-group pb-3">
+                        <input type="text" placeholder="Your Address" name="address" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" required>
                     </div>
                     <div class="form-group pb-3">
                         <input type="text" placeholder="Mobile Number" name="phone" class="form-control" id="phone" aria-describedby="emailHelp" required>
@@ -101,6 +111,11 @@
                     <div class="form-group pb-3">
                         <input type="password" placeholder="Confirm Password" name="confirm-password" class="form-control" id="exampleInputConfirmPassword1" required>
                     </div>
+
+                    <div class="form-group pb-3">
+                        <input type="file" placeholder="Upload your pic" name="pic" class="form-control" id="exampleInputConfirmPassword1" required>
+                    </div>
+
                     <div class="pb-2">
                         <button id="submitBtn" type="submit" class="btn btn-dark w-100 font-weight-bold mt-2">
                             <span class="submit-text">Register</span>
@@ -147,3 +162,4 @@
 </script>
 </body>
 </html>
+

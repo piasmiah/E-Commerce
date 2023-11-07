@@ -10,12 +10,16 @@
     <link rel="icon" href="{{asset('logo/mdb-favicon.ico')}}" type="image/x-icon" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <!-- Google Fonts Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
     <!-- MDB -->
     <link rel="stylesheet" href="{{asset('css/bootstrap-shopping-carts.min.css')}}" />
     <link rel="stylesheet" href="{{asset('css/style-prefix.css')}}">
     <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOsAVxBbbFUV0IVFifEZ1Kq97nPVevdXU&libraries=places"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -199,6 +203,11 @@
         color: #1266f1;
     }
 
+    .additional-comment {
+        display: none;
+    }
+
+
     /* Style the product description */
     h6 {
         color: #9e9e9e;
@@ -361,12 +370,15 @@
                                         <img src="{{asset('storage/' .$show->pro_pic)}}"
                                              class="img-fluid" style="width: 150px;" alt="Generic placeholder image">
                                     </div>
+
                                     <div class="flex-grow-1 ms-3">
                                         <form action="{{ route('insertorder',['id' => $user->id]) }}" method="post">
                                             @csrf
                                             <input type="hidden" name="id" value="{{$user->id}}">
                                             <input type="hidden" name="name" value="{{$user->name}}">
                                             <input type="hidden" name="ids" value="{{$show->pro_id}}">
+                                            <input type="hidden" name="category" value="{{$show->category}}">
+
                                             <input type="hidden" name="status" value="Pending">
                                         <a href="#!" class="float-end text-black"><i class="fas fa-times"></i></a>
                                         <h5 class="text-primary">{{$show->pro_name}}</h5>
@@ -382,7 +394,7 @@
                                                     <input type="hidden" name="stock" class="stockStatus" id="stock" value="{{$show->Stock}}">
                                                     <input type="hidden" name="stockstatus" id="stockStatus" value="{{$show->Stock_Status}}" readonly>
                                                 </div>
-                                                @if($show->category !== 'Electronic' && $show->category !== 'Health & Beauty')
+                                                @if($show->category !== 'Electronic' && $show->category !== 'Health & Beauty' && $show->category !== 'Kids & Baby care')
                                                 <label>Size</label>
                                                 <div class="input-group">
                                                     <select name="size" id="size" class="form-select form-select-lg quantity fw-bold text-black" style="border: black solid;">
@@ -393,13 +405,23 @@
                                                     </select>
                                                 </div>
                                                 @endif
+
                                             </div>
 
                                         </div>
 
                                     </div>
-                                </div>
 
+                                </div>
+                                <div class="star-rating">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= $averageRating)
+                                            <i class="fas fa-star"></i>
+                                        @else
+                                            <i class="far fa-star"></i>
+                                        @endif
+                                    @endfor
+                                </div>
 
                                 <h6 style="color: black;">{{$show->pro_des}}</h6>
 
@@ -422,31 +444,25 @@
 
                                     <div class="form-outline mb-5">
                                         <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
-                                               value="{{$user->name}}" minlength="19" maxlength="19" />
+                                               value="{{$user->name}}" minlength="19" maxlength="19" readonly/>
                                         <label class="form-label" for="typeText">Name</label>
                                     </div>
 
                                     <div class="form-outline mb-5">
                                         <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
-                                               value="" name="loc" />
+                                               value="" name="loc" required/>
                                         <label class="form-label" for="typeName">Location</label>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-md-6 mb-5">
                                             <div class="form-outline">
-                                                <input type="text" id="typeExp" class="form-control form-control-lg" value="01/22"
-                                                       size="7" id="exp" minlength="7" maxlength="7" />
-                                                <label class="form-label" for="typeExp">Expiration</label>
+                                                <input type="text" id="typeExp" class="form-control form-control-lg" value="{{$user->phone}}"
+                                                       size="7" id="exp" minlength="7" maxlength="7" readonly />
+                                                <label class="form-label" for="typeExp">Mobile Number</label>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 mb-5">
-                                            <div class="form-outline">
-                                                <input type="password" id="typeText" class="form-control form-control-lg"
-                                                       value="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
-                                                <label class="form-label" for="typeText">Cvv</label>
-                                            </div>
-                                        </div>
+
                                     </div>
 
 {{--                                    <p class="mb-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit <a--}}
@@ -468,13 +484,88 @@
 
                             </div>
                         </div>
+                        <div class="container mt-5">
+                            <h3 class="mb-4">Comments</h3>
 
+                            <!-- Comment Form -->
+                            <div class="comment-form">
+                                <form action="{{ route('comment', ['id' => $user->id]) }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="ids" value="{{$show->pro_id}}">
+                                    <label for="rating">Rating:</label>
+                                    <div class="star-rating" id="rating">
+                                        <input type="hidden" name="rating" id="rating-input" value="">
+                                        <i class="far fa-star" data-star="1"></i>
+                                        <i class="far fa-star" data-star="2"></i>
+                                        <i class="far fa-star" data-star="3"></i>
+                                        <i class="far fa-star" data-star="4"></i>
+                                        <i class="far fa-star" data-star="5"></i>
+                                        <!-- Add more stars here -->
+                                    </div>
+                                    <textarea id="commentText" name="comment" style="height: 50px; width: 50%"></textarea>
+                                    <button type="submit" name="action" value="comment" class="btn btn-primary" id="postComment">Comment</button>
+                                </form>
+                            </div>
+
+                            <!-- Comment Display -->
+                            <div class="comments-list mt-4">
+                                @foreach($comment as $key => $rat)
+                                    <div class="comment{{ $key >= 2 ? ' additional-comment' : '' }}">
+                                        <div class="comment-header">
+                                            <span class="comment-author"><h6>{{ $rat->name }}</h6></span><br>
+                                            <div class="comment-text">
+                                                <h5>{{ $rat->commenttxt }}</h5>
+                                            </div>
+                                            <span class="comment-date">{{ $rat->time }}</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                                @if (count($comment) > 2)
+                                    <div class="view-more-comments">
+                                        <a href="#" id="view-more-link">View more (+{{ count($comment) - 2 }}) comments</a>
+                                    </div>
+                                @endif
+                            </div>
+
+                        </div>
+
+                        <!-- End of Example Comment -->
+
+                                <!-- You can dynamically add more comments here using JavaScript -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<section class="products-you-may-like">
+    <div class="container">
+        <h3 class="mb-4">Products You May Like</h3>
+
+        <!-- Add your product cards or items here -->
+        <!-- You can create a loop to display multiple products, or add them manually as per your requirements -->
+
+        <div class="row">
+            @foreach($show2 as $sho)
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{asset('storage/' .$sho->pro_pic)}}" style="height: 150px; width: 150px;" class="card-img-top" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{$sho->pro_name}}</h5>
+                        <p class="card-text">{{$sho->pro_des}}.</p>
+                        <a href="{{ route('product', ['id' => $sho->pro_id,'ids'=>$user->id,'category'=>$sho->category]) }}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
 <!-- End your project here-->
 
 <!-- MDB -->
@@ -482,9 +573,31 @@
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="{{asset('js/script.js')}}"></script>
+
+
 <!-- Custom scripts -->
 <script type="text/javascript"></script>
 <script>
+
+    $(document).ready(function () {
+
+        var input = document.getElementById('typeName');
+
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+
+        autocomplete.setTypes(['geocode']);
+
+
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+            if (place.geometry) {
+                console.log(place);
+            }
+        });
+    });
+
     document.addEventListener("DOMContentLoaded", function () {
         const price = {{$show->price}};
         const quantityInput = document.getElementById('quantity');
@@ -598,6 +711,39 @@
             stockStatusMessage.style.display = "none";
         }
     });
+
+    $(document).ready(function () {
+        // Initial star ratings setup
+        $(".star-rating i").on("click", function () {
+            var rating = $(this).data("star");
+            resetStars(); // Reset all stars
+            fillStars(rating); // Fill stars up to the selected rating
+            $("#rating-input").val(rating); // Set the rating value in a hidden input field
+        });
+
+        // Function to reset all stars
+        function resetStars() {
+            $(".star-rating i").removeClass("fas").addClass("far");
+        }
+
+        // Function to fill stars up to the selected rating
+        function fillStars(rating) {
+            for (var i = 1; i <= rating; i++) {
+                $(".star-rating i[data-star='" + i + "']").removeClass("far").addClass("fas");
+            }
+        }
+    });
+
+    $(document).ready(function() {
+        $('#view-more-link').click(function(e) {
+            e.preventDefault();
+            $('.additional-comment').toggle();
+            $('#view-more-link').text(function(i, text) {
+                return text === "View more (+{{ count($comment) - 2 }}) comments" ? "Hide comments" : "View more (+{{ count($comment) - 2 }}) comments";
+            });
+        });
+    });
+
 
 </script>
 

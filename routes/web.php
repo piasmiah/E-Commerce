@@ -105,7 +105,9 @@ Route::get('/dashboard/{id}', function ($id) {
     return view('dashboard', ['userId' => $id]);
 })->name('dashboard')->middleware(['verified']);
 
-Route::get('/dashboard/{id}',[\App\Http\Controllers\ProjectControll::class,'showDashboard'])->name('dashboard');
+Route::middleware(['web', 'logout'])->group(function (){
+    Route::get('/dashboard/{id}',[\App\Http\Controllers\ProjectControll::class,'showDashboard'])->name('dashboard');
+});
 
 Route::get('/maintainadmin', function () {
     return view('maintainadmin');
@@ -114,6 +116,9 @@ Route::get('/maintainadmin', function () {
 Route::post('/product-form',[\App\Http\Controllers\ProductControll::class,'storeProduct'])->name('product-form');
 
 Route::get('/maintainadmin',[\App\Http\Controllers\ProductControll::class,'showproduct'])->name('maintainadmin');
+
+Route::post('/getSubcategories/',[\App\Http\Controllers\ProductControll::class,'getProductsByCategory']);
+
 
 Route::get('/',[\App\Http\Controllers\ProjectControll::class,'product'])->name('/');
 
@@ -142,9 +147,12 @@ Route::get('/cart/{id}', function ($id) {
 Route::post('/insertorder/{id}',[\App\Http\Controllers\OrderControll::class,'orders'])->name('insertorder');
 //Route::get('/cart/{id}',[\App\Http\Controllers\OrderControll::class,'orders'])->name('cart');
 
-Route::get('/product/{id}/{ids}', [\App\Http\Controllers\OrderControll::class, 'order'])->name('product');
+//Route::get('/product/{id}/{ids}', [\App\Http\Controllers\OrderControll::class, 'order'])->name('product');
 
-Route::get('/product/userid:{id}/productid:{ids}/product:{category}', [\App\Http\Controllers\OrderControll::class, 'addtocart'])->name('product');
+Route::get('/product/productid/{id}/userid/{ids}/product/{category}', [\App\Http\Controllers\OrderControll::class, 'addtocart'])->name('product');
+
+Route::post('/comment/{id}', [\App\Http\Controllers\OrderControll::class, 'commentrating'])->name('comment');
+
 
 Route::post('/delete/{id}',[\App\Http\Controllers\OrderControll::class,'deleteorder'])->name('delete');
 
@@ -229,3 +237,39 @@ Route::post('/subscribes/{id}',[ProjectControll::class,'subscriber2'])->name('su
 Route::post('/ctegory',[\App\Http\Controllers\Admin::class,'addcategory'])->name('ctegory');
 
 Route::post('/updateCata',[\App\Http\Controllers\ProductControll::class,'updateCategory'])->name('updateCata');
+
+Route::post('/discount',[ProjectControll::class,'discountoffer'])->name('discount');
+
+Route::post('/updatediscount',[ProjectControll::class,'updateDiscount'])->name('updatediscount');
+
+//    Route::get('/logout', function() {
+//        return redirect('/');
+//    })->name('logout');
+
+Route::get('/admin/One_Month_Report', function () {
+    return view('report');
+})->name('report');
+
+Route::middleware([\App\Http\Middleware\TrackVisitors::class])->group(function () {
+    Route::get('/admin/One_Month_Report', [\App\Http\Controllers\Report::class, 'reportTotal'])->name('report');
+});
+
+Route::get('/allproduct/',[ProjectControll::class,'searchProduct'])->name('allproduct');
+
+Route::get('/{id}/allproduct2/',[ProjectControll::class,'searchProduct2'])->name('allproduct2');
+
+Route::get('/delivaryboy/{id}', function ($id) {
+    return view('delivaryboy', ['userId' => $id]);
+})->name('delivaryboy');
+
+Route::get('/delivaryboy/{id}',[\App\Http\Controllers\DelivaryBoy::class,'showDelivary'])->name('delivaryboy');
+
+Route::get('/delivaryregistration', function () {
+    return view('delivaryregistration');
+})->name('delivaryregistration');
+
+Route::post('/delivar',[\App\Http\Controllers\DelivaryBoy::class,'delivary'])->name('delivar');
+
+Route::post('/updatedelivar/{id}',[\App\Http\Controllers\DelivaryBoy::class,'updateDelivary'])->name('updatedelivar');
+
+Route::post('/infoupdate/{id}',[\App\Http\Controllers\DelivaryBoy::class,'updateInfo'])->name('infoupdate');
