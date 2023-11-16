@@ -24,7 +24,9 @@ class ProductControll extends Controller
         $price = $request->input('price');
         $picture = $request->file('picture');
         $stock = $request->input('stock');
-        $date = Carbon::now();
+        $date = Carbon::now()->format('Y-m-d');
+        $comingdate = $request->input('date');
+        $products = $request->input('products');
 
         if ($product_name !== 'other') {
             $custom_product_name = $product_name;
@@ -32,30 +34,57 @@ class ProductControll extends Controller
             $custom_product_name = $request->input('custom_product_name');
         }
 
+        if($products === 'LIVE') {
+            if ($picture) {
+                $originalname = $picture->getClientOriginalName();
+                $path = $picture->storeAs('public/product', $originalname);
+                $path = str_replace('public/', '', $path);
 
-        if ($picture) {
-            $originalname = $picture->getClientOriginalName();
-            $path = $picture->storeAs('public/product', $originalname);
-            $path = str_replace('public/', '', $path);
 
-            $insertdata = Product::insert([
-                'pro_name' => $custom_product_name,
-                'category' => $category,
-                'pro_des' => $description,
-                'price' => $price,
-                'pro_pic' => $path,
-                'Stock'=>$stock,
-                'Stock_Status'=>$request->input('status'),
-                'created_at' => $date,
-                'Quantity_Sold' => 0
-            ]);
+                $insertdata = Product::insert([
+                    'pro_name' => $custom_product_name,
+                    'category' => $category,
+                    'pro_des' => $description,
+                    'price' => $price,
+                    'pro_pic' => $path,
+                    'Stock'=>$stock,
+                    'Stock_Status'=>$request->input('status'),
+                    'created_at' => $date,
+                    'Quantity_Sold' => 0,
+                    'upcoming_date' => $comingdate,
+                    'date_status'=>'LIVE'
+                ]);
+
+            }
+        }
+        if($products === 'upcoming') {
+            if ($picture) {
+                $originalname = $picture->getClientOriginalName();
+                $path = $picture->storeAs('public/product', $originalname);
+                $path = str_replace('public/', '', $path);
+
+
+                $insertdata = Product::insert([
+                    'pro_name' => $custom_product_name,
+                    'category' => $category,
+                    'pro_des' => $description,
+                    'price' => $price,
+                    'pro_pic' => $path,
+                    'created_at' => $date,
+                    'Quantity_Sold' => 0,
+                    'upcoming_date' => $comingdate,
+                    'date_status'=>'upcoming'
+                ]);
+
+            }
+        }
 
             if ($insertdata) {
                 return redirect()->back()->with('success', 'Product added successfully');
             }
             // Redirect back with a success message
 
-        }
+
 
     }
 
@@ -185,7 +214,10 @@ class ProductControll extends Controller
     {
         $user = User::where('id',$id)->first();
         $products = Product::where('category', $category)->latest()->get();
+
         $categories = Categories::get();
-        return view('productlist2', compact('user','category','products','categories'));
+
+        $categories2 = Categories::where('Category_Name',$category)->first();
+        return view('productlist2', compact('user','category','products','categories','categories2'));
     }
 }

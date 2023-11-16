@@ -87,13 +87,9 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::get('/login',[ProjectControll::class,'loginshow'])->name('login');
 
-Route::get('/register', function () {
-    return view('registration');
-})->name('register');
+Route::get('/registration',[ProjectControll::class,'registrationshow'])->name('register');
 
 // Route::post('/form-container',[\App\Http\Controllers\ProjectControll::class,'insert'])->name('form-container');
 
@@ -180,9 +176,7 @@ Route::get('/invoice', function () {
     return view('invoice');
 })->name('invoice');
 
-Route::get('/aboutuser', function () {
-    return view('aboutuser');
-})->name('aboutuser');
+Route::get('/aboutuser',[ProjectControll::class,'showAbout'])->name('aboutuser');
 
 Route::get('/invoice/{id}',[\App\Http\Controllers\Invoice::class,'invo'])->name('invoice');
 
@@ -250,6 +244,10 @@ Route::get('/admin/One_Month_Report', function () {
     return view('report');
 })->name('report');
 
+Route::get('/welcome/Contact_Us', [ProjectControll::class,'showContact'])->name('contactus');
+
+Route::get('/welcome/Contact/{id}', [ProjectControll::class,'showContact2'])->name('contactus2');
+
 Route::middleware([\App\Http\Middleware\TrackVisitors::class])->group(function () {
     Route::get('/admin/One_Month_Report', [\App\Http\Controllers\Report::class, 'reportTotal'])->name('report');
 });
@@ -264,12 +262,18 @@ Route::get('/delivaryboy/{id}', function ($id) {
 
 Route::get('/delivaryboy/{id}',[\App\Http\Controllers\DelivaryBoy::class,'showDelivary'])->name('delivaryboy');
 
-Route::get('/delivaryregistration', function () {
-    return view('delivaryregistration');
-})->name('delivaryregistration');
+Route::get('/delivaryregistration',[ProjectControll::class,'delivaryregistration'])->name('delivaryregistration');
 
+Route::get('/getProduct5', [ProjectControll::class, 'getProduct5'])->name('getProduct5');
 Route::post('/delivar',[\App\Http\Controllers\DelivaryBoy::class,'delivary'])->name('delivar');
 
 Route::post('/updatedelivar/{id}',[\App\Http\Controllers\DelivaryBoy::class,'updateDelivary'])->name('updatedelivar');
 
 Route::post('/infoupdate/{id}',[\App\Http\Controllers\DelivaryBoy::class,'updateInfo'])->name('infoupdate');
+
+Route::get('/sellerregistration', function () {
+    return view('sellerregistration');
+})->name('sellerregistration');
+
+Route::get('/userprofile/{id}',[ProjectControll::class,'userPrfile'])->name('userprofile');
+

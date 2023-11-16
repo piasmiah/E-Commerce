@@ -18,6 +18,8 @@
     -->
     <link rel="stylesheet" href="{{asset('css/style-prefix.css')}}">
 
+    <script src="//code.tidio.co/2l8awmiopxub2rsj7vuajrnkxy2xnqln.js" async></script>
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
@@ -114,13 +116,10 @@
                 {{--            <ion-icon name="person-outline"></ion-icon>--}}
                 {{--        </a>--}}
 
-                <button class="action-btn">
-                    <ion-icon name="heart-outline"></ion-icon>
-                    <span class="count">0</span>
-                </button>
+
 
                 <button class="action-btn">
-                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <i class="fa-solid fa-cart-shopping"></i>
                     <span class="count">0</span>
                 </button>
 
@@ -153,11 +152,11 @@
                     <a href="#" class="menu-title">Categories</a>
                     <ul class="dropdown-list">
 
-{{--                        @foreach($categories as $cata)--}}
-{{--                            <li class="dropdown-item">--}}
-{{--                                <a href="{{route('productlist',['category'=>$cata->Category_Name])}}">{{$cata->Category_Name}}</a>--}}
-{{--                            </li>--}}
-{{--                        @endforeach--}}
+                        @foreach($category as $cata)
+                            <li class="dropdown-item">
+                                <a href="{{route('productlist',['category'=>$cata->Category_Name])}}">{{$cata->Category_Name}}</a>
+                            </li>
+                        @endforeach
 
                     </ul>
                 </li>

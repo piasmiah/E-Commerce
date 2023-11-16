@@ -18,6 +18,8 @@
     -->
     <link rel="stylesheet" href="{{asset('css/style-prefix.css')}}">
 
+    <script src="//code.tidio.co/2l8awmiopxub2rsj7vuajrnkxy2xnqln.js" async></script>
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
@@ -114,13 +116,10 @@
                 {{--            <ion-icon name="person-outline"></ion-icon>--}}
                 {{--        </a>--}}
 
-                <button class="action-btn">
-                    <ion-icon name="heart-outline"></ion-icon>
-                    <span class="count">0</span>
-                </button>
+
 
                 <button class="action-btn">
-                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <i class="fa-solid fa-cart-shopping"></i>
                     <span class="count">0</span>
                 </button>
 
@@ -150,7 +149,7 @@
                 </li>
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Categories</a>
+                    <a href="#" class="menu-title" style="color: blue;">Categories</a>
                     <ul class="dropdown-list">
 
                         @foreach($categories as $cata)
@@ -312,7 +311,11 @@
                 </li>
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Hot Offers</a>
+                    <a href="#" class="menu-title">Special Offers</a>
+                </li>
+
+                <li class="menu-category">
+                    <a href="#" class="menu-title">Contact Us</a>
                 </li>
 
 
@@ -544,6 +547,9 @@
           - SIDEBAR
         -->
 
+<<<<<<< HEAD
+{{--        --}}
+=======
         <!-- <div class="sidebar  has-scrollbar" data-mobile-menu>
 
             <div class="sidebar-category">
@@ -1036,6 +1042,7 @@
             </div>
 
         </div> -->
+>>>>>>> 838dc469ea8db29580473a74f1f2957857b08567
 
 
 
@@ -1116,6 +1123,11 @@
 
                                 @elseif($prod->Previous_Price !== NULL)
                                     <del>${{$prod->Previous_Price}}</del>
+                                @endif
+                            </div>
+                            <div class="price-box">
+                                @if($prod->date_status === 'upcoming')
+                                    <p class="price">{{$prod->date_status}}</p>
                                 @endif
                             </div>
 

@@ -387,6 +387,7 @@
                                         <div class="d-flex align-items-center">
                                             <p class="fw-bold mb-0 me-5 pe-3" data-price-usd="{{ $show->price }}">${{$show->price}}</p>
 
+                                            @if($show->date_status === 'LIVE')
                                             <div class="def-number-input number-input safari_only">
                                                 <label>Quantity</label>
                                                 <div class="input-group">
@@ -394,7 +395,7 @@
                                                     <input type="hidden" name="stock" class="stockStatus" id="stock" value="{{$show->Stock}}">
                                                     <input type="hidden" name="stockstatus" id="stockStatus" value="{{$show->Stock_Status}}" readonly>
                                                 </div>
-                                                @if($show->category !== 'Electronic' && $show->category !== 'Health & Beauty' && $show->category !== 'Kids & Baby care')
+                                                @if($show->category !== 'Electronic' && $show->category !== 'Health & Beauty' && $show->category !== 'Kids & Baby care' && $show->category !== 'Sports & Outdoors' && $show->category !== 'Toys & Games' && $show->category !== 'Books & Media' && $show->category !== 'Automotive' && $show->category !== 'Jewelry' && $show->category !== 'Home & Furniture')
                                                 <label>Size</label>
                                                 <div class="input-group">
                                                     <select name="size" id="size" class="form-select form-select-lg quantity fw-bold text-black" style="border: black solid;">
@@ -407,6 +408,11 @@
                                                 @endif
 
                                             </div>
+                                            @else
+                                                <div class="def-number-input number-input safari_only">
+                                                    <label>Product Avilable at: <strong>{{$show->upcoming_date}}</strong></label>
+                                                </div>
+                                            @endif
 
                                         </div>
 
@@ -468,12 +474,14 @@
 {{--                                    <p class="mb-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit <a--}}
 {{--                                            href="#!">obcaecati sapiente</a>.</p>--}}
 
-                                @if($show->Stock_Status === 'Available')
+                                @if($show->Stock_Status === 'Available' && $show->date_status === 'LIVE')
                                     <button type="submit" name="action" value="add_to_cart" class="btn btn-primary btn-block btn-lg">Add to cart</button>
                                     <div id="stockStatusMessage" style="display: none; color: black; background-color: #FFAAAA; border: 1px solid #FF0000; padding: 10px; font-weight: bold; border-radius: 10px; text-align: center; line-height: 1.5;">Out of Stock</div>
                                     <button type="submit" name="action" value="buy_now" class="btn btn-primary btn-primary2 btn-block btn-lg" style="background-color: #FE9601 ">Buy Now</button>
-                                @elseif($show->Stock_Status !== 'Available')
+                                @elseif($show->Stock_Status !== 'Available' && $show->date_status === 'LIVE')
                                     <p style="color: black; background-color: #FFAAAA; border: 1px solid #FF0000; padding: 10px; font-weight: bold; border-radius: 10px; text-align: center; line-height: 1.5;">Out of Stock</p>
+                                    @elseif($show->date_status === 'upcoming')
+                                    <p style="color: black; background-color: #2FFE01; border: 1px solid #FF0000; padding: 10px; font-weight: bold; border-radius: 10px; text-align: center; line-height: 1.5;">Upcoming Products</p>
                                     @endif
 
 

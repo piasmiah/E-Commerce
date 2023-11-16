@@ -5,78 +5,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>E-Commerce Website</title>
 
     <!--
       - favicon
+
     -->
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <link rel="shortcut icon" href="{{asset('logo/favicon.ico')}}" type="image/x-icon">
 
     <!--
       - custom css link
     -->
     <link rel="stylesheet" href="{{asset('css/style-prefix.css')}}">
-    <!--
-      - google font link*
-    -->
+    <script src="//code.tidio.co/2l8awmiopxub2rsj7vuajrnkxy2xnqln.js" async></script>
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
 
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .line-long {
-            width: 100%;
-            border: 1px solid #ddd; /* Adjust the color as needed */
-            margin: 20px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .about-section {
-            margin-bottom: 40px;
-        }
-
-        .product-title {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .about-content {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        .about-item {
-            flex: 0 1 30%; /* Adjust the width as needed */
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .about-item img {
-            width: 100%;
-            height: 70%;
-        }
-
         .dropdown {
             position: relative;
             display: inline-block;
@@ -119,10 +74,14 @@
         .dropdown:hover ul {
             display: block;
         }
-
     </style>
+
 </head>
+
+
+
 <body>
+
 <header>
 
     <div class="header-top">
@@ -131,39 +90,39 @@
 
             <ul class="header-social-container">
 
-                {{--          <li>--}}
-                {{--            <a href="#" class="social-link">--}}
-                {{--              <ion-icon name="logo-facebook"></ion-icon>--}}
-                {{--            </a>--}}
-                {{--          </li>--}}
+                          <li>
+                            <a href="#" class="social-link">
+                              <ion-icon name="logo-facebook"></ion-icon>
+                            </a>
+                          </li>
 
-                {{--          <li>--}}
-                {{--            <a href="#" class="social-link">--}}
-                {{--              <ion-icon name="logo-twitter"></ion-icon>--}}
-                {{--            </a>--}}
-                {{--          </li>--}}
+                          <li>
+                            <a href="#" class="social-link">
+                              <ion-icon name="logo-twitter"></ion-icon>
+                            </a>
+                          </li>
 
-                {{--          <li>--}}
-                {{--            <a href="#" class="social-link">--}}
-                {{--              <ion-icon name="logo-instagram"></ion-icon>--}}
-                {{--            </a>--}}
-                {{--          </li>--}}
+                          <li>
+                            <a href="#" class="social-link">
+                              <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                          </li>
 
-                {{--          <li>--}}
-                {{--            <a href="#" class="social-link">--}}
-                {{--              <ion-icon name="logo-linkedin"></ion-icon>--}}
-                {{--            </a>--}}
-                {{--          </li>--}}
-                <li>
-                    <a href="{{route('delivaryregistration')}}" class="social-link">
-                        <p style="font-size: 10px;">Want to our Delivary Boy?</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('sellerregistration')}}" class="social-link">
-                        <p style="font-size: 10px;">Become a seller?</p>
-                    </a>
-                </li>
+                          <li>
+                            <a href="#" class="social-link">
+                              <ion-icon name="logo-linkedin"></ion-icon>
+                            </a>
+                          </li>
+{{--                <li>--}}
+{{--                    <a href="{{route('delivaryregistration')}}" class="social-link">--}}
+{{--                        <p style="font-size: 10px;">Want to our Delivary Boy?</p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li>--}}
+{{--                    <a href="{{route('sellerregistration')}}" class="social-link">--}}
+{{--                        <p style="font-size: 10px;">Become a seller?</p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
 
             </ul>
 
@@ -205,7 +164,7 @@
 
                 <form action="{{route('allproduct')}}" method="get">
                     @csrf
-                    <input type="search" name="search" class="search-field" value="" placeholder="Search your product...">
+                    <input type="search" name="search" class="search-field" value="" placeholder="Enter your product...">
 
                     <button class="search-btn" type="submit">
                         <ion-icon name="search-outline"></ion-icon>
@@ -215,16 +174,28 @@
             </div>
 
             <div class="header-user-actions">
-                {{--            <a href="{{route('login')}}" class="action-btn">--}}
-                {{--            <ion-icon name="person-outline"></ion-icon>--}}
-                {{--        </a>--}}
 
 
+                <div class="dropdown">
+                    <span style="font-size: 15px;" class="user-greeting" onclick="toggleDropdown()">Hello, {{ implode(' ', array_slice(explode(' ', $user->name), 0, 3)) }}</span>
+                    <ul>
+                        <li><a href="{{ route('purchase',['id'=>$user->id]) }}" style="font-size: 15px">Purchase History</a></li>
+                        <li><a href="/" style="font-size: 15px;">Logout</a></li>
+                    </ul>
+                </div>
 
-                <button class="action-btn">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="count">0</span>
-                </button>
+                @if($userfind)
+                    <a class="action-btn" href="{{ route('cart',['id' => $user->id]) }}">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="count">{{ $total }}</span>
+                    </a>
+                @else
+                    <a class="action-btn" href="#">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </a>
+                @endif
+
+
 
             </div>
 
@@ -240,16 +211,9 @@
             <ul class="desktop-menu-category-list">
 
                 <li class="menu-category">
-                    <a href="/" class="menu-title" >Home</a>
+                    <a href="{{route('dashboard',['id'=>$user->id])}}" class="menu-title">Home</a>
                 </li>
 
-                <li class="menu-category">
-                    <a href="{{route('login')}}" class="menu-title">Sign in</a>
-                </li>
-
-                <li class="menu-category">
-                    <a href="{{route('register')}}" class="menu-title">Sign up</a>
-                </li>
 
                 <li class="menu-category">
                     <a href="#" class="menu-title">Categories</a>
@@ -410,14 +374,14 @@
                 {{--          </li>--}}
 
                 <li class="menu-category">
-                    <a class="menu-title" href="{{route('aboutuser')}}" style="color: blue;">About Us</a>
+                    <a class="menu-title" href="{{route('aboutuser')}}">About Us</a>
                 </li>
 
                 <li class="menu-category">
-                    <a href="/" class="menu-title">Special Offers</a>
+                    <a href="{{route('dashboard',['id'=>$user->id])}}" class="menu-title">Special Offers</a>
                 </li>
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Contact Us</a>
+                    <a href="#" class="menu-title" style="color: blue;">Contact Us</a>
                 </li>
 
 
@@ -640,76 +604,49 @@
 
 </header>
 
-<main>
-    <div class="main-container">
+<div class="product-featured">
 
-        <hr class="line-long">
+    <h2 class="title">Contact with Us</h2>
 
-        <div class="section-title">
-            <h1>What's Important to Us</h1>
-        </div>
+    <div class="showcase-wrapper has-scrollbar">
 
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Quality and Genuine Products</h2>
-            </div>
+        <div class="showcase-container">
 
-            <div class="about-content">
-                <div class="about-item">
-                    <p>We believe in only the best, only genuine products will be displayed on our site.</p>
-                    <img src="{{asset('logo/ecommerce-product-images.jpg')}}" alt="Quality Product">
+            <div class="showcase">
+
+                <div class="showcase-banner">
+                    <img src="{{asset('logo/Ecommerce.jpg')}}" alt="shampoo, conditioner & facewash packs" class="showcase-img" width="30%" height="30%">
                 </div>
 
-                <div class="about-item">
-                    <p>Each product purchased from our site will be given a year Warranty.</p>
-                    <img src="{{asset('logo/french_fall_fashion_trends.jpg')}}" alt="Warranty">
-                </div>
+                <div class="showcase-content">
 
-                <div class="about-item">
-                    <p>Any pirated products shipped out by us will be fully refunded.</p>
-                    <img src="{{asset('logo/game-ps5-terbaik.jpg')}}" alt="Refund">
-                </div>
-            </div>
-        </section>
+                    <a href="#">
+                        <h3 class="showcase-title">Can't find the answer you are looking for?</h3>
+                    </a>
 
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Efficient Delivery</h2>
-            </div>
+                    <p class="showcase-desc">
+                        <strong>Ecommerce</strong>, your friendly automated chat assistant is here to assist you 24 hours a day!
 
-            <div class="about-content">
-                <div class="about-item">
-                    <p>We don't like it when something takes forever, why should you?</p>
-                    <p>We provide efficient and accurate delivery service.</p>
-                    <p>One-day delivery will be available soon, stay tuned!</p>
-                    <img src="{{asset('logo/download.jpeg')}}" alt="Delivery" style="align-items: center">
-                </div>
-            </div>
-        </section>
+                        Live Chat is available from Live Chat Service is available 24 Hours, 7 Days a Week
+                    </p>
 
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Excellent Customer Service</h2>
-            </div>
+                    <div class="price-box">
 
-            <div class="about-content">
-                <div class="about-item">
-                    <p>Your satisfaction is our top priority.</p>
-                    <p>24-hour hotline is available to assist you with your needs anytime.</p>
-                    <p>Our team consists of professionals to handle all your requests.</p>
-
-                    <div style="width: 100%; height: 100%">
-                        <img src="{{asset('logo/customer.jpg')}}" alt="Customer Service">
                     </div>
 
+                    <a class="add-cart-btn" href="https://mail.google.com/" style="text-align: center">Mail Us</a>
+
+
+
                 </div>
 
             </div>
 
-    </section>
+        </div>
 
     </div>
-</main>
+
+</div>
 
 <footer>
 
@@ -997,12 +934,41 @@
 
 </footer>
 
-<script src="{{asset('js/script.js')}}"></script>
 
+
+
+
+
+<!--
+  - custom js link
+-->
+<script>
+    function toggleDropdown() {
+        var dropdown = document.querySelector(".dropdown ul");
+        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+        if (!event.target.matches('.user-greeting')) {
+            var dropdowns = document.querySelectorAll(".dropdown ul");
+            dropdowns.forEach(function (dropdown) {
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                }
+            });
+        }
+    }
+</script>
+<script src="{{asset('js/script.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
 
 </body>
-
 
 </html>
