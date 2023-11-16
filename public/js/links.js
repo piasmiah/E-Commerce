@@ -67,3 +67,31 @@ discountLink.addEventListener('click', () => {
 });
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    const countDownDate = new Date("Nov 30, 2023 00:00:00").getTime();
+
+    // Update the countdown every second
+    const countdownFunction = setInterval(function() {
+        // Get the current date and time
+        const now = new Date().getTime();
+
+        // Calculate the time remaining between now and the countdown date
+        const distance = countDownDate - now;
+
+        // Calculate days, hours, minutes, and seconds
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the countdown result in the specified td element
+        const countdownElement = document.getElementById("{{$pro->upcoming_date}}");
+        countdownElement.innerHTML = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+        // If the countdown is finished, display a message
+        if (distance < 0) {
+            clearInterval(countdownFunction);
+            countdownElement.innerHTML = "Countdown expired";
+        }
+    }, 1000);
+});

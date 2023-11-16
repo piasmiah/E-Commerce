@@ -13,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
     <title>Purchase History</title>
     <style>
         a{
@@ -21,6 +21,49 @@
         }
         a:hover{
             text-decoration: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-greeting {
+            font-size: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            display: none; /* Add the "hidden" class to initially hide the dropdown menu */
+        }
+
+        .dropdown ul li {
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown ul li a {
+            text-decoration: none;
+            color: #000;
+            display: block;
+        }
+
+        .dropdown ul li:hover {
+            background-color: hsl(51 , 100% , 50%);; /* Add the hover effect color here */
+        }
+
+        .dropdown:hover ul {
+            display: block;
         }
     </style>
 </head>
@@ -113,13 +156,16 @@
                 {{--            <ion-icon name="person-outline"></ion-icon>--}}
                 {{--        </a>--}}
 
-                <button class="action-btn">
-                    <ion-icon name="heart-outline"></ion-icon>
-                    <span class="count">0</span>
-                </button>
+                <div class="dropdown">
+                    <span style="font-size: 15px;" class="user-greeting" onclick="toggleDropdown()">Hello, {{ implode(' ', array_slice(explode(' ', $id->name), 0, 3)) }}</span>
+                    <ul>
+                        <li><a href="{{ route('purchase',['id'=>$id->id]) }}" style="font-size: 15px">Purchase History</a></li>
+                        <li><a href="/" style="font-size: 15px;">Logout</a></li>
+                    </ul>
+                </div>
 
                 <a class="action-btn" href="{{ route('cart',['id' => $id->id]) }}">
-                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <i class="fa-solid fa-cart-shopping"></i>
                     <span class="count">{{$orders}}</span>
                 </a>
 
@@ -161,23 +207,13 @@
 
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Hot Offers</a>
+                    <a href="#" class="menu-title">Special Offers</a>
                 </li>
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title">{{ $id->name }}</a>
-                    <ul class="dropdown-list">
-
-                        <li class="dropdown-item">
-                            <a href="#">Purchase History</a>
-                        </li>
-
-                        <li class="dropdown-item">
-                            <a href="/">Logout</a>
-                        </li>
-
-                    </ul>
+                    <a href="#" class="menu-title">Contact Us</a>
                 </li>
+
 
 
 
@@ -411,6 +447,7 @@
             <th scope="col">Quantity</th>
             <th scope="col">Purchase Date</th>
             <th scope="col">Delivary Date</th>
+            <th scope="col">Order Status</th>
         </tr>
         </thead>
         <tbody>
@@ -425,6 +462,7 @@
             <td>{{$saw->Quantity}}</td>
             <td>{{$saw->created_at}}</td>
             <td>{{$saw->Date}}</td>
+            <td>{{$saw->order_status}}</td>
 
         </tr>
         @endforeach
@@ -770,6 +808,23 @@
     });
 
     updatePrice('usd');
+
+    function toggleDropdown() {
+        var dropdown = document.querySelector(".dropdown ul");
+        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+        if (!event.target.matches('.user-greeting')) {
+            var dropdowns = document.querySelectorAll(".dropdown ul");
+            dropdowns.forEach(function (dropdown) {
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                }
+            });
+        }
+    }
 </script>
 </body>
 </html>

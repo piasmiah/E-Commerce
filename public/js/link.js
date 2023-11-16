@@ -39,6 +39,7 @@ dashboardLink.addEventListener('click', () => {
     deliverSection.style.display = 'none';
     totalSection.style.display = 'none';
     analytics.style.display='none';
+    visitor.style.display='none';
 });
 
 myStoreLink.addEventListener('click', () => {
@@ -47,7 +48,7 @@ myStoreLink.addEventListener('click', () => {
     deliverSection.style.display = 'none';
     totalSection.style.display = 'none';
     analytics.style.display='none';
-    visitor.style.display='block';
+    visitor.style.display='none';
 });
 
 deliverLink.addEventListener('click', () => {
@@ -56,7 +57,7 @@ deliverLink.addEventListener('click', () => {
     deliverSection.style.display = 'block';
     totalSection.style.display = 'none';
     analytics.style.display='none';
-    visitor.style.display='block';
+    visitor.style.display='none';
 });
 
 totalsellsLink.addEventListener('click', () => {
@@ -65,7 +66,7 @@ totalsellsLink.addEventListener('click', () => {
     deliverSection.style.display = 'none';
     totalSection.style.display = 'block';
     analytics.style.display='none';
-    visitor.style.display='block';
+    visitor.style.display='none';
 });
 
 analyticsLink.addEventListener('click', () => {
@@ -74,7 +75,7 @@ analyticsLink.addEventListener('click', () => {
     deliverSection.style.display = 'none';
     totalSection.style.display = 'none';
     analytics.style.display='block';
-    visitor.style.display='block';
+    visitor.style.display='none';
 });
 
 visitorLink.addEventListener('click', () => {

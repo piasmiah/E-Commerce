@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DelivaryBoyInfo;
 use App\Models\PendingOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Delivaries;
+use function PHPUnit\Framework\isEmpty;
 
 class DelivaryBoy extends Controller
 {
@@ -73,7 +75,9 @@ class DelivaryBoy extends Controller
             ->whereYear('Date',$now->year)
             ->count();
 
-        return view('delivaryboy',['order'=>$order,'order2'=>$order2,'id'=>$user,'currentMonths'=>$currentMonths,'mydeliveries'=>$mydeliveries,'mydeliveries2'=>$mydeliveries2]);
+        $existuser = DelivaryBoyInfo::where('id',$id)->first();
+
+        return view('delivaryboy',['order'=>$order,'existuser'=>$existuser,'order2'=>$order2,'id'=>$user,'currentMonths'=>$currentMonths,'mydeliveries'=>$mydeliveries,'mydeliveries2'=>$mydeliveries2]);
     }
 
     public function updateDelivary($id, Request $request)
@@ -96,6 +100,7 @@ class DelivaryBoy extends Controller
         $address = $request->input('address');
         $password = $request->input('password');
         $confirm = $request->input('confirm-password');
+        $current = $request->input('current');
         $dob = $request->input('dob');
         $country = $request->input('country');
         $phone = $request->input('phone');
@@ -105,29 +110,81 @@ class DelivaryBoy extends Controller
         $instagram = $request->input('instagram');
         $link = $request->input('linkedin');
         $now = Carbon::now();
+        $code = $request->input('code');
 
+        $existuser = DelivaryBoyInfo::where('id',$ids)->first();
 
-            $isInsert = Delivaries::where('id',$ids)
-                ->update([
-                    'name'=>$name,
-                    'email'=>$email,
-                    'updated_at'=> $now,
-                    'address'=>$address
-                ]);
-            if ($password === $confirm)
-            {
-                $isPassword = Delivaries::where('id',$ids)
+        $isInsert = false;
+        $isPassword = false;
+        $isInfo = false;
+        $isInfoInsert = false;
+
+        if(!empty($password)){
+            if ($password === $confirm) {
+                $isInsert = Delivaries::where('id', $ids)
                     ->update([
-                        'password'=>$confirm
+                        'name' => $name,
+                        'email' => $email,
+                        'updated_at' => $now,
+                        'address' => $address,
+                        'password' => $password
                     ]);
             }
             else
                 return redirect()->back()->with('error','Password did not match');
+        }
 
-            if($isInsert || $isPassword){
-                return redirect()->route('delivaryboy',['id'=>$ids]);
+            else
+                $isInsert = Delivaries::where('id',$ids)
+                    ->update([
+                        'name'=>$name,
+                        'email'=>$email,
+                        'updated_at'=> $now,
+                        'address'=>$address,
+                        'password'=>$current
+                    ]);
+
+
+
+        if ($existuser)
+            {
+                $isInfo = DelivaryBoyInfo::where('id',$ids)
+                    ->update([
+                        'name'=>$name,
+                        'address'=>$address,
+                        'DOB'=>$dob,
+                        'country'=>$country,
+                        'code'=>$code,
+                        'phone'=>$phone,
+                        'second_phone'=>$secondary,
+                        'facebook'=>$facebook,
+                        'twitter'=>$twitter,
+                        'instagram'=>$instagram,
+                        'linkedIn'=>$link,
+                        'updated_at'=>$now
+                    ]);
+
             }
+            else
+                $isInfoInsert = DelivaryBoyInfo::insert([
+                    'id'=>$ids,
+                    'name'=>$name,
+                    'address'=>$address,
+                    'DOB'=>$dob,
+                    'country'=>$country,
+                    'code'=>$code,
+                    'phone'=>$phone,
+                    'second_phone'=>$secondary,
+                    'facebook'=>$facebook,
+                    'twitter'=>$twitter,
+                    'instagram'=>$instagram,
+                    'linkedIn'=>$link,
+                    'created_at'=>$now
+                ]);
 
+            if($isInsert || $isInfo || $isInfoInsert){
+                return redirect()->route('delivaryboy', ['id' => $ids]);
+            }
 
     }
 }

@@ -22,6 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -108,13 +109,15 @@
                 {{--            <ion-icon name="person-outline"></ion-icon>--}}
                 {{--        </a>--}}
 
-                <button class="action-btn">
-                    <ion-icon name="heart-outline"></ion-icon>
-                    <span class="count">0</span>
-                </button>
+{{--                <button class="action-btn">--}}
+{{--                   <p>{{$user->name}}</p>--}}
+{{--                </button>--}}
+                <p>Hello, {{ implode(' ', array_slice(explode(' ', $user->name), 0, 3)) }}</p>
+
+
 
                 <button class="action-btn">
-                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <i class="fa-solid fa-cart-shopping"></i>
                     <span class="count">0</span>
                 </button>
 
@@ -143,7 +146,7 @@
                 </li>
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Categories</a>
+                    <a href="#" class="menu-title" style="color: blue;">Categories</a>
                     <ul class="dropdown-list">
 
                         @foreach($categories as $cata)
@@ -426,17 +429,17 @@
 
             <div class="product-main">
 
-                <h2 class="title">New Products</h2>
+                <h2 class="title">{{$categories2->Category_Name}}</h2>
 
                 <div class="product-grid">
                     @foreach($products as $prod)
                         <div class="showcase">
 
                             <div class="showcase-banner">
-
+                                <a href="{{route('product',['ids'=>$user->id,'id'=>$prod->pro_id,'category'=>$prod->category])}}">
                                 <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
                                 <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
-
+                                </a>
 {{--                                                            <p class="showcase-badge">15%</p>--}}
 
                                 <div class="showcase-actions">
@@ -486,9 +489,16 @@
                                     @endif
                                 </div>
 
+                                <div class="price-box">
+                                    @if($prod->date_status === 'upcoming')
+                                        <p>{{$prod->date_status}}</p>
+                                    @endif
+                                </div>
+
                             </div>
 
                         </div>
+
                     @endforeach
                 </div>
 

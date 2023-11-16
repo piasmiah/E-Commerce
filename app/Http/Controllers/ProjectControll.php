@@ -106,21 +106,28 @@ class ProjectControll extends Controller
         $phone = $request->input('phone');
         $nid = $request->input('nid');
         $email = $request->input('email');
+        $userId = $request->input('userid');
         $password = $request->input('password');
         $confirm = $request->input('confirm-password');
 
         $existingUser = User::where('email', $email)->first();
+            $existingUser2 = User::where('username',$userId)->first();
+
         $hashedPassword = bcrypt($password);
 
         if ($password !== $confirm || $existingUser) {
             $messages = [];
 
             if ($password !== $confirm) {
-                $messages[] = 'Password did not match';
+                $messages[] = 'Password did not match!';
             }
 
             if ($existingUser) {
-                $messages[] = 'Email Already Exists';
+                $messages[] = 'Email Already Exists!';
+            }
+
+            if ($existingUser2) {
+                $messages[] = 'Username Already Exists!';
             }
 
             Session::flash('messages', $messages);
@@ -136,12 +143,13 @@ class ProjectControll extends Controller
                     'Phone' => $phone,
                     'NID' => $nid,
                     'email' => $email,
+                    'username'=>$userId,
                     'password' => $hashedPassword
                 ]);
 
                 if ($data) {
                     $user = DB::table('users')
-                        ->where('email', $request->input('email'))
+                        ->where('username', $request->input('userid'))
                         ->first();
                     if ($user && Hash::check($request->input('password'), $user->password)) {
                         event(new Registered($user));
@@ -166,14 +174,14 @@ class ProjectControll extends Controller
         $password = $request->input('password');
 
         $user = DB::table('users')
-            ->where('email',$email)
+            ->where('username',$email)
             ->first();
 
         $user2 = DB::table('delivary')
             ->where('email',$email)
             ->first();
 //        event(new Registered($user));
-        if($user && Hash::check($password, $user->password))
+        if($user && Hash::check($password, $user->password) && $user->email)
         {
             return redirect()->route('dashboard', ['id' => $user->id]);
         }
@@ -217,6 +225,12 @@ class ProjectControll extends Controller
             ->inRandomOrder()
             ->get();
 
+        $upcoming = Product::where('date_status','upcoming')
+            ->latest()->inRandomOrder()->limit(4)->get();
+
+        $upcoming2 = Product::where('date_status','upcoming')
+            ->inRandomOrder()->limit(4)->get();
+
         $averageRatings = [];
 
         foreach ($product4 as $prod) {
@@ -231,6 +245,28 @@ class ProjectControll extends Controller
 
 //        $averageRating = $product4->avg('rating');
         $category = Categories::get();
+
+        $trending_products = DB::table('product')
+            ->where('Quantity_Sold', '>', 2)  // Order by sales count in descending order
+            ->limit(5) // Get the top 5 trending products
+            ->get();
+
+        $dealoftheDay = DB::table('product')
+            ->where('date_status','!=','upcoming')
+            ->inRandomOrder() // Get the top 5 trending products
+            ->first();
+        $dealoftheDay2 = DB::table('product')
+            ->where('date_status','!=','upcoming')
+            ->inRandomOrder() // Get the top 5 trending products
+            ->first();
+
+        $special_offers = DB::table('product')
+            ->join('discount_offer', 'discount_offer.Name', '=', 'product.category')
+            ->where('date_status', '=', 'LIVE')
+            ->inRandomOrder()->limit(4)
+            ->select('product.*', 'discount_offer.*')
+            ->get();
+
         $product3 = DB::table('orderstatus')
             ->join('product', 'orderstatus.product_id', '=', 'product.pro_id')
             ->where('orderstatus.order_status', 'Delivered')
@@ -244,9 +280,10 @@ class ProjectControll extends Controller
             ->whereIn('order_status', ['Pending', 'Shipping'])
             ->count();
 
+        $userfind = PendingOrder::where('customer_id',$user->id)->first();
 
         if ($user) {
-            return view('dashboard', compact('user','averageRatings','product','category','product4','product2','product3','total','subscribe'));
+            return view('dashboard', compact('user','trending_products','dealoftheDay','dealoftheDay2','special_offers','upcoming','upcoming2','userfind','averageRatings','product','category','product4','product2','product3','total','subscribe'));
         } else {
 
         }
@@ -254,13 +291,46 @@ class ProjectControll extends Controller
 
     public function showUs($id){
         $user = User::find($id);
-        return view('aboutus',compact('user'));
+        $category = Categories::get();
+        $userfind = PendingOrder::where('customer_id',$user->id)->first();
+        return view('aboutus',compact('user','category','userfind'));
+    }
+
+    public function userPrfile($id){
+        $user = User::find($id);
+        $category = Categories::get();
+        $total = DB::table('orderstatus')
+            ->where('customer_id',$user->id)
+            ->whereIn('order_status', ['Pending', 'Shipping'])
+            ->count();
+        return view('userprofile',compact('user','category','total'));
     }
 
     public function product(Request $request){
         $product = Product::latest()->inRandomOrder()->limit(4)->get();
         $product2 = Product::inRandomOrder()->limit(4)->get();
         $product4 = Product::latest()->inRandomOrder()->get();
+
+
+
+        $upcoming = Product::where('date_status','upcoming')
+            ->latest()->inRandomOrder()->limit(4)->get();
+
+        $upcoming2 = Product::where('date_status','upcoming')
+            ->inRandomOrder()->limit(4)->get();
+
+        $dealoftheDay = DB::table('product')
+            ->where('date_status','!=','upcoming')
+            ->inRandomOrder() // Get the top 5 trending products
+            ->first();
+        $dealoftheDay2 = DB::table('product')
+            ->where('date_status','!=','upcoming')
+            ->orderBy('pro_name','asc')
+            ->inRandomOrder() // Get the top 5 trending products
+            ->first();
+
+
+        $product5 = Product::inRandomOrder()->limit(2)->get();
         $category = Categories::get();
         $averageRatings = [];
 
@@ -274,6 +344,33 @@ class ProjectControll extends Controller
             }
         }
         $category2 = Categories::first();
+
+        $trending_products = DB::table('product')
+             // Considering only live products
+            ->where('Quantity_Sold', '>', 2)  // Order by sales count in descending order
+            ->limit(5) // Get the top 5 trending products
+            ->get();
+
+        $trending_products2 = DB::table('product')
+            // Considering only live products
+            ->orderBy('pro_name','asc')
+            ->where('Quantity_Sold', '>', 2)  // Order by sales count in descending order
+            ->limit(5) // Get the top 5 trending products
+            ->get();
+        $special_offers = DB::table('product')
+            ->join('discount_offer', 'discount_offer.Name', '=', 'product.category')
+
+            ->inRandomOrder()->limit(4)
+            ->select('product.*', 'discount_offer.*')
+            ->get();
+
+        $special_offers2 = DB::table('product')
+            ->join('discount_offer', 'discount_offer.Name', '=', 'product.category')
+            ->orderBy('pro_name','asc')
+            ->inRandomOrder()->limit(4)
+            ->select('product.*', 'discount_offer.*')
+            ->get();
+
         $product3 = DB::table('orderstatus')
             ->join('product', 'orderstatus.product_id', '=', 'product.pro_id')
             ->where('orderstatus.order_status', 'Delivered')
@@ -281,8 +378,11 @@ class ProjectControll extends Controller
             ->select('product.pro_pic', 'product.pro_des', 'orderstatus.*')
             ->first();
 
-        return view('welcome', compact('product','averageRatings','category2','product2','product3','product4','category'));
+        return view('welcome', compact('product','dealoftheDay','dealoftheDay2','trending_products','trending_products2','special_offers','special_offers2','upcoming','upcoming2','averageRatings','category2','product2','product3','product4','category'));
+
     }
+
+
 
     public function purchase($id,Request $request)
     {
@@ -291,7 +391,7 @@ class ProjectControll extends Controller
         $see = DB::table('orderstatus')
             ->join('product', 'orderstatus.product_id', '=', 'product.pro_id')
             ->where('orderstatus.customer_id', $id->id)
-            ->whereIn('orderstatus.order_status', ['Delivered', 'Shipping','Pending'])
+            ->whereIn('orderstatus.order_status', ['Delivered', 'Shipping','Pending','On the Way'])
             ->select('orderstatus.*', 'product.pro_pic', 'product.pro_name', 'product.Price')
             ->orderBy('orderstatus.created_at', 'desc')
             ->paginate(5);
@@ -411,17 +511,21 @@ class ProjectControll extends Controller
                 $discountamount = $discountrate / 100;
                 $category = $request->input('category');
 
-                $products = Product::where('category', $category)->get();
+                $products = Product::where('category', $category)
+                    ->where('date_status','LIVE')
+                    ->get();
 
                 foreach ($products as $product) {
 
-                    $originalPrice = $product->price;
-                    $discountedPrice = $originalPrice - ($originalPrice * $discountamount);
+                    if ($product->date_status === 'LIVE') {
+                        $originalPrice = $product->price;
+                        $discountedPrice = $originalPrice - ($originalPrice * $discountamount);
 
 
-                    $product->Previous_Price = $originalPrice;
-                    $product->price = $discountedPrice;
-                    $product->save();
+                        $product->Previous_Price = $originalPrice;
+                        $product->price = $discountedPrice;
+                        $product->save();
+                    }
                 }
 
 
@@ -460,9 +564,9 @@ class ProjectControll extends Controller
         $products = Product::where('pro_des', 'like', '%' . $search . '%')
             ->get();
 
-
+        $category = Categories::all();
         if($products){
-            return view('allproduct', ['products' => $products]);
+            return view('allproduct', ['products' => $products,'category'=>$category]);
 
         }
 
@@ -481,6 +585,56 @@ class ProjectControll extends Controller
             return view('allproduct2', ['products' => $products,'id'=>$user2,'categories'=>$categories]);
 
 
+    }
+
+    public function loginshow()
+    {
+        $category = Categories::get();
+
+        return view('login',['category'=>$category]);
+    }
+
+    public function registrationshow()
+    {
+        $category = Categories::get();
+
+        return view('registration',['category'=>$category]);
+    }
+
+    public function delivaryregistration()
+    {
+        $category = Categories::get();
+
+        return view('delivaryregistration',['category'=>$category]);
+    }
+
+    public function showAbout(){
+        $category = Categories::get();
+
+        return view('aboutuser',['category'=>$category]);
+    }
+
+    public function showuseAbout($id)
+    {
+        $category = Categories::get();
+
+
+        return view('aboutuser',['category'=>$category]);
+    }
+
+    public function showContact(){
+        $category = Categories::get();
+
+        return view('contactus',['category'=>$category]);
+    }
+
+    public function showContact2($id){
+
+        $user = User::find($id);
+        $category = Categories::get();
+        $userfind = PendingOrder::where('customer_id',$user->id)->first();
+
+        return view('contact',['category'=>$category,'user'=>$user,'userfind'=>$userfind]);
     }
 
 //    public function testshoe($id){

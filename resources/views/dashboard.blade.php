@@ -26,7 +26,52 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
 
+<style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .user-greeting {
+        font-size: 18px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .dropdown ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #fff;
+        box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        display: none; /* Add the "hidden" class to initially hide the dropdown menu */
+    }
+
+    .dropdown ul li {
+        padding: 10px 15px;
+        transition: background-color 0.3s;
+    }
+
+    .dropdown ul li a {
+        text-decoration: none;
+        color: #000;
+        display: block;
+    }
+
+    .dropdown ul li:hover {
+        background-color: hsl(51 , 100% , 50%);; /* Add the hover effect color here */
+    }
+
+    .dropdown:hover ul {
+        display: block;
+    }
+</style>
 </head>
 
 <body>
@@ -35,25 +80,7 @@
 
 @if ($subscribe->contains('Subscriber', $user->email))
     <!-- Subscriber Welcome Modal -->
-{{--    <div class="modal" data-modal>--}}
-{{--        <div class="modal-close-overlay" data-modal-overlay></div>--}}
-{{--        <div class="modal-content">--}}
-{{--            <button class="modal-close-btn" data-modal-close>--}}
-{{--                <ion-icon name="close-outline"></ion-icon>--}}
-{{--            </button>--}}
-{{--            <div class="newsletter-img">--}}
-{{--                <img src="{{asset('logo/cam-morin-knKm7u_7Ihw-unsplash.jpg')}}" alt="subscribe newsletter" width="400" height="400">--}}
-{{--            </div>--}}
-{{--            <div class="newsletter">--}}
-{{--                <div class="newsletter-header">--}}
-{{--                    <h3 class="newsletter-title">Subscribe Newsletter.</h3>--}}
-{{--                    <p class="newsletter-desc">--}}
-{{--                        Welcome <b>{{$user->name}}</b> to our <b>Ecommerce</b>.--}}
-{{--                    </p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+
 @else
     <!-- Non-Subscriber Modal -->
     <div class="modal" data-modal>
@@ -164,12 +191,7 @@
 
             </ul>
 
-            <div class="header-alert-news">
-                <p>
-                    <b>Free Shipping</b>
-                    This Week Order Over - $55
-                </p>
-            </div>
+
 
             <div class="header-top-actions">
 
@@ -206,7 +228,7 @@
             <div class="header-search-container">
                 <form action="{{route('allproduct2',['id'=>$user->id])}}" method="get">
                     @csrf
-                <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
+                <input type="search" name="search" class="search-field" placeholder="Enter your product...">
 
                 <button class="search-btn" type="submit">
                     <ion-icon name="search-outline"></ion-icon>
@@ -216,19 +238,27 @@
 
             <div class="header-user-actions">
 
-                <!-- <a href="{{route('login')}}" class="action-btn">
-            <ion-icon name="person-outline"></ion-icon>
-        </a> -->
 
-                <button class="action-btn">
-                    <ion-icon name="heart-outline"></ion-icon>
-                    <span class="count">0</span>
-                </button>
+                <div class="dropdown">
+                    <span style="font-size: 15px;" class="user-greeting" onclick="toggleDropdown()">Hello, {{ implode(' ', array_slice(explode(' ', $user->name), 0, 3)) }}</span>
+                    <ul>
+                        <li><a href="{{ route('purchase',['id'=>$user->id]) }}" style="font-size: 15px">Purchase History</a></li>
+                        <li><a href="/" style="font-size: 15px;">Logout</a></li>
+                    </ul>
+                </div>
 
-                <a class="action-btn" href="{{ route('cart',['id' => $user->id]) }}">
-                    <ion-icon name="bag-handle-outline"></ion-icon>
-                    <span class="count">{{ $total }}</span>
-                </a>
+                @if($userfind)
+                    <a class="action-btn" href="{{ route('cart',['id' => $user->id]) }}">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="count">{{ $total }}</span>
+                    </a>
+                @else
+                    <a class="action-btn" href="#">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </a>
+                @endif
+
+
 
             </div>
 
@@ -243,7 +273,7 @@
             <ul class="desktop-menu-category-list">
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Home</a>
+                    <a href="#" class="menu-title" style="color: blue;">Home</a>
 
                 <li class="menu-category">
                     <a href="{{route('aboutus',['id'=>$user->id])}}" class="menu-title">About Us</a>
@@ -262,171 +292,10 @@
                 </li>
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Hot Offers</a>
+                    <a href="#" class="menu-title">Special Offers</a>
                 </li>
-
-
-{{--                <li class="menu-category">--}}
-{{--                    <a href="#" class="menu-title">Categories</a>--}}
-
-{{--                    <div class="dropdown-panel">--}}
-
-{{--                        <ul class="dropdown-panel-list">--}}
-
-{{--                            <li class="menu-title">--}}
-{{--                                <a href="#">Kids</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Shirt</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">T-Shirt</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Shoes</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Diaper</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Toy</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">--}}
-{{--                                    <img src="{{asset('logo/electronics-banner-1.jpg')}}" alt="headphone collection" width="250"--}}
-{{--                                         height="119">--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-
-{{--                        </ul>--}}
-
-{{--                        <ul class="dropdown-panel-list">--}}
-
-{{--                            <li class="menu-title">--}}
-{{--                                <a href="#">Men's</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Formal</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Casual</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Sports</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Jacket</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Sunglasses</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">--}}
-{{--                                    <img src="{{asset('logo/mens-banner.jpg')}}" alt="men's fashion" width="250" height="119">--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-
-{{--                        </ul>--}}
-
-{{--                        <ul class="dropdown-panel-list">--}}
-
-{{--                            <li class="menu-title">--}}
-{{--                                <a href="#">Women's</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Formal</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Casual</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Perfume</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Cosmetics</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Bags</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">--}}
-{{--                                    <img src="{{asset('logo/womens-banner.jpg')}}" alt="women's fashion" width="250" height="119">--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-
-{{--                        </ul>--}}
-
-{{--                        <ul class="dropdown-panel-list">--}}
-
-{{--                            <li class="menu-title">--}}
-{{--                                <a href="#">Electronics</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Smart Watch</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Smart TV</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Keyboard</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Mouse</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">Microphone</a>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="panel-list-item">--}}
-{{--                                <a href="#">--}}
-{{--                                    <img src="{{asset('logo/electronics-banner-2.jpg')}}" alt="mouse collection" width="250" height="119">--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-
-{{--                        </ul>--}}
-
-{{--                    </div>--}}
-{{--                </li>--}}
-
-
-
                 <li class="menu-category">
-                    <a href="#" class="menu-title">{{ $user->name }}</a>
-                    <ul class="dropdown-list">
-
-                        <li class="dropdown-item">
-                            <a href="{{ route('purchase',['id'=>$user->id]) }}">Purchase History</a>
-                        </li>
-
-                        <li class="dropdown-item">
-
-                            <a href="/">Logout</a>
-                        </li>
-
-                    </ul>
+                    <a href="{{route('contactus2',['id'=>$user->id])}}" class="menu-title">Contact Us</a>
                 </li>
 
             </ul>
@@ -680,77 +549,77 @@
       - BANNER
     -->
 
-    <div class="banner">
+{{--    <div class="banner">--}}
 
-        <div class="container">
+{{--        <div class="container">--}}
 
-            <div class="slider-container has-scrollbar">
+{{--            <div class="slider-container has-scrollbar">--}}
 
-                <div class="slider-item">
+{{--                <div class="slider-item">--}}
 
-                    <img src="{{asset('logo/banner-1.jpg')}}" alt="women's latest fashion sale" class="banner-img">
+{{--                    <img src="{{asset('logo/banner-1.jpg')}}" alt="women's latest fashion sale" class="banner-img">--}}
 
-                    <div class="banner-content">
+{{--                    <div class="banner-content">--}}
 
-                        <p class="banner-subtitle">Trending item</p>
+{{--                        <p class="banner-subtitle">Trending item</p>--}}
 
-                        <h2 class="banner-title">Women's latest fashion sale</h2>
+{{--                        <h2 class="banner-title">Women's latest fashion sale</h2>--}}
 
-                        <p class="banner-text">
-                            starting at &dollar; <b>20</b>.00
-                        </p>
+{{--                        <p class="banner-text">--}}
+{{--                            starting at &dollar; <b>20</b>.00--}}
+{{--                        </p>--}}
 
-                        <a href="#" class="banner-btn">Shop now</a>
+{{--                        <a href="#" class="banner-btn">Shop now</a>--}}
 
-                    </div>
+{{--                    </div>--}}
 
-                </div>
+{{--                </div>--}}
 
-                <div class="slider-item">
+{{--                <div class="slider-item">--}}
 
-                    <img src="{{asset('logo/banner-2.jpg')}}" alt="modern sunglasses" class="banner-img">
+{{--                    <img src="{{asset('logo/banner-2.jpg')}}" alt="modern sunglasses" class="banner-img">--}}
 
-                    <div class="banner-content">
+{{--                    <div class="banner-content">--}}
 
-                        <p class="banner-subtitle">Trending accessories</p>
+{{--                        <p class="banner-subtitle">Trending accessories</p>--}}
 
-                        <h2 class="banner-title">Modern sunglasses</h2>
+{{--                        <h2 class="banner-title">Modern sunglasses</h2>--}}
 
-                        <p class="banner-text">
-                            starting at &dollar; <b>15</b>.00
-                        </p>
+{{--                        <p class="banner-text">--}}
+{{--                            starting at &dollar; <b>15</b>.00--}}
+{{--                        </p>--}}
 
-                        <a href="#" class="banner-btn">Shop now</a>
+{{--                        <a href="#" class="banner-btn">Shop now</a>--}}
 
-                    </div>
+{{--                    </div>--}}
 
-                </div>
+{{--                </div>--}}
 
-                <div class="slider-item">
+{{--                <div class="slider-item">--}}
 
-                    <img src="{{asset('logo/banner-3.jpg')}}" alt="new fashion summer sale" class="banner-img">
+{{--                    <img src="{{asset('logo/banner-3.jpg')}}" alt="new fashion summer sale" class="banner-img">--}}
 
-                    <div class="banner-content">
+{{--                    <div class="banner-content">--}}
 
-                        <p class="banner-subtitle">Sale Offer</p>
+{{--                        <p class="banner-subtitle">Sale Offer</p>--}}
 
-                        <h2 class="banner-title">New fashion summer sale</h2>
+{{--                        <h2 class="banner-title">New fashion summer sale</h2>--}}
 
-                        <p class="banner-text">
-                            starting at &dollar; <b>29</b>.99
-                        </p>
+{{--                        <p class="banner-text">--}}
+{{--                            starting at &dollar; <b>29</b>.99--}}
+{{--                        </p>--}}
 
-                        <a href="#" class="banner-btn">Shop now</a>
+{{--                        <a href="#" class="banner-btn">Shop now</a>--}}
 
-                    </div>
+{{--                    </div>--}}
 
-                </div>
+{{--                </div>--}}
 
-            </div>
+{{--            </div>--}}
 
-        </div>
+{{--        </div>--}}
 
-    </div>
+{{--    </div>--}}
 
 
 
@@ -1454,16 +1323,16 @@
 
                     <div class="product-showcase">
 
-                        <h2 class="title">New Arrivals</h2>
+                        <h2 class="title">Special Offers</h2>
 
                         <div class="showcase-wrapper has-scrollbar">
 
                             <div class="showcase-container">
                                 <input type="hidden" name="user_id" value="{{ $user->id }}">
-                                @foreach($product as $pro)
-                                    <div class="showcase">
+                                @foreach($special_offers as $pro)
 
-                                        <a href="#" class="showcase-img-box">
+                                    <div class="showcase">
+                                        <a href="{{ route('product', ['id' => $pro->pro_id,'ids'=>$user->id,'category'=>$pro->category]) }}" class="showcase-img-box">
                                             <img src="{{asset('storage/' .$pro->pro_pic)}}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
                                         </a>
 
@@ -1473,7 +1342,7 @@
                                                 <h4 class="showcase-title">{{$pro->pro_des}}</h4>
                                             </a>
 
-                                            <a href="#" class="showcase-category">{{$pro->category}}</a>
+                                            <a href="{{ route('product', ['id' => $pro->pro_id,'ids'=>$user->id,'category'=>$pro->category]) }}" class="showcase-category">{{$pro->category}}</a>
 
                                             <div class="price-box">
                                                 <p class="price" data-price-usd="{{$pro->price}}">${{$pro->price}}</p>
@@ -1494,7 +1363,7 @@
 
                             <div class="showcase-container">
                                 <input type="hidden" name="user_id" value="{{ $user->id }}">
-                                @foreach($product2 as $pro)
+                                @foreach($special_offers as $pro)
                                 <div class="showcase">
 
                                     <a href="#" class="showcase-img-box">
@@ -1531,205 +1400,81 @@
 
                     <div class="product-showcase">
 
-                        <h2 class="title">Trending</h2>
+                        <h2 class="title">Upcoming Products</h2>
 
                         <div class="showcase-wrapper  has-scrollbar">
 
                             <div class="showcase-container">
 
-                                <div class="showcase">
+                                <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                @foreach($upcoming as $pro)
+                                    <div class="showcase">
 
-                                    <a href="#" class="showcase-img-box">
-                                        <img src="{{asset('logo/all/sports-1.jpg')}}" alt="running & trekking shoes - white" class="showcase-img"
-                                             width="70">
-                                    </a>
-
-                                    <div class="showcase-content">
-
-                                        <a href="#">
-                                            <h4 class="showcase-title">Running & Trekking Shoes - White</h4>
+                                        <a href="#" class="showcase-img-box">
+                                            <img src="{{asset('storage/' .$pro->pro_pic)}}" alt="men yarn fleece full-zip jacket" class="showcase-img"
+                                                 width="70">
                                         </a>
 
-                                        <a href="#" class="showcase-category">Sports</a>
+                                        <div class="showcase-content">
+                                            <input type="hidden" name="id" value="{{$pro->pro_id}}">
+                                            <a href="{{ route('product', ['id' => $pro->pro_id,'ids'=>$user->id,'category'=>$pro->category]) }}">
+                                                <h4 class="showcase-title">{{$pro->pro_des}}</h4>
+                                            </a>
 
-                                        <div class="price-box">
-                                            <p class="price">$49.00</p>
-                                            <del>$15.00</del>
+                                            <a href="#" class="showcase-category">{{$pro->category}}</a>
+
+                                            <div class="price-box">
+                                                <p class="price" data-price-usd="{{$pro->price}}">${{$pro->price}}</p>
+                                                @if($pro->Previous_Price === NULL)
+
+                                                @elseif($pro->Previous_Price !== NULL)
+                                                    <del data-previous-price-usd="{{$pro->Previous_Price}}">${{$pro->Previous_Price}}</del>
+                                                @endif
+
+                                                <p>{{$pro->upcoming_date}}</p>
+                                            </div>
+
                                         </div>
 
                                     </div>
-
-                                </div>
-
-                                <div class="showcase">
-
-                                    <a href="#" class="showcase-img-box">
-                                        <img src="{{asset('logo/all/sports-2.jpg')}}" alt="trekking & running shoes - black" class="showcase-img"
-                                             width="70">
-                                    </a>
-
-                                    <div class="showcase-content">
-
-                                        <a href="#">
-                                            <h4 class="showcase-title">Trekking & Running Shoes - black</h4>
-                                        </a>
-
-                                        <a href="#" class="showcase-category">Sports</a>
-
-                                        <div class="price-box">
-                                            <p class="price">$78.00</p>
-                                            <del>$36.00</del>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="showcase">
-
-                                    <a href="#" class="showcase-img-box">
-                                        <img src="{{asset('logo/all/party-wear-1.jpg')}}" alt="womens party wear shoes" class="showcase-img"
-                                             width="70">
-                                    </a>
-
-                                    <div class="showcase-content">
-
-                                        <a href="#">
-                                            <h4 class="showcase-title">Womens Party Wear Shoes</h4>
-                                        </a>
-
-                                        <a href="#" class="showcase-category">Party wear</a>
-
-                                        <div class="price-box">
-                                            <p class="price">$94.00</p>
-                                            <del>$42.00</del>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="showcase">
-
-                                    <a href="#" class="showcase-img-box">
-                                        <img src="{{asset('logo/all/sports-3.jpg')}}" alt="sports claw women's shoes" class="showcase-img"
-                                             width="70">
-                                    </a>
-
-                                    <div class="showcase-content">
-
-                                        <a href="#">
-                                            <h4 class="showcase-title">Sports Claw Women's Shoes</h4>
-                                        </a>
-
-                                        <a href="#" class="showcase-category">Sports</a>
-
-                                        <div class="price-box">
-                                            <p class="price">$54.00</p>
-                                            <del>$65.00</del>
-                                        </div>
-
-                                    </div>
-
-                                </div>
+                                @endforeach
 
                             </div>
 
                             <div class="showcase-container">
 
-                                <div class="showcase">
+                                <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                @foreach($upcoming2 as $pro)
+                                    <div class="showcase">
 
-                                    <a href="#" class="showcase-img-box">
-                                        <img src="{{asset('logo/all/sports-6.jpg')}}" alt="air tekking shoes - white" class="showcase-img"
-                                             width="70">
-                                    </a>
-
-                                    <div class="showcase-content">
-
-                                        <a href="#">
-                                            <h4 class="showcase-title">Air Trekking Shoes - white</h4>
+                                        <a href="#" class="showcase-img-box">
+                                            <img src="{{asset('storage/' .$pro->pro_pic)}}" alt="men yarn fleece full-zip jacket" class="showcase-img"
+                                                 width="70">
                                         </a>
 
-                                        <a href="#" class="showcase-category">Sports</a>
+                                        <div class="showcase-content">
+                                            <input type="hidden" name="id" value="{{$pro->pro_id}}">
+                                            <a href="{{ route('product', ['id' => $pro->pro_id,'ids'=>$user->id,'category'=>$pro->category]) }}">
+                                                <h4 class="showcase-title">{{$pro->pro_des}}</h4>
+                                            </a>
 
-                                        <div class="price-box">
-                                            <p class="price">$52.00</p>
-                                            <del>$55.00</del>
+                                            <a href="#" class="showcase-category">{{$pro->category}}</a>
+
+                                            <div class="price-box">
+                                                <p class="price" data-price-usd="{{$pro->price}}">${{$pro->price}}</p>
+                                                @if($pro->Previous_Price === NULL)
+
+                                                @elseif($pro->Previous_Price !== NULL)
+                                                    <del data-previous-price-usd="{{$pro->Previous_Price}}">${{$pro->Previous_Price}}</del>
+                                                @endif
+
+                                                <p>{{$pro->upcoming_date}}</p>
+                                            </div>
+
                                         </div>
 
                                     </div>
-
-                                </div>
-
-                                <div class="showcase">
-
-                                    <a href="#" class="showcase-img-box">
-                                        <img src="{{asset('logo/all/shoe-3.jpg')}}" alt="Boot With Suede Detail" class="showcase-img" width="70">
-                                    </a>
-
-                                    <div class="showcase-content">
-
-                                        <a href="#">
-                                            <h4 class="showcase-title">Boot With Suede Detail</h4>
-                                        </a>
-
-                                        <a href="#" class="showcase-category">boots</a>
-
-                                        <div class="price-box">
-                                            <p class="price">$20.00</p>
-                                            <del>$30.00</del>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="showcase">
-
-                                    <a href="#" class="showcase-img-box">
-                                        <img src="{{asset('logo/all/shoe-1.jpg')}}" alt="men's leather formal wear shoes" class="showcase-img"
-                                             width="70">
-                                    </a>
-
-                                    <div class="showcase-content">
-
-                                        <a href="#">
-                                            <h4 class="showcase-title">Men's Leather Formal Wear shoes</h4>
-                                        </a>
-
-                                        <a href="#" class="showcase-category">formal</a>
-
-                                        <div class="price-box">
-                                            <p class="price">$56.00</p>
-                                            <del>$78.00</del>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="showcase">
-
-                                    <a href="#" class="showcase-img-box">
-                                        <img src="{{asset('logo/all/shoe-2.jpg')}}" alt="casual men's brown shoes" class="showcase-img" width="70">
-                                    </a>
-
-                                    <div class="showcase-content">
-
-                                        <a href="#">
-                                            <h4 class="showcase-title">Casual Men's Brown shoes</h4>
-                                        </a>
-
-                                        <a href="#" class="showcase-category">Casual</a>
-
-                                        <div class="price-box">
-                                            <p class="price">$50.00</p>
-                                            <del>$55.00</del>
-                                        </div>
-
-                                    </div>
-
-                                </div>
+                                @endforeach
 
                             </div>
 
@@ -1739,107 +1484,42 @@
 
                     <div class="product-showcase">
 
-                        <h2 class="title">Top Rated</h2>
+                        <h2 class="title">Trending</h2>
 
                         <div class="showcase-wrapper  has-scrollbar">
 
                             <div class="showcase-container">
 
-                                <div class="showcase">
+                                @foreach($trending_products as $pro)
+                                    <div class="showcase">
 
-                                    <a href="#" class="showcase-img-box">
-                                        <img src="{{asset('logo/all/watch-3.jpg')}}" alt="pocket watch leather pouch" class="showcase-img"
-                                             width="70">
-                                    </a>
-
-                                    <div class="showcase-content">
-
-                                        <a href="#">
-                                            <h4 class="showcase-title">Pocket Watch Leather Pouch</h4>
+                                        <a href="#" class="showcase-img-box">
+                                            <img src="{{asset('storage/' .$pro->pro_pic)}}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
                                         </a>
 
-                                        <a href="#" class="showcase-category">Watches</a>
+                                        <div class="showcase-content">
 
-                                        <div class="price-box">
-                                            <p class="price">$50.00</p>
-                                            <del>$34.00</del>
+                                            <a href="{{ route('product', ['id' => $pro->pro_id,'ids'=>$user->id,'category'=>$pro->category]) }}">
+                                                <h4 class="showcase-title">{{$pro->pro_des}}</h4>
+                                            </a>
+
+                                            <a href="{{ route('product', ['id' => $pro->pro_id,'ids'=>$user->id,'category'=>$pro->category]) }}" class="showcase-category">{{$pro->category}}</a>
+
+                                            <div class="price-box">
+                                                <p class="price" data-price-usd="{{$pro->price}}">${{$pro->price}}</p>
+                                                @if($pro->Previous_Price === NULL)
+
+                                                @elseif($pro->Previous_Price !== NULL)
+                                                    <del data-previous-price-usd="{{$pro->Previous_Price}}">${{$pro->Previous_Price}}</del>
+                                                @endif
+                                            </div>
+
                                         </div>
 
                                     </div>
+                                @endforeach
 
-                                </div>
 
-                                <div class="showcase">
-
-                                    <a href="#" class="showcase-img-box">
-                                        <img src="{{asset('logo/all/jewellery-3.jpg')}}" alt="silver deer heart necklace" class="showcase-img"
-                                             width="70">
-                                    </a>
-
-                                    <div class="showcase-content">
-
-                                        <a href="#">
-                                            <h4 class="showcase-title">Silver Deer Heart Necklace</h4>
-                                        </a>
-
-                                        <a href="#" class="showcase-category">Jewellery</a>
-
-                                        <div class="price-box">
-                                            <p class="price">$84.00</p>
-                                            <del>$30.00</del>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="showcase">
-
-                                    <a href="#" class="showcase-img-box">
-                                        <img src="{{asset('logo/all/perfume.jpg')}}" alt="titan 100 ml womens perfume" class="showcase-img"
-                                             width="70">
-                                    </a>
-
-                                    <div class="showcase-content">
-
-                                        <a href="#">
-                                            <h4 class="showcase-title">Titan 100 Ml Womens Perfume</h4>
-                                        </a>
-
-                                        <a href="#" class="showcase-category">Perfume</a>
-
-                                        <div class="price-box">
-                                            <p class="price">$42.00</p>
-                                            <del>$10.00</del>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="showcase">
-
-                                    <a href="#" class="showcase-img-box">
-                                        <img src="{{asset('logo/all/belt.jpg')}}" alt="men's leather reversible belt" class="showcase-img"
-                                             width="70">
-                                    </a>
-
-                                    <div class="showcase-content">
-
-                                        <a href="#">
-                                            <h4 class="showcase-title">Men's Leather Reversible Belt</h4>
-                                        </a>
-
-                                        <a href="#" class="showcase-category">Belt</a>
-
-                                        <div class="price-box">
-                                            <p class="price">$24.00</p>
-                                            <del>$10.00</del>
-                                        </div>
-
-                                    </div>
-
-                                </div>
 
                             </div>
 
@@ -1965,35 +1645,38 @@
                             <div class="showcase">
 
                                 <div class="showcase-banner">
-                                    <img src="{{asset('logo/all/shampoo.jpg')}}" alt="shampoo, conditioner & facewash packs" class="showcase-img">
+                                    <img src="{{asset('storage/'.$dealoftheDay->pro_pic)}}" alt="shampoo, conditioner & facewash packs" class="showcase-img" width="30%" height="30%">
                                 </div>
 
                                 <div class="showcase-content">
 
-                                    <div class="showcase-rating">
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
-                                    </div>
+{{--                                    <div class="showcase-rating">--}}
+{{--                                        <ion-icon name="star"></ion-icon>--}}
+{{--                                        <ion-icon name="star"></ion-icon>--}}
+{{--                                        <ion-icon name="star"></ion-icon>--}}
+{{--                                        <ion-icon name="star-outline"></ion-icon>--}}
+{{--                                        <ion-icon name="star-outline"></ion-icon>--}}
+{{--                                    </div>--}}
 
                                     <a href="#">
-                                        <h3 class="showcase-title">CLEAR Men Anti-Hair Fall Anti-dandruff shampoo | CLEAR HAIR CARE</h3>
+                                        <h3 class="showcase-title">{{$dealoftheDay->pro_name}}</h3>
                                     </a>
 
                                     <p class="showcase-desc">
-                                        Lorem ipsum dolor sit amet consectetur Lorem ipsum
-                                        dolor dolor sit amet consectetur Lorem ipsum dolor
+                                        {{$dealoftheDay->pro_des}}
                                     </p>
 
                                     <div class="price-box">
-                                        <p class="price">$150.00</p>
+                                        <p class="price" data-price-usd="{{$dealoftheDay->price}}">${{$dealoftheDay->price}}</p>
 
-                                        <del>$200.00</del>
+                                        @if($dealoftheDay->Previous_Price === NULL)
+
+                                        @elseif($dealoftheDay->Previous_Price !== NULL)
+                                            <del data-previous-price-usd="{{$dealoftheDay->Previous_Price}}">${{$dealoftheDay->Previous_Price}}</del>
+                                        @endif
                                     </div>
 
-                                    <button class="add-cart-btn">add to cart</button>
+                                    <a class="add-cart-btn" href="{{ route('product', ['id' => $dealoftheDay->pro_id,'ids'=>$user->id,'category'=>$dealoftheDay->category]) }}" style="text-align: center">add to cart</a>
 
                                     <div class="showcase-status">
                                         <div class="wrapper">
@@ -2002,46 +1685,11 @@
                                             </p>
 
                                             <p>
-                                                available: <b>40</b>
+                                                available: <b>{{$dealoftheDay->Stock}}</b>
                                             </p>
                                         </div>
 
                                         <div class="showcase-status-bar"></div>
-                                    </div>
-
-                                    <div class="countdown-box">
-
-                                        <p class="countdown-desc">
-                                            Hurry Up! Offer ends in:
-                                        </p>
-
-                                        <div class="countdown">
-
-                                            <div class="countdown-content">
-
-                                                <p class="display-number">360</p>
-
-                                                <p class="display-text">Days</p>
-
-                                            </div>
-
-                                            <div class="countdown-content">
-                                                <p class="display-number">24</p>
-                                                <p class="display-text">Hours</p>
-                                            </div>
-
-                                            <div class="countdown-content">
-                                                <p class="display-number">59</p>
-                                                <p class="display-text">Min</p>
-                                            </div>
-
-                                            <div class="countdown-content">
-                                                <p class="display-number">00</p>
-                                                <p class="display-text">Sec</p>
-                                            </div>
-
-                                        </div>
-
                                     </div>
 
                                 </div>
@@ -2055,72 +1703,50 @@
                             <div class="showcase">
 
                                 <div class="showcase-banner">
-                                    <img src="{{asset('logo/all/jewellery-1.jpg')}}"" alt="Rose Gold diamonds Earring" class="showcase-img">
+                                    <img src="{{asset('storage/'.$dealoftheDay2->pro_pic)}}" alt="Rose Gold diamonds Earring" class="showcase-img" width="30%" height="30%">
                                 </div>
 
                                 <div class="showcase-content">
 
-                                    <div class="showcase-rating">
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
-                                    </div>
+{{--                                    <div class="showcase-rating">--}}
+{{--                                        <ion-icon name="star"></ion-icon>--}}
+{{--                                        <ion-icon name="star"></ion-icon>--}}
+{{--                                        <ion-icon name="star"></ion-icon>--}}
+{{--                                        <ion-icon name="star-outline"></ion-icon>--}}
+{{--                                        <ion-icon name="star-outline"></ion-icon>--}}
+{{--                                    </div>--}}
 
                                     <h3 class="showcase-title">
-                                        <a href="#" class="showcase-title">Buy LAFZ Meliha No Alcohol No Gas Premium Body Spray</a>
+                                        <a href="#" class="showcase-title">{{$dealoftheDay2->pro_name}}</a>
                                     </h3>
 
                                     <p class="showcase-desc">
-                                        Lorem ipsum dolor sit amet consectetur Lorem ipsum
-                                        dolor dolor sit amet consectetur Lorem ipsum dolor
+                                        {{$dealoftheDay2->pro_des}}
                                     </p>
 
                                     <div class="price-box">
-                                        <p class="price">$1990.00</p>
-                                        <del>$2000.00</del>
+                                        <p class="price" data-price-usd="{{$dealoftheDay2->price}}">${{$dealoftheDay2->price}}</p>
+
+                                        @if($dealoftheDay2->Previous_Price === NULL)
+
+                                        @elseif($dealoftheDay2->Previous_Price !== NULL)
+                                            <del data-previous-price-usd="{{$dealoftheDay2->Previous_Price}}">${{$dealoftheDay2->Previous_Price}}</del>
+                                        @endif
                                     </div>
 
-                                    <button class="add-cart-btn">add to cart</button>
+                                    <a class="add-cart-btn" href="{{ route('product', ['id' => $dealoftheDay2->pro_id,'ids'=>$user->id,'category'=>$dealoftheDay2->category]) }}" style="text-align: center">add to cart</a>
 
                                     <div class="showcase-status">
                                         <div class="wrapper">
                                             <p> already sold: <b>15</b> </p>
 
-                                            <p> available: <b>40</b> </p>
+                                            <p> available: <b>{{$dealoftheDay2->Stock}}</b> </p>
                                         </div>
 
                                         <div class="showcase-status-bar"></div>
                                     </div>
 
-                                    <div class="countdown-box">
 
-                                        <p class="countdown-desc">Hurry Up! Offer ends in:</p>
-
-                                        <div class="countdown">
-                                            <div class="countdown-content">
-                                                <p class="display-number">360</p>
-                                                <p class="display-text">Days</p>
-                                            </div>
-
-                                            <div class="countdown-content">
-                                                <p class="display-number">24</p>
-                                                <p class="display-text">Hours</p>
-                                            </div>
-
-                                            <div class="countdown-content">
-                                                <p class="display-number">59</p>
-                                                <p class="display-text">Min</p>
-                                            </div>
-
-                                            <div class="countdown-content">
-                                                <p class="display-number">00</p>
-                                                <p class="display-text">Sec</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
 
                                 </div>
 
@@ -2144,13 +1770,15 @@
 
                     <div class="product-grid">
                         @foreach($product4 as $prod)
+                            @if($prod->date_status !== 'upcoming')
                         <div class="showcase">
 
                             <div class="showcase-banner">
 
+                                <a href="{{ route('product', ['id' => $prod->pro_id,'ids'=>$user->id,'category'=>$prod->category]) }}">
                                 <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
                                 <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
-
+                                </a>
                                 @if($prod->Discount_Rate && $prod->Activate === 'ON')
                                     <p class="showcase-badge angle black pink">{{$prod->Discount_Rate}}%</p>
                                 @else
@@ -2218,8 +1846,9 @@
                             </div>
 
                         </div>
+                            @endif
                         @endforeach
-                        
+
 
                     </div>
 
@@ -2245,85 +1874,7 @@
 
             <div class="testimonials-box">
 
-                <!--
-                  - TESTIMONIALS
-                -->
-
-                <div class="testimonial">
-
-                    <h2 class="title">testimonial</h2>
-
-                    <div class="testimonial-card">
-
-                        <img src="{{asset('logo/testimonial-1.jpg')}}" alt="alan doe" class="testimonial-banner" width="80" height="80">
-
-
-                        <p class="testimonial-name">Sheikh Rubayet Islam</p>
-
-                        <p class="testimonial-title">CEO & Founder Invision</p>
-
-                        <img src="{{asset('logo/icons/quotes.svg')}}" alt="quotation" class="quotation-img" width="26">
-
-                        <p class="testimonial-desc">
-                            Lorem ipsum dolor sit amet consectetur Lorem ipsum
-                            dolor dolor sit amet.
-                        </p>
-
-                    </div>
-
-                    <div class="testimonial-card">
-
-                        <img src="{{asset('logo/IMG_2194.jpg')}}" alt="alan doe" class="testimonial-banner" width="80" height="80">
-
-
-                        <p class="testimonial-name">Pias Miah</p>
-
-                        <p class="testimonial-title">CEO & Founder Invision</p>
-
-                        <img src="{{asset('logo/icons/quotes.svg')}}" alt="quotation" class="quotation-img" width="26">
-
-                        <p class="testimonial-desc">
-                            Lorem ipsum dolor sit amet consectetur Lorem ipsum
-                            dolor dolor sit amet.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-
-
-                <!--
-                  - CTA
-                -->
-
-                <div class="cta-container">
-
-                    <img src="{{asset('logo/cta-banner.jpg')}}" alt="summer collection" class="cta-banner">
-
-                    <a href="#" class="cta-content">
-
-                        <p class="discount">25% Discount</p>
-
-                        <h2 class="cta-title">Gaming Season</h2>
-
-                        <p class="cta-text">Starting @ $10</p>
-
-                        <button class="cta-btn">Shop now</button>
-
-                    </a>
-
-                </div>
-
-
-
-                <!--
-                  - SERVICE
-                -->
-
-                <div class="service">
+                <div class="service" style="align-items: center">
 
                     <h2 class="title">Our Services</h2>
 
@@ -2344,6 +1895,16 @@
 
                         </a>
 
+                    </div>
+
+                </div>
+
+                <div class="service" style="align-items: center">
+
+                    <h2 class="title">Our Services</h2>
+
+                    <div class="service-container">
+
                         <a href="#" class="service-item">
 
                             <div class="service-icon">
@@ -2353,11 +1914,21 @@
                             <div class="service-content">
 
                                 <h3 class="service-title">Next Day delivery</h3>
-                                <p class="service-desc">BD Orders Only</p>
+                                   <p class="service-desc">BD Orders Only</p>
 
-                            </div>
+                                </div>
 
-                        </a>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                <div class="service" style="align-items: center">
+
+                    <h2 class="title">Our Services</h2>
+
+                    <div class="service-container">
 
                         <a href="#" class="service-item">
 
@@ -2374,41 +1945,64 @@
 
                         </a>
 
-                        <a href="#" class="service-item">
-
-                            <div class="service-icon">
-                                <ion-icon name="arrow-undo-outline"></ion-icon>
-                            </div>
-
-                            <div class="service-content">
-
-                                <h3 class="service-title">Return Policy</h3>
-                                <p class="service-desc">Easy & Free Return</p>
-
-                            </div>
-
-                        </a>
-
-                        <a href="#" class="service-item">
-
-                            <div class="service-icon">
-                                <ion-icon name="ticket-outline"></ion-icon>
-                            </div>
-
-                            <div class="service-content">
-
-                                <h3 class="service-title">30% money back</h3>
-                                <p class="service-desc">For Order Over $100</p>
-
-                            </div>
-
-                        </a>
-
                     </div>
 
                 </div>
 
-            </div>
+{{--                <div class="service" style="align-items: center">--}}
+
+{{--                    <h2 class="title">Our Services</h2>--}}
+
+{{--                    <div class="service-container">--}}
+
+{{--                        <a href="#" class="service-item">--}}
+
+{{--                            <div class="service-icon">--}}
+{{--                                <ion-icon name="boat-outline"></ion-icon>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="service-content">--}}
+
+{{--                                <h3 class="service-title">Return Policy</h3>--}}
+{{--                                <p class="service-desc">Easy & Free Return</p>--}}
+
+{{--                            </div>--}}
+
+{{--                        </a>--}}
+
+{{--                    </div>--}}
+
+{{--                </div>--}}
+
+{{--                <div class="service" style="align-items: center">--}}
+
+{{--                    <h2 class="title">Our Services</h2>--}}
+
+{{--                    <div class="service-container">--}}
+
+{{--                        <a href="#" class="service-item">--}}
+
+{{--                            <div class="service-icon">--}}
+{{--                                <ion-icon name="boat-outline"></ion-icon>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="service-content">--}}
+
+{{--                                <h3 class="service-title">30% money back</h3>--}}
+{{--                                <p class="service-desc">or Order Over $100</p>--}}
+
+{{--                            </div>--}}
+
+{{--                        </a>--}}
+
+{{--                    </div>--}}
+
+{{--                </div>--}}
+
+
+
+
+                </div>
 
         </div>
 
@@ -2908,6 +2502,22 @@
     // Initialize the price with the default currency (USD)
     updatePrice('usd');
 
+    function toggleDropdown() {
+        var dropdown = document.querySelector(".dropdown ul");
+        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+        if (!event.target.matches('.user-greeting')) {
+            var dropdowns = document.querySelectorAll(".dropdown ul");
+            dropdowns.forEach(function (dropdown) {
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                }
+            });
+        }
+    }
 </script>
 <!--
   - ionicon link

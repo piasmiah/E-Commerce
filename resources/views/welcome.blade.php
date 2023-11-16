@@ -10,22 +10,22 @@
 
   <!--
     - favicon
+
   -->
-  <link rel="shortcut icon" href="{{asset('logo/favicon.ico')}}" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="shortcut icon" href="{{asset('logo/favicon.ico')}}" type="image/x-icon">
 
   <!--
     - custom css link
   -->
   <link rel="stylesheet" href="{{asset('css/style-prefix.css')}}">
     <script src="//code.tidio.co/2l8awmiopxub2rsj7vuajrnkxy2xnqln.js" async></script>
-{{--    <link rel="stylesheet" href="{{asset('css/card.css')}}">--}}
-{{--    <link rel="stylesheet" href="{{asset('css/product-style.css')}}">--}}
-{{--    <link rel="stylesheet" href="{{asset('css/about2.css')}}">--}}
-{{--    <link rel="stylesheet" href="{{asset('css/about.css')}}">--}}
-
-  <!--
-    - google font link*
-  -->
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
@@ -44,45 +44,45 @@
     - MODAL
   -->
 
-  <div class="modal" data-modal>
+{{--  <div class="modal" data-modal>--}}
 
-    <div class="modal-close-overlay" data-modal-overlay></div>
+{{--    <div class="modal-close-overlay" data-modal-overlay></div>--}}
 
-    <div class="modal-content">
+{{--    <div class="modal-content">--}}
 
-      <button class="modal-close-btn" data-modal-close>
-        <ion-icon name="close-outline"></ion-icon>
-      </button>
+{{--      <button class="modal-close-btn" data-modal-close>--}}
+{{--        <ion-icon name="close-outline"></ion-icon>--}}
+{{--      </button>--}}
 
-      <div class="newsletter-img">
-        <img src="{{asset('logo/cam-morin-knKm7u_7Ihw-unsplash.jpg')}}" alt="subscribe newsletter" width="400" height="400">
-      </div>
+{{--      <div class="newsletter-img">--}}
+{{--        <img src="{{asset('logo/cam-morin-knKm7u_7Ihw-unsplash.jpg')}}" alt="subscribe newsletter" width="400" height="400">--}}
+{{--      </div>--}}
 
-      <div class="newsletter">
+{{--      <div class="newsletter">--}}
 
-        <form action="{{route('subscribe')}}" method="post">
-            @csrf
-          <div class="newsletter-header">
+{{--        <form action="{{route('subscribe')}}" method="post">--}}
+{{--            @csrf--}}
+{{--          <div class="newsletter-header">--}}
 
-            <h3 class="newsletter-title">Subscribe Newsletter.</h3>
+{{--            <h3 class="newsletter-title">Subscribe Newsletter.</h3>--}}
 
-            <p class="newsletter-desc">
-              Subscribe the <b>Ecommrece</b> to get latest products and discount update.
-            </p>
+{{--            <p class="newsletter-desc">--}}
+{{--              Subscribe the <b>Ecommrece</b> to get latest products and discount update.--}}
+{{--            </p>--}}
 
-          </div>
+{{--          </div>--}}
 
-          <input type="email" name="email" class="email-field" placeholder="Email Address" required>
+{{--          <input type="email" name="email" class="email-field" placeholder="Email Address" required>--}}
 
-          <button type="submit" class="btn-newsletter">Subscribe</button>
+{{--          <button type="submit" class="btn-newsletter">Subscribe</button>--}}
 
-        </form>
+{{--        </form>--}}
 
-      </div>
+{{--      </div>--}}
 
-    </div>
+{{--    </div>--}}
 
-  </div>
+{{--  </div>--}}
 
 
 
@@ -92,33 +92,33 @@
     - NOTIFICATION TOAST
   -->
 
-  <div class="notification-toast" data-toast>
+{{--  <div class="notification-toast" data-toast>--}}
 
-    <button class="toast-close-btn" data-toast-close>
-      <ion-icon name="close-outline"></ion-icon>
-    </button>
+{{--    <button class="toast-close-btn" data-toast-close>--}}
+{{--      <ion-icon name="close-outline"></ion-icon>--}}
+{{--    </button>--}}
 
-    <div class="toast-banner">
-      <img src="{{asset('storage/' . $product3->pro_pic)}}" alt="Lafz Perfume" width="80" height="70">
-    </div>
+{{--    <div class="toast-banner">--}}
+{{--      <img src="{{asset('storage/' . $product3->pro_pic)}}" alt="Lafz Perfume" width="80" height="70">--}}
+{{--    </div>--}}
 
-    <div class="toast-detail">
+{{--    <div class="toast-detail">--}}
 
-      <p class="toast-message">
-          {{$product3->customer_name}} just bought
-      </p>
+{{--      <p class="toast-message">--}}
+{{--          {{$product3->customer_name}} just bought--}}
+{{--      </p>--}}
 
-      <p class="toast-title">
-      {{$product3->pro_des}}
-      </p>
+{{--      <p class="toast-title">--}}
+{{--      {{$product3->pro_des}}--}}
+{{--      </p>--}}
 
-      <p class="toast-meta" id="timeElapsed">
-        <time datetime="PT2M">2 Minutes</time> ago
-      </p>
+{{--      <p class="toast-meta" id="timeElapsed">--}}
+{{--        <time datetime="PT2M">2 Minutes</time> ago--}}
+{{--      </p>--}}
 
-    </div>
+{{--    </div>--}}
 
-  </div>
+{{--  </div>--}}
 
 
 
@@ -164,6 +164,11 @@
                     <p style="font-size: 10px;">Want to our Delivary Boy?</p>
                 </a>
             </li>
+            <li>
+                <a href="{{route('sellerregistration')}}" class="social-link">
+                    <p style="font-size: 10px;">Become a seller?</p>
+                </a>
+            </li>
 
         </ul>
 
@@ -205,7 +210,7 @@
 
             <form action="{{route('allproduct')}}" method="get">
                 @csrf
-          <input type="search" name="search" class="search-field" value="" placeholder="Enter your product name...">
+          <input type="search" name="search" class="search-field" value="" placeholder="Enter your product...">
 
           <button class="search-btn" type="submit">
             <ion-icon name="search-outline"></ion-icon>
@@ -219,13 +224,10 @@
 {{--            <ion-icon name="person-outline"></ion-icon>--}}
 {{--        </a>--}}
 
-          <button class="action-btn">
-            <ion-icon name="heart-outline"></ion-icon>
-            <span class="count">0</span>
-          </button>
+
 
           <button class="action-btn">
-            <ion-icon name="bag-handle-outline"></ion-icon>
+              <i class="fa-solid fa-cart-shopping"></i>
             <span class="count">0</span>
           </button>
 
@@ -243,7 +245,7 @@
         <ul class="desktop-menu-category-list">
 
           <li class="menu-category">
-            <a href="#" class="menu-title  toggle">Home</a>
+            <a href="#" class="menu-title" style="color: blue;">Home</a>
           </li>
 
             <li class="menu-category">
@@ -417,8 +419,11 @@
           </li>
 
           <li class="menu-category">
-            <a href="#" class="menu-title">Hot Offers</a>
+            <a href="#" class="menu-title">Special Offers</a>
           </li>
+            <li class="menu-category">
+                <a href="{{route('contactus')}}" class="menu-title">Contact Us</a>
+            </li>
 
 
 
@@ -656,73 +661,86 @@
 
     <div class="banner">
 
-      <div class="container">
+{{--        <div class="product-main">--}}
 
-        <div class="slider-container has-scrollbar">
+{{--            <h2 class="title">New Products</h2>--}}
 
-          <div class="slider-item">
+{{--            <div class="product-grid">--}}
+{{--                @foreach($product5 as $prod)--}}
+{{--                    <div class="showcase">--}}
 
-            <img src="{{asset('logo/banner-1.jpg')}}" alt="women's latest fashion sale" class="banner-img">
+{{--                        <div class="showcase-banner">--}}
 
-            <div class="banner-content">
+{{--                            <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">--}}
+{{--                            <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">--}}
 
-              <p class="banner-subtitle">25% Flat Sale On Trending item</p>
+{{--                            --}}{{--                    <p class="showcase-badge">15%</p>--}}
 
-              <h2 class="banner-title">Women's latest fashion sale</h2>
+{{--                            <div class="showcase-actions">--}}
 
-              <p class="banner-text">
-                starting at &dollar; <b>20</b>.00
-              </p>
+{{--                                <button class="btn-action">--}}
+{{--                                    <ion-icon name="heart-outline"></ion-icon>--}}
+{{--                                </button>--}}
 
-              <a href="#" class="banner-btn">Shop now</a>
+{{--                                <button class="btn-action">--}}
+{{--                                    <ion-icon name="eye-outline"></ion-icon>--}}
+{{--                                </button>--}}
 
-            </div>
+{{--                                <button class="btn-action">--}}
+{{--                                    <ion-icon name="repeat-outline"></ion-icon>--}}
+{{--                                </button>--}}
 
-          </div>
+{{--                                <button class="btn-action">--}}
+{{--                                    <ion-icon name="bag-add-outline"></ion-icon>--}}
+{{--                                </button>--}}
 
-          <div class="slider-item">
+{{--                            </div>--}}
 
-            <img src="{{asset('logo/banner-2.jpg')}}" alt="modern sunglasses" class="banner-img">
+{{--                        </div>--}}
 
-            <div class="banner-content">
+{{--                        <div class="showcase-content">--}}
 
-              <p class="banner-subtitle">20% Flat Sale On Trending accessories</p>
+{{--                            <a href="#" class="showcase-category">{{$prod->pro_name}}</a>--}}
 
-              <h2 class="banner-title">Modern sunglasses</h2>
+{{--                            <a href="#">--}}
+{{--                                <h3 class="showcase-title">{{$prod->pro_des}}</h3>--}}
+{{--                            </a>--}}
 
-              <p class="banner-text">
-                starting at &dollar; <b>15</b>.00
-              </p>
+{{--                            @if($averageRatings[$prod->pro_id] > 0)--}}
+{{--                                {{ $averageRatings[$prod->pro_id] }}--}}
 
-              <a href="#" class="banner-btn">Shop now</a>
 
-            </div>
+{{--                                <div class="showcase-rating">--}}
+{{--                                    @for ($i = 1; $i <= 5; $i++)--}}
+{{--                                        @if ($i <= $averageRatings[$prod->pro_id])--}}
+{{--                                            <ion-icon name="star"></ion-icon>--}}
+{{--                                        @else--}}
+{{--                                            <ion-icon name="star-outline"></ion-icon>--}}
+{{--                                        @endif--}}
+{{--                                    @endfor--}}
+{{--                                </div>--}}
+{{--                            @else--}}
 
-          </div>
+{{--                            @endif--}}
 
-          <div class="slider-item">
+{{--                            <div class="price-box">--}}
+{{--                                <p class="price" data-price-usd="{{$prod->price}}">${{$prod->price}}</p>--}}
+{{--                                @if($prod->Previous_Price === NULL)--}}
 
-            <img src="{{asset('logo/banner-3.jpg')}}" alt="new fashion summer sale" class="banner-img">
+{{--                                @elseif($prod->Previous_Price !== NULL)--}}
+{{--                                    <del data-previous-price-usd="{{$prod->Previous_Price}}">${{$prod->Previous_Price}}</del>--}}
+{{--                                @endif--}}
+{{--                            </div>--}}
 
-            <div class="banner-content">
+{{--                        </div>--}}
 
-              <p class="banner-subtitle">30% Flat Sale On Sale Offer</p>
+{{--                    </div>--}}
+{{--                @endforeach--}}
 
-              <h2 class="banner-title">New fashion summer sale</h2>
 
-              <p class="banner-text">
-                starting at &dollar; <b>29</b>.99
-              </p>
-
-              <a href="#" class="banner-btn">Shop now</a>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
+{{--            </div>--}}
+{{--            <div class="swiper-pagination"></div>--}}
+{{--        </div>--}}
 
     </div>
 
@@ -734,177 +752,6 @@
       - CATEGORY
     -->
 
-{{--    <div class="category">--}}
-
-{{--      <div class="container">--}}
-
-{{--        <div class="category-item-container has-scrollbar">--}}
-
-{{--          <div class="category-item">--}}
-
-{{--            <div class="category-img-box">--}}
-{{--              <img src="{{asset('logo/icons/dress.svg')}}" alt="dress & frock" width="30">--}}
-{{--            </div>--}}
-
-{{--            <div class="category-content-box">--}}
-
-{{--              <div class="category-content-flex">--}}
-{{--                <h3 class="category-item-title">Dress & frock</h3>--}}
-
-{{--                <p class="category-item-amount">(53)</p>--}}
-{{--              </div>--}}
-
-{{--              <a href="#" class="category-btn">Show all</a>--}}
-
-{{--            </div>--}}
-
-{{--          </div>--}}
-
-{{--          <div class="category-item">--}}
-
-{{--            <div class="category-img-box">--}}
-{{--              <img src="{{asset('logo/icons/coat.svg')}}" alt="winter wear" width="30">--}}
-{{--            </div>--}}
-
-{{--            <div class="category-content-box">--}}
-
-{{--              <div class="category-content-flex">--}}
-{{--                <h3 class="category-item-title">Winter wear</h3>--}}
-
-{{--                <p class="category-item-amount">(58)</p>--}}
-{{--              </div>--}}
-
-{{--              <a href="#" class="category-btn">Show all</a>--}}
-
-{{--            </div>--}}
-
-{{--          </div>--}}
-
-{{--          <div class="category-item">--}}
-
-{{--            <div class="category-img-box">--}}
-{{--              <img src="{{asset('logo/icons/glasses.svg')}}" alt="glasses & lens" width="30">--}}
-{{--            </div>--}}
-
-{{--            <div class="category-content-box">--}}
-
-{{--              <div class="category-content-flex">--}}
-{{--                <h3 class="category-item-title">Glasses & lens</h3>--}}
-
-{{--                <p class="category-item-amount">(68)</p>--}}
-{{--              </div>--}}
-
-{{--              <a href="#" class="category-btn">Show all</a>--}}
-
-{{--            </div>--}}
-
-{{--          </div>--}}
-
-{{--          <div class="category-item">--}}
-
-{{--            <div class="category-img-box">--}}
-{{--              <img src="{{asset('logo/icons/shorts.svg')}}" alt="shorts & jeans" width="30">--}}
-{{--            </div>--}}
-
-{{--            <div class="category-content-box">--}}
-
-{{--              <div class="category-content-flex">--}}
-{{--                <h3 class="category-item-title">Shorts & jeans</h3>--}}
-
-{{--                <p class="category-item-amount">(84)</p>--}}
-{{--              </div>--}}
-
-{{--              <a href="#" class="category-btn">Show all</a>--}}
-
-{{--            </div>--}}
-
-{{--          </div>--}}
-
-{{--          <div class="category-item">--}}
-
-{{--            <div class="category-img-box">--}}
-{{--              <img src="{{asset('logo/icons/tee.svg')}}" alt="t-shirts" width="30">--}}
-{{--            </div>--}}
-
-{{--            <div class="category-content-box">--}}
-
-{{--              <div class="category-content-flex">--}}
-{{--                <h3 class="category-item-title">T-shirts</h3>--}}
-
-{{--                <p class="category-item-amount">(35)</p>--}}
-{{--              </div>--}}
-
-{{--              <a href="#" class="category-btn">Show all</a>--}}
-
-{{--            </div>--}}
-
-{{--          </div>--}}
-
-{{--          <div class="category-item">--}}
-
-{{--            <div class="category-img-box">--}}
-{{--              <img src="{{asset('logo/icons/jacket.svg')}}" alt="jacket" width="30">--}}
-{{--            </div>--}}
-
-{{--            <div class="category-content-box">--}}
-
-{{--              <div class="category-content-flex">--}}
-{{--                <h3 class="category-item-title">Jacket</h3>--}}
-
-{{--                <p class="category-item-amount">(16)</p>--}}
-{{--              </div>--}}
-
-{{--              <a href="#" class="category-btn">Show all</a>--}}
-
-{{--            </div>--}}
-
-{{--          </div>--}}
-
-{{--          <div class="category-item">--}}
-
-{{--            <div class="category-img-box">--}}
-{{--              <img src="{{asset('logo/icons/watch.svg')}}" alt="watch" width="30">--}}
-{{--            </div>--}}
-
-{{--            <div class="category-content-box">--}}
-
-{{--              <div class="category-content-flex">--}}
-{{--                <h3 class="category-item-title">Watch</h3>--}}
-
-{{--                <p class="category-item-amount">(27)</p>--}}
-{{--              </div>--}}
-
-{{--              <a href="#" class="category-btn">Show all</a>--}}
-
-{{--            </div>--}}
-
-{{--          </div>--}}
-
-{{--          <div class="category-item">--}}
-
-{{--            <div class="category-img-box">--}}
-{{--              <img src="{{asset('logo/icons/hat.svg')}}" alt="hat & caps" width="30">--}}
-{{--            </div>--}}
-
-{{--            <div class="category-content-box">--}}
-
-{{--              <div class="category-content-flex">--}}
-{{--                <h3 class="category-item-title">Hat & caps</h3>--}}
-
-{{--                <p class="category-item-amount">(39)</p>--}}
-{{--              </div>--}}
-
-{{--              <a href="#" class="category-btn">Show all</a>--}}
-
-{{--            </div>--}}
-
-{{--          </div>--}}
-
-{{--        </div>--}}
-
-{{--      </div>--}}
-
-{{--    </div>--}}
 
 
 
@@ -923,498 +770,6 @@
           - SIDEBAR
         -->
 
-{{--        <div class="sidebar  has-scrollbar" data-mobile-menu>--}}
-
-{{--          <div class="sidebar-category">--}}
-
-{{--            <div class="sidebar-top">--}}
-{{--              <h2 class="sidebar-title">Category</h2>--}}
-
-{{--              <button class="sidebar-close-btn" data-mobile-menu-close-btn>--}}
-{{--                <ion-icon name="close-outline"></ion-icon>--}}
-{{--              </button>--}}
-{{--            </div>--}}
-
-{{--            <ul class="sidebar-menu-category-list">--}}
-
-{{--              <li class="sidebar-menu-category">--}}
-
-{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
-
-{{--                  <div class="menu-title-flex">--}}
-{{--                    <img src="{{asset('logo/icons/dress.svg')}}" alt="clothes" width="20" height="20"--}}
-{{--                      class="menu-title-img">--}}
-
-{{--                    <p class="menu-title">Men's and Women's</p>--}}
-{{--                  </div>--}}
-
-{{--                  <div>--}}
-{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
-{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
-{{--                  </div>--}}
-
-{{--                </button>--}}
-
-{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Shirt</p>--}}
-{{--                      <data value="300" class="stock" title="Available Stock">300</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Shorts & jeans</p>--}}
-{{--                      <data value="60" class="stock" title="Available Stock">60</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Jacket</p>--}}
-{{--                      <data value="50" class="stock" title="Available Stock">50</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Dress & frock</p>--}}
-{{--                      <data value="87" class="stock" title="Available Stock">87</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                </ul>--}}
-
-{{--              </li>--}}
-
-{{--              <li class="sidebar-menu-category">--}}
-
-{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
-
-{{--                  <div class="menu-title-flex">--}}
-{{--                    <img src="{{asset('logo/icons/shoes.svg')}}" alt="footwear" class="menu-title-img" width="20"--}}
-{{--                      height="20">--}}
-
-{{--                    <p class="menu-title">Sports and Outdoors</p>--}}
-{{--                  </div>--}}
-
-{{--                  <div>--}}
-{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
-{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
-{{--                  </div>--}}
-
-{{--                </button>--}}
-
-{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Sports</p>--}}
-{{--                      <data value="45" class="stock" title="Available Stock">45</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Formal</p>--}}
-{{--                      <data value="75" class="stock" title="Available Stock">75</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Casual</p>--}}
-{{--                      <data value="35" class="stock" title="Available Stock">35</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Safety Shoes</p>--}}
-{{--                      <data value="26" class="stock" title="Available Stock">26</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                </ul>--}}
-
-{{--              </li>--}}
-
-{{--              <li class="sidebar-menu-category">--}}
-
-{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
-
-{{--                  <div class="menu-title-flex">--}}
-{{--                    <img src="{{asset('logo/icons/jewelry.svg')}}" alt="clothes" class="menu-title-img" width="20"--}}
-{{--                      height="20">--}}
-
-{{--                    <p class="menu-title">Jewelry</p>--}}
-{{--                  </div>--}}
-
-{{--                  <div>--}}
-{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
-{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
-{{--                  </div>--}}
-
-{{--                </button>--}}
-
-{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Earrings</p>--}}
-{{--                      <data value="46" class="stock" title="Available Stock">46</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Couple Rings</p>--}}
-{{--                      <data value="73" class="stock" title="Available Stock">73</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Necklace</p>--}}
-{{--                      <data value="61" class="stock" title="Available Stock">61</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                </ul>--}}
-
-{{--              </li>--}}
-
-{{--              <li class="sidebar-menu-category">--}}
-
-{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
-
-{{--                  <div class="menu-title-flex">--}}
-{{--                    <img src="{{asset('logo/icons/perfume.svg')}}" alt="perfume" class="menu-title-img" width="20"--}}
-{{--                      height="20">--}}
-
-{{--                    <p class="menu-title">Health and Beauty</p>--}}
-{{--                  </div>--}}
-
-{{--                  <div>--}}
-{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
-{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
-{{--                  </div>--}}
-
-{{--                </button>--}}
-
-{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Clothes Perfume</p>--}}
-{{--                      <data value="12" class="stock" title="Available Stock">12 pcs</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Deodorant</p>--}}
-{{--                      <data value="60" class="stock" title="Available Stock">60 pcs</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">jacket</p>--}}
-{{--                      <data value="50" class="stock" title="Available Stock">50 pcs</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">dress & frock</p>--}}
-{{--                      <data value="87" class="stock" title="Available Stock">87 pcs</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                </ul>--}}
-
-{{--              </li>--}}
-
-{{--              <li class="sidebar-menu-category">--}}
-
-{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
-
-{{--                  <div class="menu-title-flex">--}}
-{{--                    <img src="{{asset('logo/icons/cosmetics.svg')}}" alt="cosmetics" class="menu-title-img" width="20"--}}
-{{--                      height="20">--}}
-
-{{--                    <p class="menu-title">Women Accessories</p>--}}
-{{--                  </div>--}}
-
-{{--                  <div>--}}
-{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
-{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
-{{--                  </div>--}}
-
-{{--                </button>--}}
-
-{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Shampoo</p>--}}
-{{--                      <data value="68" class="stock" title="Available Stock">68</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Sunscreen</p>--}}
-{{--                      <data value="46" class="stock" title="Available Stock">46</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Body Wash</p>--}}
-{{--                      <data value="79" class="stock" title="Available Stock">79</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Makeup Kit</p>--}}
-{{--                      <data value="23" class="stock" title="Available Stock">23</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                </ul>--}}
-
-{{--              </li>--}}
-
-{{--              <li class="sidebar-menu-category">--}}
-
-{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
-
-{{--                  <div class="menu-title-flex">--}}
-{{--                    <img src="{{asset('logo/icons/glasses.svg')}}" alt="glasses" class="menu-title-img" width="20"--}}
-{{--                      height="20">--}}
-
-{{--                    <p class="menu-title">Men Accessories</p>--}}
-{{--                  </div>--}}
-
-{{--                  <div>--}}
-{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
-{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
-{{--                  </div>--}}
-
-{{--                </button>--}}
-
-{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Sunglasses</p>--}}
-{{--                      <data value="50" class="stock" title="Available Stock">50</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Lenses</p>--}}
-{{--                      <data value="48" class="stock" title="Available Stock">48</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                </ul>--}}
-
-{{--              </li>--}}
-
-{{--              <li class="sidebar-menu-category">--}}
-
-{{--                <button class="sidebar-accordion-menu" data-accordion-btn>--}}
-
-{{--                  <div class="menu-title-flex">--}}
-{{--                    <img src="{{asset('logo/icons/bag.svg')}}" alt="bags" class="menu-title-img" width="20" height="20">--}}
-
-{{--                    <p class="menu-title">Bags</p>--}}
-{{--                  </div>--}}
-
-{{--                  <div>--}}
-{{--                    <ion-icon name="add-outline" class="add-icon"></ion-icon>--}}
-{{--                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>--}}
-{{--                  </div>--}}
-
-{{--                </button>--}}
-
-{{--                <ul class="sidebar-submenu-category-list" data-accordion>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Shopping Bag</p>--}}
-{{--                      <data value="62" class="stock" title="Available Stock">62</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Gym Backpack</p>--}}
-{{--                      <data value="35" class="stock" title="Available Stock">35</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Purse</p>--}}
-{{--                      <data value="80" class="stock" title="Available Stock">80</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                  <li class="sidebar-submenu-category">--}}
-{{--                    <a href="#" class="sidebar-submenu-title">--}}
-{{--                      <p class="product-name">Wallet</p>--}}
-{{--                      <data value="75" class="stock" title="Available Stock">75</data>--}}
-{{--                    </a>--}}
-{{--                  </li>--}}
-
-{{--                </ul>--}}
-
-{{--              </li>--}}
-
-{{--            </ul>--}}
-
-{{--          </div>--}}
-
-{{--          <div class="product-showcase">--}}
-
-{{--            <h3 class="showcase-heading">best sellers</h3>--}}
-
-{{--            <div class="showcase-wrapper">--}}
-
-{{--              <div class="showcase-container">--}}
-
-{{--                <div class="showcase">--}}
-
-{{--                  <a href="#" class="showcase-img-box">--}}
-{{--                    <img src="{{asset('logo/all/1.jpg')}}" alt="baby fabric shoes" width="75" height="75"--}}
-{{--                      class="showcase-img">--}}
-{{--                  </a>--}}
-
-{{--                  <div class="showcase-content">--}}
-
-{{--                    <a href="#">--}}
-{{--                      <h4 class="showcase-title">baby fabric shoes</h4>--}}
-{{--                    </a>--}}
-
-{{--                    <div class="showcase-rating">--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                    </div>--}}
-
-{{--                    <div class="price-box">--}}
-{{--                      <del>$5.00</del>--}}
-{{--                      <p class="price">$4.00</p>--}}
-{{--                    </div>--}}
-
-{{--                  </div>--}}
-
-{{--                </div>--}}
-
-{{--                <div class="showcase">--}}
-
-{{--                  <a href="#" class="showcase-img-box">--}}
-{{--                    <img src="{{asset('logo/all/2.jpg')}}" alt="men's hoodies t-shirt" class="showcase-img"--}}
-{{--                      width="75" height="75">--}}
-{{--                  </a>--}}
-
-{{--                  <div class="showcase-content">--}}
-
-{{--                    <a href="#">--}}
-{{--                      <h4 class="showcase-title">men's hoodies t-shirt</h4>--}}
-{{--                    </a>--}}
-{{--                    <div class="showcase-rating">--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star-half-outline"></ion-icon>--}}
-{{--                    </div>--}}
-
-{{--                    <div class="price-box">--}}
-{{--                      <del>$17.00</del>--}}
-{{--                      <p class="price">$7.00</p>--}}
-{{--                    </div>--}}
-
-{{--                  </div>--}}
-
-{{--                </div>--}}
-
-{{--                <div class="showcase">--}}
-
-{{--                  <a href="#" class="showcase-img-box">--}}
-{{--                    <img src="{{asset('logo/all/3.jpg')}}" alt="girls t-shirt" class="showcase-img" width="75"--}}
-{{--                      height="75">--}}
-{{--                  </a>--}}
-
-{{--                  <div class="showcase-content">--}}
-
-{{--                    <a href="#">--}}
-{{--                      <h4 class="showcase-title">girls t-shirt</h4>--}}
-{{--                    </a>--}}
-{{--                    <div class="showcase-rating">--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star-half-outline"></ion-icon>--}}
-{{--                    </div>--}}
-
-{{--                    <div class="price-box">--}}
-{{--                      <del>$5.00</del>--}}
-{{--                      <p class="price">$3.00</p>--}}
-{{--                    </div>--}}
-
-{{--                  </div>--}}
-
-{{--                </div>--}}
-
-{{--                <div class="showcase">--}}
-
-{{--                  <a href="#" class="showcase-img-box">--}}
-{{--                    <img src="{{asset('logo/all/4.jpg')}}" alt="woolen hat for men" class="showcase-img" width="75"--}}
-{{--                      height="75">--}}
-{{--                  </a>--}}
-
-{{--                  <div class="showcase-content">--}}
-
-{{--                    <a href="#">--}}
-{{--                      <h4 class="showcase-title">woolen hat for men</h4>--}}
-{{--                    </a>--}}
-{{--                    <div class="showcase-rating">--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                      <ion-icon name="star"></ion-icon>--}}
-{{--                    </div>--}}
-
-{{--                    <div class="price-box">--}}
-{{--                      <del>$15.00</del>--}}
-{{--                      <p class="price">$12.00</p>--}}
-{{--                    </div>--}}
-
-{{--                  </div>--}}
-
-{{--                </div>--}}
-
-{{--              </div>--}}
-
-{{--            </div>--}}
-
-{{--          </div>--}}
-
-{{--        </div>--}}
 
 
 
@@ -1428,13 +783,13 @@
 
             <div class="product-showcase">
 
-              <h2 class="title">New Arrivals</h2>
+              <h2 class="title">Special Offers</h2>
 
               <div class="showcase-wrapper has-scrollbar">
 
                 <div class="showcase-container">
 
-                @foreach($product as $pro)
+                @foreach($special_offers as $pro)
                   <div class="showcase">
 
                     <a href="#" class="showcase-img-box">
@@ -1467,7 +822,7 @@
                 </div>
 
                 <div class="showcase-container">
-                @foreach($product2 as $pro)
+                @foreach($special_offers2 as $pro)
                 <div class="showcase">
 
                         <a href="#" class="showcase-img-box">
@@ -1495,83 +850,94 @@
 
                         </div>
                   @endforeach
-                  <!-- <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/jacket-1.jpg')}}" alt="mens winter leathers jackets" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Mens Winter Leathers Jackets</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">Winter wear</a>
-
-                      <div class="price-box">
-                        <p class="price">$32.00</p>
-                        <del>$20.00</del>
-                      </div>
-
-                    </div>
-
-                  </div> -->
-
-                  <!-- <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/jacket-3.jpg')}}" alt="mens winter leathers jackets" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Mens Winter Leathers Jackets</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">Jackets</a>
-
-                      <div class="price-box">
-                        <p class="price">$50.00</p>
-                        <del>$25.00</del>
-                      </div>
-
-                    </div>
-
-                  </div> -->
-
-                  <!-- <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/shorts-1.jpg')}}" alt="better basics french terry sweatshorts" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Better Basics French Terry Sweatshorts</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">Shorts</a>
-
-                      <div class="price-box">
-                        <p class="price">$20.00</p>
-                        <del>$10.00</del>
-                      </div>
-
-                    </div>
-
-                  </div> -->
-
                 </div>
 
               </div>
 
             </div>
+
+              <div class="product-showcase">
+
+                  <h2 class="title">Upcoming Product</h2>
+
+
+                  <div class="showcase-wrapper has-scrollbar">
+
+                      <div class="showcase-container">
+
+                          @foreach($upcoming as $pro)
+
+                              <div class="showcase">
+
+                                  <a href="#" class="showcase-img-box">
+                                      <img src="{{asset('storage/' .$pro->pro_pic)}}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
+                                  </a>
+
+                                  <div class="showcase-content">
+
+                                      <a href="{{route('login')}}">
+                                          <h4 class="showcase-title">{{$pro->pro_des}}</h4>
+                                      </a>
+
+                                      <a href="#" class="showcase-category">{{$pro->category}}</a>
+
+                                      <div class="price-box">
+                                          <p class="price" data-price-usd="{{$pro->price}}">${{$pro->price}}</p>
+                                          @if($pro->Previous_Price === NULL)
+
+                                          @elseif($pro->Previous_Price !== NULL)
+                                              <del data-previous-price-usd="{{$pro->Previous_Price}}">${{$pro->Previous_Price}}</del>
+                                          @endif
+                                          <p>{{ $pro->upcoming_date }}</p>
+                                          <span id="countdown_{{ $pro->pro_id }}"></span>
+                                      </div>
+
+                                  </div>
+
+                              </div>
+
+                          @endforeach
+
+
+                      </div>
+
+                      <div class="showcase-container">
+                          @foreach($upcoming2 as $pro)
+                              <div class="showcase">
+
+                                  <a href="#" class="showcase-img-box">
+                                      <img src="{{asset('storage/' .$pro->pro_pic)}}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
+                                  </a>
+
+                                  <div class="showcase-content">
+
+                                      <a href="{{route('login')}}">
+                                          <h4 class="showcase-title">{{$pro->pro_des}}</h4>
+                                      </a>
+
+                                      <a href="#" class="showcase-category">{{$pro->category}}</a>
+
+                                      <div class="price-box">
+                                          <p class="price" data-price-usd="{{$pro->price}}">${{$pro->price}}</p>
+                                          @if($pro->Previous_Price === NULL)
+
+                                          @elseif($pro->Previous_Price !== NULL)
+                                              <del data-previous-price-usd="{{$pro->Previous_Price}}">${{$pro->Previous_Price}}</del>
+                                          @endif
+
+                                          <p>{{ $pro->upcoming_date }}</p>
+                                      </div>
+
+                                  </div>
+
+                              </div>
+                          @endforeach
+
+                      </div>
+
+                  </div>
+
+              </div>
 
             <div class="product-showcase">
 
@@ -1580,200 +946,66 @@
               <div class="showcase-wrapper  has-scrollbar">
 
                 <div class="showcase-container">
+                    @foreach($trending_products as $pro)
+                        <div class="showcase">
 
-                  <div class="showcase">
+                            <a href="#" class="showcase-img-box">
+                                <img src="{{asset('storage/' .$pro->pro_pic)}}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
+                            </a>
 
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/sports-1.jpg')}}" alt="running & trekking shoes - white" class="showcase-img"
-                        width="70">
-                    </a>
+                            <div class="showcase-content">
 
-                    <div class="showcase-content">
+                                <a href="{{route('login')}}">
+                                    <h4 class="showcase-title">{{$pro->pro_des}}</h4>
+                                </a>
 
-                      <a href="#">
-                        <h4 class="showcase-title">Running & Trekking Shoes - White</h4>
-                      </a>
+                                <a href="#" class="showcase-category">{{$pro->category}}</a>
 
-                      <a href="#" class="showcase-category">Sports</a>
+                                <div class="price-box">
+                                    <p class="price" data-price-usd="{{$pro->price}}">${{$pro->price}}</p>
+                                    @if($pro->Previous_Price === NULL)
 
-                      <div class="price-box">
-                        <p class="price">$49.00</p>
-                        <del>$15.00</del>
-                      </div>
+                                    @elseif($pro->Previous_Price !== NULL)
+                                        <del data-previous-price-usd="{{$pro->Previous_Price}}">${{$pro->Previous_Price}}</del>
+                                    @endif
+                                </div>
 
-                    </div>
+                            </div>
 
-                  </div>
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/sports-2.jpg')}}" alt="trekking & running shoes - black" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Trekking & Running Shoes - black</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">Sports</a>
-
-                      <div class="price-box">
-                        <p class="price">$78.00</p>
-                        <del>$36.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/party-wear-1.jpg')}}" alt="womens party wear shoes" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Womens Party Wear Shoes</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">Party wear</a>
-
-                      <div class="price-box">
-                        <p class="price">$94.00</p>
-                        <del>$42.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/sports-3.jpg')}}" alt="sports claw women's shoes" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Sports Claw Women's Shoes</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">Sports</a>
-
-                      <div class="price-box">
-                        <p class="price">$54.00</p>
-                        <del>$65.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
-
+                        </div>
+                    @endforeach
                 </div>
 
                 <div class="showcase-container">
 
-                  <div class="showcase">
+                    @foreach($trending_products2 as $pro)
+                        <div class="showcase">
 
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/sports-6.jpg')}}" alt="air tekking shoes - white" class="showcase-img"
-                        width="70">
-                    </a>
+                            <a href="#" class="showcase-img-box">
+                                <img src="{{asset('storage/' .$pro->pro_pic)}}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
+                            </a>
 
-                    <div class="showcase-content">
+                            <div class="showcase-content">
 
-                      <a href="#">
-                        <h4 class="showcase-title">Air Trekking Shoes - white</h4>
-                      </a>
+                                <a href="{{route('login')}}">
+                                    <h4 class="showcase-title">{{$pro->pro_des}}</h4>
+                                </a>
 
-                      <a href="#" class="showcase-category">Sports</a>
+                                <a href="#" class="showcase-category">{{$pro->category}}</a>
 
-                      <div class="price-box">
-                        <p class="price">$52.00</p>
-                        <del>$55.00</del>
-                      </div>
+                                <div class="price-box">
+                                    <p class="price" data-price-usd="{{$pro->price}}">${{$pro->price}}</p>
+                                    @if($pro->Previous_Price === NULL)
 
-                    </div>
+                                    @elseif($pro->Previous_Price !== NULL)
+                                        <del data-previous-price-usd="{{$pro->Previous_Price}}">${{$pro->Previous_Price}}</del>
+                                    @endif
+                                </div>
 
-                  </div>
+                            </div>
 
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/shoe-3.jpg')}}" alt="Boot With Suede Detail" class="showcase-img" width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Boot With Suede Detail</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">boots</a>
-
-                      <div class="price-box">
-                        <p class="price">$20.00</p>
-                        <del>$30.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/shoe-1.jpg')}}" alt="men's leather formal wear shoes" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Men's Leather Formal Wear shoes</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">formal</a>
-
-                      <div class="price-box">
-                        <p class="price">$56.00</p>
-                        <del>$78.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/shoe-2.jpg')}}" alt="casual men's brown shoes" class="showcase-img" width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Casual Men's Brown shoes</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">Casual</a>
-
-                      <div class="price-box">
-                        <p class="price">$50.00</p>
-                        <del>$55.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
+                        </div>
+                    @endforeach
 
                 </div>
 
@@ -1781,214 +1013,6 @@
 
             </div>
 
-            <div class="product-showcase">
-
-              <h2 class="title">Top Rated</h2>
-
-              <div class="showcase-wrapper  has-scrollbar">
-
-                <div class="showcase-container">
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/watch-3.jpg')}}" alt="pocket watch leather pouch" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Pocket Watch Leather Pouch</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">Watches</a>
-
-                      <div class="price-box">
-                        <p class="price">$50.00</p>
-                        <del>$34.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/jewellery-3.jpg')}}" alt="silver deer heart necklace" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Silver Deer Heart Necklace</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">Jewellery</a>
-
-                      <div class="price-box">
-                        <p class="price">$84.00</p>
-                        <del>$30.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/perfume.jpg')}}" alt="titan 100 ml womens perfume" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Titan 100 Ml Womens Perfume</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">Perfume</a>
-
-                      <div class="price-box">
-                        <p class="price">$42.00</p>
-                        <del>$10.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/belt.jpg')}}" alt="men's leather reversible belt" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Men's Leather Reversible Belt</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">Belt</a>
-
-                      <div class="price-box">
-                        <p class="price">$24.00</p>
-                        <del>$10.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-                <div class="showcase-container">
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/jewellery-2.jpg')}}" alt="platinum zircon classic ring" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">platinum Zircon Classic Ring</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">jewellery</a>
-
-                      <div class="price-box">
-                        <p class="price">$62.00</p>
-                        <del>$65.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/watch-1.jpg')}}" alt="smart watche vital plus" class="showcase-img" width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Smart watche Vital Plus</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">Watches</a>
-
-                      <div class="price-box">
-                        <p class="price">$56.00</p>
-                        <del>$78.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/shampoo.jpg')}}" alt="shampoo conditioner packs" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">shampoo conditioner packs</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">cosmetics</a>
-
-                      <div class="price-box">
-                        <p class="price">$20.00</p>
-                        <del>$30.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="{{asset('logo/all/jewellery-1.jpg')}}" alt="rose gold peacock earrings" class="showcase-img"
-                        width="70">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Rose Gold Peacock Earrings</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">jewellery</a>
-
-                      <div class="price-box">
-                        <p class="price">$20.00</p>
-                        <del>$30.00</del>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
 
           </div>
 
@@ -1998,183 +1022,129 @@
             - PRODUCT FEATURED
           -->
 
-          <div class="product-featured">
+            <div class="product-featured">
 
-            <h2 class="title">Deal of the day</h2>
+                <h2 class="title">Deal of the day</h2>
 
-            <div class="showcase-wrapper has-scrollbar">
+                <div class="showcase-wrapper has-scrollbar">
 
-              <div class="showcase-container">
+                    <div class="showcase-container">
 
-                <div class="showcase">
+                        <div class="showcase">
 
-                  <div class="showcase-banner">
-                    <img src="{{asset('logo/all/shampoo.jpg')}}" alt="shampoo, conditioner & facewash packs" class="showcase-img">
-                  </div>
+                            <div class="showcase-banner">
+                                <img src="{{asset('storage/'.$dealoftheDay->pro_pic)}}" alt="shampoo, conditioner & facewash packs" class="showcase-img" width="30%" height="30%">
+                            </div>
 
-                  <div class="showcase-content">
+                            <div class="showcase-content">
 
-                    <div class="showcase-rating">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star-outline"></ion-icon>
-                      <ion-icon name="star-outline"></ion-icon>
-                    </div>
+                                {{--                                    <div class="showcase-rating">--}}
+                                {{--                                        <ion-icon name="star"></ion-icon>--}}
+                                {{--                                        <ion-icon name="star"></ion-icon>--}}
+                                {{--                                        <ion-icon name="star"></ion-icon>--}}
+                                {{--                                        <ion-icon name="star-outline"></ion-icon>--}}
+                                {{--                                        <ion-icon name="star-outline"></ion-icon>--}}
+                                {{--                                    </div>--}}
 
-                    <a href="#">
-                      <h3 class="showcase-title">CLEAR Men Anti-Hair Fall Anti-dandruff shampoo | CLEAR HAIR CARE</h3>
-                    </a>
+                                <a href="#">
+                                    <h3 class="showcase-title">{{$dealoftheDay->pro_name}}</h3>
+                                </a>
 
-                    <p class="showcase-desc">
-                      Lorem ipsum dolor sit amet consectetur Lorem ipsum
-                      dolor dolor sit amet consectetur Lorem ipsum dolor
-                    </p>
+                                <p class="showcase-desc">
+                                    {{$dealoftheDay->pro_des}}
+                                </p>
 
-                    <div class="price-box">
-                      <p class="price">$150.00</p>
+                                <div class="price-box">
+                                    <p class="price" data-price-usd="{{$dealoftheDay->price}}">${{$dealoftheDay->price}}</p>
 
-                      <del>$200.00</del>
-                    </div>
+                                    @if($dealoftheDay->Previous_Price === NULL)
 
-                    <button class="add-cart-btn">add to cart</button>
+                                    @elseif($dealoftheDay->Previous_Price !== NULL)
+                                        <del data-previous-price-usd="{{$dealoftheDay->Previous_Price}}">${{$dealoftheDay->Previous_Price}}</del>
+                                    @endif
+                                </div>
 
-                    <div class="showcase-status">
-                      <div class="wrapper">
-                        <p>
-                          already sold: <b>20</b>
-                        </p>
+                                <a class="add-cart-btn" href="{{route('login')}}" style="text-align: center">add to cart</a>
 
-                        <p>
-                          available: <b>40</b>
-                        </p>
-                      </div>
+                                <div class="showcase-status">
+                                    <div class="wrapper">
+                                        <p>
+                                            already sold: <b>20</b>
+                                        </p>
 
-                      <div class="showcase-status-bar"></div>
-                    </div>
+                                        <p>
+                                            available: <b>{{$dealoftheDay->Stock}}</b>
+                                        </p>
+                                    </div>
 
-                    <div class="countdown-box">
+                                    <div class="showcase-status-bar"></div>
+                                </div>
 
-                      <p class="countdown-desc">
-                        Hurry Up! Offer ends in:
-                      </p>
-
-                      <div class="countdown">
-
-                        <div class="countdown-content">
-
-                          <p class="display-number">360</p>
-
-                          <p class="display-text">Days</p>
+                            </div>
 
                         </div>
 
-                        <div class="countdown-content">
-                          <p class="display-number">24</p>
-                          <p class="display-text">Hours</p>
-                        </div>
-
-                        <div class="countdown-content">
-                          <p class="display-number">59</p>
-                          <p class="display-text">Min</p>
-                        </div>
-
-                        <div class="countdown-content">
-                          <p class="display-number">00</p>
-                          <p class="display-text">Sec</p>
-                        </div>
-
-                      </div>
-
                     </div>
 
-                  </div>
+                    <div class="showcase-container">
+
+                        <div class="showcase">
+
+                            <div class="showcase-banner">
+                                <img src="{{asset('storage/'.$dealoftheDay2->pro_pic)}}" alt="Rose Gold diamonds Earring" class="showcase-img" width="30%" height="30%">
+                            </div>
+
+                            <div class="showcase-content">
+
+                                {{--                                    <div class="showcase-rating">--}}
+                                {{--                                        <ion-icon name="star"></ion-icon>--}}
+                                {{--                                        <ion-icon name="star"></ion-icon>--}}
+                                {{--                                        <ion-icon name="star"></ion-icon>--}}
+                                {{--                                        <ion-icon name="star-outline"></ion-icon>--}}
+                                {{--                                        <ion-icon name="star-outline"></ion-icon>--}}
+                                {{--                                    </div>--}}
+
+                                <h3 class="showcase-title">
+                                    <a href="#" class="showcase-title">{{$dealoftheDay2->pro_name}}</a>
+                                </h3>
+
+                                <p class="showcase-desc">
+                                    {{$dealoftheDay2->pro_des}}
+                                </p>
+
+                                <div class="price-box">
+                                    <p class="price" data-price-usd="{{$dealoftheDay2->price}}">${{$dealoftheDay2->price}}</p>
+
+                                    @if($dealoftheDay2->Previous_Price === NULL)
+
+                                    @elseif($dealoftheDay2->Previous_Price !== NULL)
+                                        <del data-previous-price-usd="{{$dealoftheDay2->Previous_Price}}">${{$dealoftheDay2->Previous_Price}}</del>
+                                    @endif
+                                </div>
+
+                                <a class="add-cart-btn" href="{{route('login')}}" style="text-align: center">add to cart</a>
+
+                                <div class="showcase-status">
+                                    <div class="wrapper">
+                                        <p> already sold: <b>15</b> </p>
+
+                                        <p> available: <b>{{$dealoftheDay2->Stock}}</b> </p>
+                                    </div>
+
+                                    <div class="showcase-status-bar"></div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
-
-              </div>
-
-              <div class="showcase-container">
-
-                <div class="showcase">
-
-                  <div class="showcase-banner">
-                    <img src="{{asset('logo/all/jewellery-1.jpg')}}" alt="Rose Gold diamonds Earring" class="showcase-img">
-                  </div>
-
-                  <div class="showcase-content">
-
-                    <div class="showcase-rating">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star-outline"></ion-icon>
-                      <ion-icon name="star-outline"></ion-icon>
-                    </div>
-
-                    <h3 class="showcase-title">
-                      <a href="#" class="showcase-title">Buy LAFZ Meliha No Alcohol No Gas Premium Body Spray</a>
-                    </h3>
-
-                    <p class="showcase-desc">
-                      Lorem ipsum dolor sit amet consectetur Lorem ipsum
-                      dolor dolor sit amet consectetur Lorem ipsum dolor
-                    </p>
-
-                    <div class="price-box">
-                      <p class="price">$1990.00</p>
-                      <del>$2000.00</del>
-                    </div>
-
-                    <button class="add-cart-btn">add to cart</button>
-
-                    <div class="showcase-status">
-                      <div class="wrapper">
-                        <p> already sold: <b>15</b> </p>
-
-                        <p> available: <b>40</b> </p>
-                      </div>
-
-                      <div class="showcase-status-bar"></div>
-                    </div>
-
-                    <div class="countdown-box">
-
-                      <p class="countdown-desc">Hurry Up! Offer ends in:</p>
-
-                      <div class="countdown">
-                        <div class="countdown-content">
-                          <p class="display-number">360</p>
-                          <p class="display-text">Days</p>
-                        </div>
-
-                        <div class="countdown-content">
-                          <p class="display-number">24</p>
-                          <p class="display-text">Hours</p>
-                        </div>
-
-                        <div class="countdown-content">
-                          <p class="display-number">59</p>
-                          <p class="display-text">Min</p>
-                        </div>
-
-                        <div class="countdown-content">
-                          <p class="display-number">00</p>
-                          <p class="display-text">Sec</p>
-                        </div>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
 
             </div>
-
-          </div>
 
 
 
@@ -2188,6 +1158,7 @@
 
             <div class="product-grid">
                 @foreach($product4 as $prod)
+                    @if($prod->date_status !== 'upcoming')
               <div class="showcase">
 
                 <div class="showcase-banner">
@@ -2256,6 +1227,7 @@
                 </div>
 
               </div>
+                    @endif
                 @endforeach
 
 
@@ -2948,9 +1920,68 @@
       });
 
       updatePrice('usd');
+
+      $(document).ready(function() {
+          function fetchProduct5() {
+              $.ajax({
+                  url: '{{ route("/") }}',
+                  type: 'GET',
+                  dataType: 'json',
+                  success: function(response) {
+                      displayProduct5(response.products);
+                  },
+                  error: function(xhr, status, error) {
+                      console.error(error);
+                  }
+              });
+          }
+
+          function displayProduct5(products) {
+              var product5Container = $('#product5Container');
+              product5Container.empty();
+
+              products.forEach(function(product) {
+                  product5Container.append('<p>' + product.name + '</p>'); // Adjust according to your product display logic
+              });
+          }
+
+          // Fetch product5 initially and then every 30 seconds
+          fetchProduct5();
+          setInterval(fetchProduct5, 30000); // 30 seconds (in milliseconds)
+      });
+
+
+      @foreach($upcoming as $product)
+      var releaseDate_{{ $product->pro_id }} = moment("{{ $product->upcoming_date }}");
+      var countdownElement_{{ $product->pro_id }} = document.getElementById('countdown_{{ $product->pro_id }}');
+
+      function updateCountdown_{{ $product->pro_id }}() {
+          var now = moment();
+          var diffSeconds = releaseDate_{{ $product->pro_id }}.diff(now, 'seconds');
+
+          if (diffSeconds > 0) {
+              var duration = moment.duration(diffSeconds, 'seconds');
+              var hours = duration.hours();
+              var minutes = duration.minutes();
+              var seconds = duration.seconds();
+
+              countdownElement_{{ $product->pro_id }}.innerText = hours + 'h ' + minutes + 'm ' + seconds + 's';
+          } else {
+              countdownElement_{{ $product->pro_id }}.innerText = 'Product released!';
+              clearInterval(interval_{{ $product->pro_id }});
+          }
+      }
+
+      updateCountdown_{{ $product->pro_id }}();
+      var interval_{{ $product->pro_id }} = setInterval(updateCountdown_{{ $product->pro_id }}, 1000);
+      @endforeach
+
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 
 

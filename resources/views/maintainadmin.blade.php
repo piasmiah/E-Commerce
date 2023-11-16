@@ -276,7 +276,19 @@
                 <input type="hidden" name="status" value="Available">
             </div>
 
+                <div class="input-fields">
+                    <label>Products</label>
+                    <select name = "products">
+                        <option value ='LIVE'>LIVE</option>
+                        <option value ='upcoming'>Upcoming</option>
+                    </select>
+                </div>
 
+
+                <div class="input-fields">
+                    <label>Coming Date</label>
+                    <input type="date" placeholder="Price" name="date">
+                </div>
 
             <div class="input-fields">
                 <label>Picture</label>
@@ -343,20 +355,38 @@
                             <th>Stock</th>
                             <th>Price</th>
                             <th>Discount</th>
-
+                            <th>Status</th>
+                            <th>Coming Date</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($product as $pro)
-                            <tr style="background-color: {{ ($pro->Stock_Status == 'Out of Stock' && $pro->Stock == 0) ? '#FE3B01' : ($pro->Stock <= 2 ? '#24f109' : 'white') }}; color: {{ ($pro->Stock_Status == 'Out of Stock' && $pro->Stock == 0) ? 'white' : 'black' }}">
-                                <td><img src="{{asset('storage/' .$pro->pro_pic)}}"></td>
-                                <td>{{$pro->pro_name}}</td>
-                                <td>{{$pro->category}}</td>
-                                <td>{{ Str::limit($pro->pro_des, 30) }}</td>
-                                <td>{{$pro->Stock}}</td>
-                                <td>${{$pro->price}}</td>
-                                <td>{{$pro->Discount_Rate}}%</td>
-                            </tr>
+                            @if($pro->date_status === 'upcoming')
+                                <tr>
+                                    <td><img src="{{asset('storage/' .$pro->pro_pic)}}"></td>
+                                    <td>{{$pro->pro_name}}</td>
+                                    <td>{{$pro->category}}</td>
+                                    <td>{{ Str::limit($pro->pro_des, 30) }}</td>
+                                    <td>{{$pro->Stock}}</td>
+                                    <td>${{$pro->price}}</td>
+                                    <td>{{$pro->Discount_Rate}}%</td>
+                                    <td>{{$pro->date_status}}</td>
+                                    <td id="{{$pro->upcoming_date}}"></td>
+                                </tr>
+                            @else
+                                <tr style="background-color: {{ ($pro->Stock_Status == 'Out of Stock' && $pro->Stock == 0) ? '#FE3B01' : ($pro->Stock <= 2 ? '#24f109' : 'white') }}; color: {{ ($pro->Stock_Status == 'Out of Stock' && $pro->Stock == 0) ? 'white' : 'black' }}">
+                                    <td><img src="{{asset('storage/' .$pro->pro_pic)}}"></td>
+                                    <td>{{$pro->pro_name}}</td>
+                                    <td>{{$pro->category}}</td>
+                                    <td>{{ Str::limit($pro->pro_des, 30) }}</td>
+                                    <td>{{$pro->Stock}}</td>
+                                    <td>${{$pro->price}}</td>
+                                    <td>{{$pro->Discount_Rate}}%</td>
+                                    <td>{{$pro->date_status}}</td>
+                                    <td>{{$pro->upcoming_date}}</td>
+                                </tr>
+                            @endif
+
                         @endforeach
                         </tbody>
                     </table>
@@ -429,7 +459,7 @@
                                 <td>${{$oder->Price}}</td>
                                 <td>{{ date('M d, Y', strtotime($oder->created_at)) }}</td>
                                     <td>
-                                        @if($oder->order_status==='Delivered' || $oder->order_status==='Shipping')
+                                        @if($oder->order_status==='Delivered' || $oder->order_status==='Shipping' || $oder->order_status==='On the Way')
                                             {{$oder->Date}}
                                         @else
                                         <input type="date" name="date" id="calendar" min="2023-01-01" max="2023-12-31">
@@ -440,7 +470,9 @@
                                     <td><span class="status completed">{{$oder->order_status}}</span></td>
                                 @elseif($oder->order_status==='Shipping')
                                     <td><span class="status pending">{{$oder->order_status}}</span></td>
-                                @elseif($oder->Payment_Status==='paid')
+                                @elseif($oder->Payment_Status==='On the Way')
+                                    <td><span class="status process">{{$oder->order_status}}</span></td>
+                                 @elseif($oder->Payment_Status==='paid')
                                     <td><button type="submit" class="status process">{{$oder->order_status}}</button></td>
                                 @endif
                                 </form>

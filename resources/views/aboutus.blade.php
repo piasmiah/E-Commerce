@@ -18,10 +18,6 @@
       - custom css link
     -->
     <link rel="stylesheet" href="{{asset('css/style-prefix.css')}}">
-    <link rel="stylesheet" href="{{asset('css/card.css')}}">
-    <link rel="stylesheet" href="{{asset('css/product-style.css')}}">
-    <link rel="stylesheet" href="{{asset('css/about2.css')}}">
-    <link rel="stylesheet" href="{{asset('css/about.css')}}">
     <!--
       - google font link*
     -->
@@ -29,7 +25,101 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
 
+    .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .line-long {
+        width: 100%;
+        border: 1px solid #ddd; /* Adjust the color as needed */
+        margin: 20px 0;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .about-section {
+        margin-bottom: 40px;
+    }
+
+    .product-title {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .about-content {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .about-item {
+        flex: 0 1 30%; /* Adjust the width as needed */
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .about-item img {
+        width: 100%;
+        height: 70%;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .user-greeting {
+        font-size: 18px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .dropdown ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #fff;
+        box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        display: none; /* Add the "hidden" class to initially hide the dropdown menu */
+    }
+
+    .dropdown ul li {
+        padding: 10px 15px;
+        transition: background-color 0.3s;
+    }
+
+    .dropdown ul li a {
+        text-decoration: none;
+        color: #000;
+        display: block;
+    }
+
+    .dropdown ul li:hover {
+        background-color: hsl(51 , 100% , 50%);; /* Add the hover effect color here */
+    }
+
+    .dropdown:hover ul {
+        display: block;
+    }
+
+</style>
 </head>
 <body>
 <header>
@@ -66,12 +156,7 @@
 
             </ul>
 
-            <div class="header-alert-news">
-                <p>
-                    <b>Free Shipping</b>
-                    This Week Order Over - $55
-                </p>
-            </div>
+
 
             <div class="header-top-actions">
 
@@ -115,19 +200,28 @@
             </div>
 
             <div class="header-user-actions">
-                {{--            <a href="{{route('login')}}" class="action-btn">--}}
-                {{--            <ion-icon name="person-outline"></ion-icon>--}}
-                {{--        </a>--}}
 
-                <button class="action-btn">
-                    <ion-icon name="heart-outline"></ion-icon>
-                    <span class="count">0</span>
-                </button>
 
-                <button class="action-btn">
-                    <ion-icon name="bag-handle-outline"></ion-icon>
-                    <span class="count">0</span>
-                </button>
+                <div class="dropdown">
+                    <span style="font-size: 15px;" class="user-greeting" onclick="toggleDropdown()">Hello, {{ implode(' ', array_slice(explode(' ', $user->name), 0, 3)) }}</span>
+                    <ul>
+                        <li><a href="{{ route('purchase',['id'=>$user->id]) }}" style="font-size: 15px">Purchase History</a></li>
+                        <li><a href="/" style="font-size: 15px;">Logout</a></li>
+                    </ul>
+                </div>
+
+                @if($userfind)
+                    <a class="action-btn" href="{{ route('cart',['id' => $user->id]) }}">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="count">{{ $total }}</span>
+                    </a>
+                @else
+                    <a class="action-btn" href="#">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </a>
+                @endif
+
+
 
             </div>
 
@@ -147,172 +241,32 @@
                 </li>
 
                 <li class="menu-category">
+                    <a href="#" class="menu-title" style="color: blue;">About Us</a>
+                </li>
+
+                <li class="menu-category">
                     <a href="#" class="menu-title">Categories</a>
-
-                    <div class="dropdown-panel">
-
-                        <ul class="dropdown-panel-list">
-
-                            <li class="menu-title">
-                                <a href="#">Kids</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Shirt</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">T-Shirt</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Shoes</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Diaper</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Toy</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">
-                                    <img src="{{asset('logo/electronics-banner-1.jpg')}}" alt="headphone collection" width="250"
-                                         height="119">
-                                </a>
-                            </li>
-
-                        </ul>
-
-                        <ul class="dropdown-panel-list">
-
-                            <li class="menu-title">
-                                <a href="#">Men's</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Formal</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Casual</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Sports</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Jacket</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Sunglasses</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">
-                                    <img src="{{asset('logo/mens-banner.jpg')}}" alt="men's fashion" width="250" height="119">
-                                </a>
-                            </li>
-
-                        </ul>
-
-                        <ul class="dropdown-panel-list">
-
-                            <li class="menu-title">
-                                <a href="#">Women's</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Formal</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Casual</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Perfume</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Cosmetics</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Bags</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">
-                                    <img src="{{asset('logo/womens-banner.jpg')}}" alt="women's fashion" width="250" height="119">
-                                </a>
-                            </li>
-
-                        </ul>
-
-                        <ul class="dropdown-panel-list">
-
-                            <li class="menu-title">
-                                <a href="#">Electronics</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Smart Watch</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Smart TV</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Keyboard</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Mouse</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">Microphone</a>
-                            </li>
-
-                            <li class="panel-list-item">
-                                <a href="#">
-                                    <img src="{{asset('logo/electronics-banner-2.jpg')}}" alt="mouse collection" width="250" height="119">
-                                </a>
-                            </li>
-
-                        </ul>
-
-                    </div>
-                </li>
-
-                <li class="menu-category">
-                    <a href="#" class="menu-title">About Us</a>
-                </li>
-
-                <li class="menu-category">
-                    <a href="#" class="menu-title">Hot Offers</a>
-                </li>
-
-                <li class="menu-category">
-                    <a href="#" class="menu-title">{{ $user->name }}</a>
                     <ul class="dropdown-list">
 
-                        <li class="dropdown-item">
-                            <a href="{{ route('purchase',['id'=>$user->id]) }}">Purchase History</a>
-                        </li>
-
-                        <li class="dropdown-item">
-                            <a href="/">Logout</a>
-                        </li>
+                        @foreach($category as $cata)
+                            <li class="dropdown-item">
+                                <a href="{{route('productlist2',['category'=>$cata->Category_Name,'id'=>$user->id])}}">{{$cata->Category_Name}}</a>
+                            </li>
+                        @endforeach
 
                     </ul>
                 </li>
+
+
+
+                <li class="menu-category">
+                    <a href="#" class="menu-title">Special Offers</a>
+                </li>
+                <li class="menu-category">
+                    <a href="#" class="menu-title">Contact Us</a>
+                </li>
+
+
 
 
 
@@ -534,164 +488,76 @@
 </header>
 
 <main>
-    <hr class = "line-long">
-    <div class="product-title">
-        <h1>What's important to us</h1>
-    </div>
-    <div>
-        <div class="product-title">
-            <h2>Quality and Genuine products</h2>
+    <div class="main-container">
+
+        <hr class="line-long">
+
+        <div class="section-title">
+            <h1>What's Important to Us</h1>
         </div>
 
-        <div class="about-us">
-
-            <div id="quality">
-                <p> We believe in only the best,
-                    only genuine products will be displayed on out site.</p>
-                <img src="{{asset('logo/ecommerce-product-images.jpg')}}" alt="">
-
-            </div>
-            <div id="quality">
-                <p>Each product purchased from our site will be
-                    given a 1 year Manufacturer Warranty.</p>
-                <img src="{{asset('logo/ecommerce-product-images.jpg')}}" alt="">
-            </div>
-            <div id="quality">
-                <p>Any pirated products shipped out by us,
-                    will be fully refunded back to the customer.</p>
-                <img src="{{asset('logo/ecommerce-product-images.jpg')}}" alt="">
+        <section class="about-section">
+            <div class="product-title">
+                <h2>Quality and Genuine Products</h2>
             </div>
 
-
-        </div>
-
-        <div class="product-title">
-            <h2>Efficent Delivery</h2>
-        </div>
-        <div class="about-us">
-            <div class="card">
-                <p>We don't like it when something takes forever, why should you?</p>
-                <p>We provide efficient and accurate delivery service. </p>
-                <p>One-day delivery will be available soon , stay tuned !</p>
-                <div>
-                    <img src="./img/aboutus/delivery.png" alt="" style="width:auto; height:auto;">
+            <div class="about-content">
+                <div class="about-item">
+                    <p>We believe in only the best, only genuine products will be displayed on our site.</p>
+                    <img src="{{asset('logo/ecommerce-product-images.jpg')}}" alt="Quality Product">
                 </div>
 
-            </div>
+                <div class="about-item">
+                    <p>Each product purchased from our site will be given a year Warranty.</p>
+                    <img src="{{asset('logo/french_fall_fashion_trends.jpg')}}" alt="Warranty">
+                </div>
 
-
-
-        </div>
-        <div class="product-title">
-            <h2>Excellent Customer Service</h2>
-        </div>
-        <div class="about-us">
-            <div class="card">
-                <p>Your satisfaction is our top priority.</p>
-                <p>24-hour hotline is available to assist you with your needs anytime.</p>
-                <p>Our team consists of professionals to handle all your requests.</p>
-                <div >
-                    <img src="./img/aboutus/customerservice.jpg" alt="" style="width:auto; height:auto;">
-                    <img src="./img/aboutus/24_hours.png" alt="" style="width:auto; height:auto;">
+                <div class="about-item">
+                    <p>Any pirated products shipped out by us will be fully refunded.</p>
+                    <img src="{{asset('logo/game-ps5-terbaik.jpg')}}" alt="Refund">
                 </div>
             </div>
+        </section>
 
+        <section class="about-section">
+            <div class="product-title">
+                <h2>Efficient Delivery</h2>
+            </div>
 
-        </div>
+            <div class="about-content">
+                <div class="about-item">
+                    <p>We don't like it when something takes forever, why should you?</p>
+                    <p>We provide efficient and accurate delivery service.</p>
+                    <p>One-day delivery will be available soon, stay tuned!</p>
+                    <img src="{{asset('logo/download.jpeg')}}" alt="Delivery" style="align-items: center">
+                </div>
+            </div>
+        </section>
 
-    </div>
-    <div class="product-title">
-        <h1> Our Supervisor</h1>
+        <section class="about-section">
+            <div class="product-title">
+                <h2>Excellent Customer Service</h2>
+            </div>
+
+            <div class="about-content">
+                <div class="about-item">
+                    <p>Your satisfaction is our top priority.</p>
+                    <p>24-hour hotline is available to assist you with your needs anytime.</p>
+                    <p>Our team consists of professionals to handle all your requests.</p>
+
+                            <div style="width: 100%; height: 100%">
+                                <img src="{{asset('logo/customer.jpg')}}" alt="Customer Service">
+                            </div>
+
+                    </div>
+
+                </div>
+
+        </section>
 
     </div>
-    <div class="product-category">
-        <div class="profile-card">
-            <div class="profile-pic">
-                <img src="{{asset('logo/Raisul.jpg')}}" alt="">
-            </div>
-            <div class="personal-details">
-                <h2>Md. Raisul Alam</h2>
-                <p>Supervisor</p>
-                <p>Assistant Professor</p>
-                <p>Department of Computer Science & Engineering</p>
-                <p>Bangladesh University of Business and Technology</p>
-
-                <!-- <a href="https://github.com/SMd-Rubayet-Islam-Ifti">
-                    <p>Github.</p>
-                </a> -->
-            </div>
-        </div>
-
-
-
-    </div>
-
-
-    </div>
-    <div class="product-title">
-        <h1> Our Developer</h1>
-        <div class="product-category">
-            <div class="profile-card">
-                <div class="profile-pic">
-                    <img src="{{asset('logo/Rubayet.jpg')}}" alt="">
-                </div>
-                <div class="personal-details">
-                    <h2>Sheikh Md. Rubayet </h2>
-                    <p>Backend Developer of Ecommerce.</p>
-
-                    <!-- <a href="https://github.com/SMd-Rubayet-Islam-Ifti">
-                        <p>Github.</p>
-                    </a> -->
-                </div>
-            </div>
-            <div class="profile-card">
-                <div class="profile-pic">
-                    <img src="{{asset('logo/Pias.jpg')}}" alt="">
-                </div>
-                <div class="personal-details">
-                    <h2>Pias Miah</h2>
-                    <p>Fontend Developer of Ecommerce.</p>
-
-                    <!-- <a href="https://github.com/SMd-Rubayet-Islam-Ifti">
-                        <p>Github.</p>
-                    </a> -->
-                </div>
-            </div>
-            <div class="profile-card">
-                <div class="profile-pic">
-                    <img src="{{asset('logo/Rafi.jpg')}}" alt="">
-                </div>
-                <div class="personal-details">
-                    <h2>Rashad Rafi</h2>
-                    <p>Backend Developer 2 of Ecommerce</p>
-
-                </div>
-            </div>
-            <div class="profile-card">
-                <div class="profile-pic">
-                    <img src="{{asset('logo/Zidan.jpg')}}" alt="">
-                </div>
-                <div class="personal-details">
-                    <h2>Nabil Hossain</h2>
-                    <p>Fontend Developer 2 of Ecommerce</p>
-
-                </div>
-            </div>
-            <div class="profile-card">
-                <div class="profile-pic">
-                    <img src="{{asset('logo/Asha.jpg')}}" alt="">
-                </div>
-                <div class="personal-details">
-                    <h2>Asha Akter</h2>
-                    <p>UI/UX Desinger of Ecommerce</p>
-
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
 </main>
+
 
 <footer>
 
@@ -980,6 +846,25 @@
 </footer>
 
 <script src="{{asset('js/script.js')}}"></script>
+
+<script>
+    function toggleDropdown() {
+        var dropdown = document.querySelector(".dropdown ul");
+        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+        if (!event.target.matches('.user-greeting')) {
+            var dropdowns = document.querySelectorAll(".dropdown ul");
+            dropdowns.forEach(function (dropdown) {
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                }
+            });
+        }
+    }
+</script>
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

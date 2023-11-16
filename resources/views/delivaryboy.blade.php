@@ -6,6 +6,7 @@
     <title>E-Commerce | Delivery Boy</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flag-icon-css/css/flag-icon.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <style>
@@ -367,7 +368,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" style="font-weight: bold">NID</label>
-                                        <input type="text" name="address" class="form-control" value="{{$id->nid}}">
+                                        <input type="text" name="nid" class="form-control" value="{{$id->nid}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" style="font-weight: bold">Delivered</label>
@@ -379,7 +380,7 @@
                                 <div class="card-body pb-2">
                                     <div class="form-group">
                                         <label class="form-label" style="font-weight: bold">Current password</label>
-                                        <input type="password" class="form-control" value="{{$id->password}}">
+                                        <input type="password" name="current" class="form-control" value="{{$id->password}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" style="font-weight: bold">New password</label>
@@ -395,7 +396,7 @@
                                 <div class="card-body pb-2">
                                     <div class="form-group">
                                         <label class="form-label" style="font-weight: bold">Birthday</label>
-                                        <input type="date" name="dob" class="form-control" value="">
+                                        <input type="date" name="dob" class="form-control" value="{{$existuser->DOB}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" style="font-weight: bold">Country</label>
@@ -417,28 +418,43 @@
                                         <input type="text" class="form-control" name="phone" value="{{$id->phone}}">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label" style="font-weight: bold">Secondary Phone</label>
-                                        <input type="text" class="form-control" name="secphone" value="">
+                                        <label class="form-label" style="font-weight: bold; flex: 1;">Phone Code</label>
                                     </div>
+                                    <div class="form-group" style="display: flex; align-items: center;">
+                                        <select class="form-control" name="code" style="width: 50px; flex: 3;">
+                                            <option value="+880">BD: +880</option>
+                                            <option value="+1">Can: +1</option>
+                                            <option value="+44">UK: +44</option>
+                                            <option value="+1">USA: +1</option>
+                                            <option value="+49">Ger: +49</option>
+                                            <option value="+33">Fra: +33</option>
+                                        </select>
+                                        <input type="text" class="form-control" name="secphone" value="{{$existuser->second_phone}}" style="flex: 3;">
+                                    </div>
+
+                                    {{--                                    <div class="form-group">--}}
+{{--                                        <label class="form-label" style="font-weight: bold">Secondary Phone</label>--}}
+{{--                                        <input type="text" class="form-control" name="secphone" value="{{$existuser->second_phone}}">--}}
+{{--                                    </div>--}}
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="account-social-links">
                                 <div class="card-body pb-2">
                                     <div class="form-group">
                                         <label class="form-label" style="font-weight: bold">Twitter</label>
-                                        <input type="text" name="twitter" class="form-control" value="">
+                                        <input type="text" name="twitter" class="form-control" value="{{$existuser->twitter}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" style="font-weight: bold">Facebook</label>
-                                        <input type="text" name="facebook" class="form-control" value="">
+                                        <input type="text" name="facebook" class="form-control" value="{{$existuser->facebook}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" style="font-weight: bold">LinkedIn</label>
-                                        <input type="text" name="linkedin" class="form-control" value>
+                                        <input type="text" name="linkedin" class="form-control" value="{{$existuser->linkedIn}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" style="font-weight: bold">Instagram</label>
-                                        <input type="text" name="instagram" class="form-control" value="">
+                                        <input type="text" name="instagram" class="form-control" value="{{$existuser->instagram}}">
                                     </div>
                                 </div>
                             </div>
