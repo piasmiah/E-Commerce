@@ -1329,9 +1329,14 @@
 
                             <div class="showcase-container">
                                 <input type="hidden" name="user_id" value="{{ $user->id }}">
+<<<<<<< HEAD
                                 @foreach($special_offers as $pro)
 
                                     <div class="showcase">
+=======
+                                @foreach($product as $pro)
+                                <div class="showcase">
+>>>>>>> 838dc469ea8db29580473a74f1f2957857b08567
                                         <a href="{{ route('product', ['id' => $pro->pro_id,'ids'=>$user->id,'category'=>$pro->category]) }}" class="showcase-img-box">
                                             <img src="{{asset('storage/' .$pro->pro_pic)}}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
                                         </a>

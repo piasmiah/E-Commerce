@@ -436,10 +436,20 @@
                         <div class="showcase">
 
                             <div class="showcase-banner">
+<<<<<<< HEAD
                                 <a href="{{route('product',['ids'=>$user->id,'id'=>$prod->pro_id,'category'=>$prod->category])}}">
+=======
+                            <a href="{{route('product',['ids'=>$user->id,'id'=>$prod->pro_id,'category'=>$prod->category])}}">
+>>>>>>> 838dc469ea8db29580473a74f1f2957857b08567
                                 <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
+                  
                                 <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+<<<<<<< HEAD
                                 </a>
+=======
+                            </a>
+
+>>>>>>> 838dc469ea8db29580473a74f1f2957857b08567
 {{--                                                            <p class="showcase-badge">15%</p>--}}
 
                                 <div class="showcase-actions">
