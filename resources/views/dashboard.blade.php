@@ -26,6 +26,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
     <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
 
 <style>
@@ -71,7 +73,48 @@
     .dropdown:hover ul {
         display: block;
     }
-</style>
+
+    a,a:hover{
+        text-decoration: none;
+    }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination .pagination-list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pagination .pagination-list li {
+            margin: 0 5px;
+        }
+
+        .pagination .pagination-list li a,
+        .pagination .pagination-list li span {
+            display: block;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .pagination .pagination-list li.active span {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .pagination .pagination-list li a:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
 
 <body>
@@ -243,6 +286,7 @@
                     <span style="font-size: 15px;" class="user-greeting" onclick="toggleDropdown()">Hello, {{ implode(' ', array_slice(explode(' ', $user->name), 0, 3)) }}</span>
                     <ul>
                         <li><a href="{{ route('purchase',['id'=>$user->id]) }}" style="font-size: 15px">Purchase History</a></li>
+                        <li><a href="{{route('sellsomething',['id'=>$user->id])}}" style="font-size: 15px;">Want to sell something?</a></li>
                         <li><a href="/" style="font-size: 15px;">Logout</a></li>
                     </ul>
                 </div>
@@ -1329,14 +1373,12 @@
 
                             <div class="showcase-container">
                                 <input type="hidden" name="user_id" value="{{ $user->id }}">
-<<<<<<< HEAD
+
                                 @foreach($special_offers as $pro)
 
                                     <div class="showcase">
-=======
-                                @foreach($product as $pro)
-                                <div class="showcase">
->>>>>>> 838dc469ea8db29580473a74f1f2957857b08567
+
+
                                         <a href="{{ route('product', ['id' => $pro->pro_id,'ids'=>$user->id,'category'=>$pro->category]) }}" class="showcase-img-box">
                                             <img src="{{asset('storage/' .$pro->pro_pic)}}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
                                         </a>
@@ -1686,15 +1728,11 @@
                                     <div class="showcase-status">
                                         <div class="wrapper">
                                             <p>
-                                                already sold: <b>20</b>
-                                            </p>
-
-                                            <p>
                                                 available: <b>{{$dealoftheDay->Stock}}</b>
                                             </p>
                                         </div>
 
-                                        <div class="showcase-status-bar"></div>
+
                                     </div>
 
                                 </div>
@@ -1743,12 +1781,9 @@
 
                                     <div class="showcase-status">
                                         <div class="wrapper">
-                                            <p> already sold: <b>15</b> </p>
-
                                             <p> available: <b>{{$dealoftheDay2->Stock}}</b> </p>
                                         </div>
 
-                                        <div class="showcase-status-bar"></div>
                                     </div>
 
 
@@ -1775,7 +1810,7 @@
 
                     <div class="product-grid">
                         @foreach($product4 as $prod)
-                            @if($prod->date_status !== 'upcoming')
+
                         <div class="showcase">
 
                             <div class="showcase-banner">
@@ -1790,25 +1825,7 @@
 
                                 @endif
 
-                                <div class="showcase-actions">
 
-                                    <button class="btn-action">
-                                        <ion-icon name="heart-outline"></ion-icon>
-                                    </button>
-
-                                    <button class="btn-action">
-                                        <ion-icon name="eye-outline"></ion-icon>
-                                    </button>
-
-                                    <button class="btn-action">
-                                        <ion-icon name="repeat-outline"></ion-icon>
-                                    </button>
-
-                                    <button class="btn-action">
-                                        <ion-icon name="bag-add-outline"></ion-icon>
-                                    </button>
-
-                                </div>
 
                             </div>
 
@@ -1846,17 +1863,23 @@
                                     @elseif($prod->Previous_Price !== NULL)
                                         <del data-previous-price-usd="{{$prod->Previous_Price}}">${{$prod->Previous_Price}}</del>
                                     @endif
+
+                                    @if($prod->date_status==='upcoming')
+                                        <p>{{$prod->date_status}}</p>
+                                    @endif
                                 </div>
 
                             </div>
 
                         </div>
-                            @endif
+
                         @endforeach
 
 
                     </div>
-
+                    <div class="pagination-links">
+                        {{ $product4->links() }}
+                    </div>
                 </div>
 
             </div>
@@ -1873,90 +1896,90 @@
       - TESTIMONIALS, CTA & SERVICE
     -->
 
-    <div>
+{{--    <div>--}}
 
-        <div class="container">
+{{--        <div class="container">--}}
 
-            <div class="testimonials-box">
-
-                <div class="service" style="align-items: center">
-
-                    <h2 class="title">Our Services</h2>
-
-                    <div class="service-container">
-
-                        <a href="#" class="service-item">
-
-                            <div class="service-icon">
-                                <ion-icon name="boat-outline"></ion-icon>
-                            </div>
-
-                            <div class="service-content">
-
-                                <h3 class="service-title">Worldwide Delivery</h3>
-                                <p class="service-desc">For Order Over $100</p>
-
-                            </div>
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-                <div class="service" style="align-items: center">
-
-                    <h2 class="title">Our Services</h2>
-
-                    <div class="service-container">
-
-                        <a href="#" class="service-item">
-
-                            <div class="service-icon">
-                                <ion-icon name="rocket-outline"></ion-icon>
-                            </div>
-
-                            <div class="service-content">
-
-                                <h3 class="service-title">Next Day delivery</h3>
-                                   <p class="service-desc">BD Orders Only</p>
-
-                                </div>
-
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                <div class="service" style="align-items: center">
-
-                    <h2 class="title">Our Services</h2>
-
-                    <div class="service-container">
-
-                        <a href="#" class="service-item">
-
-                            <div class="service-icon">
-                                <ion-icon name="call-outline"></ion-icon>
-                            </div>
-
-                            <div class="service-content">
-
-                                <h3 class="service-title">Best Online Support</h3>
-                                <p class="service-desc">Hours: 8AM - 11PM</p>
-
-                            </div>
-
-                        </a>
-
-                    </div>
-
-                </div>
+{{--            <div class="testimonials-box">--}}
+{{--                <h2 class="title">Our Services</h2>--}}
 
 {{--                <div class="service" style="align-items: center">--}}
 
-{{--                    <h2 class="title">Our Services</h2>--}}
+
+
+{{--                    <div class="service-container">--}}
+
+{{--                        <a href="#" class="service-item">--}}
+
+{{--                            <div class="service-icon">--}}
+{{--                                <ion-icon name="boat-outline"></ion-icon>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="service-content">--}}
+
+
+
+{{--                            </div>--}}
+
+{{--                        </a>--}}
+
+{{--                    </div>--}}
+
+{{--                </div>--}}
+
+{{--                <div class="service" style="align-items: center">--}}
+
+
+
+{{--                    <div class="service-container">--}}
+
+{{--                        <a href="#" class="service-item">--}}
+
+{{--                            <div class="service-icon">--}}
+{{--                                <ion-icon name="rocket-outline"></ion-icon>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="service-content">--}}
+
+{{--                                <h3 class="service-title">Next Day delivery</h3>--}}
+{{--                                   <p class="service-desc">BD Orders Only</p>--}}
+
+{{--                                </div>--}}
+
+{{--                            </a>--}}
+
+{{--                        </div>--}}
+
+{{--                    </div>--}}
+
+{{--                <div class="service" style="align-items: center">--}}
+
+
+
+{{--                    <div class="service-container">--}}
+
+{{--                        <a href="#" class="service-item">--}}
+
+{{--                            <div class="service-icon">--}}
+{{--                                <ion-icon name="call-outline"></ion-icon>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="service-content">--}}
+
+{{--                                <h3 class="service-title">Best Online Support</h3>--}}
+{{--                                <p class="service-desc">Hours: 8AM - 11PM</p>--}}
+
+{{--                            </div>--}}
+
+{{--                        </a>--}}
+
+{{--                    </div>--}}
+
+{{--                </div>--}}
+
+{{--                <div class="service" style="align-items: center">--}}
+
+
 
 {{--                    <div class="service-container">--}}
 
@@ -2007,11 +2030,11 @@
 
 
 
-                </div>
+{{--                </div>--}}
 
-        </div>
+{{--        </div>--}}
 
-    </div>
+{{--    </div>--}}
 
 
 
@@ -2025,24 +2048,24 @@
 
         <div class="container">
 
+            <h3 class="text-center">Our Services</h3>
             <div class="blog-container has-scrollbar">
 
                 <div class="blog-card">
 
-                    <a href="#">
-                        <img src="{{asset('logo/blog-1.jpg')}}" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" height="200" class="blog-banner">
-                    </a>
+                    <div class="service-icon" >
+                        <ion-icon name="boat-outline"></ion-icon>
+                    </div>
 
                     <div class="blog-content">
 
-                        <a href="#" class="blog-category">Fashion</a>
 
                         <a href="#">
-                            <h3 class="blog-title">Clothes Retail KPIs 2021 Guide for Clothes Executives.</h3>
+                            <h3 class="blog-title">Worldwide Delivery</h3>
                         </a>
 
                         <p class="blog-meta">
-                            By <cite>Mr Admin</cite> / <time datetime="2022-04-06">Apr 06, 2022</time>
+                            For Order Over $100
                         </p>
 
                     </div>
@@ -2051,21 +2074,19 @@
 
                 <div class="blog-card">
 
-                    <a href="#">
-                        <img src="{{asset('logo/blog-2.jpg')}}" alt="Curbside fashion Trends: How to Win the Pickup Battle."
-                             class="blog-banner" width="300" height="200">
-                    </a>
+                    <div class="service-icon" >
+                        <ion-icon name="rocket-outline"></ion-icon>
+                    </div>
 
                     <div class="blog-content">
 
-                        <a href="#" class="blog-category">Clothes</a>
 
-                        <h3>
-                            <a href="#" class="blog-title">Curbside fashion Trends: How to Win the Pickup Battle.</a>
-                        </h3>
+                        <a href="#">
+                            <h3 class="blog-title">Next Day delivery</h3>
+                        </a>
 
                         <p class="blog-meta">
-                            By <cite>Mr Robin</cite> / <time datetime="2022-01-18">Jan 18, 2022</time>
+                            BD orders only
                         </p>
 
                     </div>
@@ -2074,21 +2095,19 @@
 
                 <div class="blog-card">
 
-                    <a href="#">
-                        <img src="{{asset('logo/blog-3.jpg')}}" alt="EBT vendors: Claim Your Share of SNAP Online Revenue."
-                             class="blog-banner" width="300" height="200">
-                    </a>
+                    <div class="service-icon" >
+                        <ion-icon name="call-outline"></ion-icon>
+                    </div>
 
                     <div class="blog-content">
 
-                        <a href="#" class="blog-category">Shoes</a>
 
-                        <h3>
-                            <a href="#" class="blog-title">EBT vendors: Claim Your Share of SNAP Online Revenue.</a>
-                        </h3>
+                        <a href="#">
+                            <h3 class="blog-title">Best Online Support</h3>
+                        </a>
 
                         <p class="blog-meta">
-                            By <cite>Mr Selsa</cite> / <time datetime="2022-02-10">Feb 10, 2022</time>
+                            Hours: 8AM-11PM
                         </p>
 
                     </div>
@@ -2097,21 +2116,40 @@
 
                 <div class="blog-card">
 
-                    <a href="#">
-                        <img src="{{asset('logo/blog-4.jpg')}}" alt="Curbside fashion Trends: How to Win the Pickup Battle."
-                             class="blog-banner" width="300" height="200">
-                    </a>
+                    <div class="service-icon" >
+                        <ion-icon name="boat-outline"></ion-icon>
+                    </div>
 
                     <div class="blog-content">
 
-                        <a href="#" class="blog-category">Electronics</a>
 
-                        <h3>
-                            <a href="#" class="blog-title">Curbside fashion Trends: How to Win the Pickup Battle.</a>
-                        </h3>
+                        <a href="#">
+                            <h3 class="blog-title">Return Policy</h3>
+                        </a>
 
                         <p class="blog-meta">
-                            By <cite>Mr Pawar</cite> / <time datetime="2022-03-15">Mar 15, 2022</time>
+                            Easy and Free Return
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="blog-card">
+
+                    <div class="service-icon" >
+                        <ion-icon name="boat-outline"></ion-icon>
+                    </div>
+
+                    <div class="blog-content">
+
+
+                        <a href="#">
+                            <h3 class="blog-title">30% money back</h3>
+                        </a>
+
+                        <p class="blog-meta">
+                            or Order Over $100
                         </p>
 
                     </div>
@@ -2217,7 +2255,6 @@
         <div class="container">
 
             <ul class="footer-nav-list">
-
                 <li class="footer-nav-item">
                     <h2 class="nav-title">Popular Categories</h2>
                 </li>
@@ -2247,7 +2284,7 @@
             <ul class="footer-nav-list">
 
                 <li class="footer-nav-item">
-                    <h2 class="nav-title">Products</h2>
+                    <h2 class="nav-title">Usefull Links</h2>
                 </li>
 
                 <li class="footer-nav-item">
@@ -2267,7 +2304,7 @@
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Sitemap</a>
+                    <a href="{{route('sitemap',['id'=>$user->id])}}" class="footer-nav-link">Sitemap</a>
                 </li>
 
             </ul>
@@ -2275,27 +2312,27 @@
             <ul class="footer-nav-list">
 
                 <li class="footer-nav-item">
-                    <h2 class="nav-title">Our Company</h2>
+                    <h2 class="nav-title">Customer Policy</h2>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Delivery</a>
+                    <a href="{{route('privacypolicy')}}" class="footer-nav-link">Privacy Policy</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Legal Notice</a>
+                    <a href="#" class="footer-nav-link">FAQ</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Terms and conditions</a>
+                    <a href="#" class="footer-nav-link">Track Order</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">About us</a>
+                    <a href="#" class="footer-nav-link">Return Policy</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Secure payment</a>
+                    <a href="{{route('termsandcondition')}}" class="footer-nav-link">Term and Condition</a>
                 </li>
 
             </ul>
@@ -2307,23 +2344,23 @@
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Prices drop</a>
+                    <a href="#" class="footer-nav-link">World Wide Delivery</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">New products</a>
+                    <a href="#" class="footer-nav-link">Next Day delivery</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Best sales</a>
+                    <a href="#" class="footer-nav-link">Best online support</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Contact us</a>
+                    <a href="#" class="footer-nav-link">Return policy</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Sitemap</a>
+                    <a href="#" class="footer-nav-link">30% money back</a>
                 </li>
 
             </ul>
@@ -2354,10 +2391,18 @@
 
                 <li class="footer-nav-item flex">
                     <div class="icon-box">
+                        <ion-icon name="call-outline"></ion-icon>
+                    </div>
+
+                    <a href="tel:+607936-8058" class="footer-nav-link">016 38 75 23 71 </a>
+                </li>
+
+                <li class="footer-nav-item flex">
+                    <div class="icon-box">
                         <ion-icon name="mail-outline"></ion-icon>
                     </div>
 
-                    <a href="mailto:example@gmail.com" class="footer-nav-link">rubayetislam16@gmail.com</a>
+                    <a href="mailto:example@gmail.com" class="footer-nav-link">customer.support@gmail.com</a>
                 </li>
 
             </ul>
@@ -2421,14 +2466,8 @@
 </footer>
 
 
-
-
-
-
-<!--
-  - custom js link
--->
 <script src="{{asset('js/script.js')}}"></script>
+
 <script>
     // JavaScript code to calculate and update the time elapsed
     var soldTime = new Date("{{$product3->created_at}}");
@@ -2524,9 +2563,7 @@
         }
     }
 </script>
-<!--
-  - ionicon link
--->
+
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 

@@ -4,6 +4,8 @@ const deliverSection = document.getElementById('delivar');
 const totalSection = document.getElementById('totalsells');
 const analytics = document.getElementById('analytics');
 const visitor = document.getElementById('visiotr');
+const delivary = document.getElementById('delivary');
+const seller = document.getElementById('seller');
 
 
 // Get references to the links that trigger the toggle
@@ -15,6 +17,8 @@ const deliverLink = document.querySelector('.toggle-deliver');
 const totalsellsLink = document.querySelector('.toggle-sells');
 const analyticsLink = document.querySelector('.toggle-analytics');
 const visitorLink = document.querySelector('.toggle-visitors');
+const delivaryLink = document.querySelector('.toggle-delivary');
+const sellerLink = document.querySelector('.toggle-seller');
 
 dashboardLink3.addEventListener('click', () => {
     dashboardSection.style.display = 'block';
@@ -40,6 +44,8 @@ dashboardLink.addEventListener('click', () => {
     totalSection.style.display = 'none';
     analytics.style.display='none';
     visitor.style.display='none';
+    delivary.style.display='none';
+    seller.style.display='none';
 });
 
 myStoreLink.addEventListener('click', () => {
@@ -49,6 +55,8 @@ myStoreLink.addEventListener('click', () => {
     totalSection.style.display = 'none';
     analytics.style.display='none';
     visitor.style.display='none';
+    delivary.style.display='none';
+    seller.style.display='none';
 });
 
 deliverLink.addEventListener('click', () => {
@@ -58,6 +66,8 @@ deliverLink.addEventListener('click', () => {
     totalSection.style.display = 'none';
     analytics.style.display='none';
     visitor.style.display='none';
+    delivary.style.display='none';
+    seller.style.display='none';
 });
 
 totalsellsLink.addEventListener('click', () => {
@@ -67,6 +77,8 @@ totalsellsLink.addEventListener('click', () => {
     totalSection.style.display = 'block';
     analytics.style.display='none';
     visitor.style.display='none';
+    delivary.style.display='none';
+    seller.style.display='none';
 });
 
 analyticsLink.addEventListener('click', () => {
@@ -76,6 +88,8 @@ analyticsLink.addEventListener('click', () => {
     totalSection.style.display = 'none';
     analytics.style.display='block';
     visitor.style.display='none';
+    delivary.style.display='none';
+    seller.style.display='none';
 });
 
 visitorLink.addEventListener('click', () => {
@@ -85,4 +99,28 @@ visitorLink.addEventListener('click', () => {
     totalSection.style.display = 'none';
     analytics.style.display='none';
     visitor.style.display='block';
+    delivary.style.display='none';
+    seller.style.display='none';
+});
+
+delivaryLink.addEventListener('click', () => {
+    dashboardSection.style.display = 'none';
+    myStoreSection.style.display = 'none';
+    deliverSection.style.display = 'none';
+    totalSection.style.display = 'none';
+    analytics.style.display='none';
+    visitor.style.display='none';
+    delivary.style.display='block';
+    seller.style.display='none';
+});
+
+sellerLink.addEventListener('click', () => {
+    dashboardSection.style.display = 'none';
+    myStoreSection.style.display = 'none';
+    deliverSection.style.display = 'none';
+    totalSection.style.display = 'none';
+    analytics.style.display='none';
+    visitor.style.display='none';
+    delivary.style.display='none';
+    seller.style.display='block';
 });

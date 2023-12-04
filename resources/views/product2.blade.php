@@ -349,7 +349,7 @@
     </div>
 </header>
 
-    <section class="h-100 h-custom" style="background-color: #eee;">
+<section class="h-100 h-custom" style="background-color: #eee;">
     <div class="container h-100 py-5">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col">
@@ -363,91 +363,36 @@
 
                                 <div class="d-flex align-items-center mb-5">
                                     <div class="flex-shrink-0">
-                                        <img src="{{asset('storage/' .$show->pro_pic)}}"
+                                        <img src="{{asset('storage/' .$show->img1)}}"
                                              class="img-fluid" style="width: 150px;" alt="Generic placeholder image">
                                     </div>
 
                                     <div class="flex-grow-1 ms-3">
-                                        <form action="{{ route('insertorder',['id' => $user->id]) }}" method="post">
+                                        <form action="{{ route('insertorder2',['id' => $show->userid]) }}" method="post">
                                             @csrf
-                                            <input type="hidden" name="id" value="{{$user->id}}">
+                                            <input type="hidden" name="id" value="{{$show->userid}}">
                                             <input type="hidden" name="name" value="{{$user->name}}">
-                                            <input type="hidden" name="ids" value="{{$show->pro_id}}">
+                                            <input type="hidden" name="ids3" value="{{$user->id}}">
+                                            <input type="hidden" name="ids" value="{{$show->id}}">
                                             <input type="hidden" name="category" value="{{$show->category}}">
 
                                             <input type="hidden" name="status" value="Pending">
-                                        <a href="#!" class="float-end text-black"><i class="fas fa-times"></i></a>
-                                        <h5 class="text-primary">{{$show->pro_name}}</h5>
-                                            <input type="hidden" name="pro_name" value="{{$show->pro_name}}">
-{{--                                        <h6 style="color: #9e9e9e;">{{$show->pro_des}}</h6>--}}
-                                        <div class="d-flex align-items-center">
-                                            <p class="fw-bold mb-0 me-5 pe-3" data-price-usd="{{ $show->price }}">${{$show->price}}</p>
-
-
-
-
-                                            @if($show->date_status !== 'upcoming')
-                                            <div class="def-number-input number-input safari_only">
-                                                <label>Quantity</label>
-                                                <div class="input-group">
-                                                    <input class="quantity fw-bold text-black" id="quantity" min="1" name="quantity" value="0" type="number" style="border: black solid;">
-                                                    <p>Product Avilable: </p>
-                                                    <input type="number" name="stock" class="stockStatus" id="stock" value="{{$show->Stock}}">
-                                                    <input type="hidden" name="stockstatus" id="stockStatus" value="{{$show->Stock_Status}}" readonly>
-                                                </div>
-                                                @php
-                                                    $womens = "Women's Footwaer";
-                                                    $mens = "Men's Footwaer";
-
-                                                    $fashion = "Men's";
-
-                                                    $womenfashion = "Women's"
-                                                @endphp
-                                                @if($show->category === $fashion || $show->category === $womenfashion)
-                                                <label>Size</label>
-                                                <div class="input-group">
-                                                    <select name="size" id="size" class="form-select form-select-lg quantity fw-bold text-black" style="border: black solid;">
-                                                        <option value="M">M</option>
-                                                        <option value="L">L</option>
-                                                        <option value="XL">XL</option>
-                                                        <option value="XXL">XXL</option>
-                                                    </select>
-                                                </div>
-                                                @elseif($show->category === $mens || $show->category === $womens)
-                                                    <label>Size</label>
-                                                    <div class="input-group">
-                                                        <select name="size" id="size" class="form-select form-select-lg quantity fw-bold text-black" style="border: black solid;">
-                                                            <option value="38">38</option>
-                                                            <option value="36">36</option>
-                                                            <option value="32">32</option>
-                                                            <option value="35">35</option>
-                                                        </select>
-                                                    </div>
-                                                @endif
+                                            <a href="#!" class="float-end text-black"><i class="fas fa-times"></i></a>
+                                            <h5 class="text-primary">{{$show->name}}</h5>
+                                            <input type="hidden" name="pro_name" value="{{$show->name}}">
+                                            {{--                                        <h6 style="color: #9e9e9e;">{{$show->pro_des}}</h6>--}}
+                                            <div class="d-flex align-items-center">
+                                                <p class="fw-bold mb-0 me-5 pe-3" data-price-usd="{{ $show->price }}">${{$show->price}}</p>
+                                                <input type="hidden" name="total_price" value="{{ $show->price }}">
 
                                             </div>
-                                            @else
-                                                <div class="def-number-input number-input safari_only">
-                                                    <label>Product Avilable at: <strong>{{$show->upcoming_date}}</strong></label>
-                                                </div>
-                                            @endif
-
-                                        </div>
 
                                     </div>
 
                                 </div>
-                                <div class="star-rating">
-                                    @for ($i = 1; $i <= 5; $i++)
-                                        @if ($i <= $averageRating)
-                                            <i class="fas fa-star"></i>
-                                        @else
-                                            <i class="far fa-star"></i>
-                                        @endif
-                                    @endfor
-                                </div>
 
-                                <h6 style="color: black;">{{$show->pro_des}}</h6>
+
+                                <h6 style="color: black;">{{$show->description}}</h6>
 
 
                                 <hr class="mb-4" style="height: 2px; background-color: #1266f1; opacity: 1;">
@@ -455,7 +400,7 @@
                                 <div class="d-flex justify-content-between p-2 mb-2" style="background-color: #e1f5fe;">
                                     <h5 class="fw-bold mb-0">Total:</h5>
                                     <h5 class="fw-bold mb-0" id="totalPriceLabel" name="total_price" data-total-price-usd="0">$0</h5>
-                                    <input type="hidden" id="totalPriceInput" name="total_price" value="0">
+                                    <input type="hidden" id="totalPriceInput" name="total_price" value="{{ $show->price }}">
                                 </div>
 
 
@@ -466,49 +411,35 @@
 
 
 
-                                    <div class="form-outline mb-5">
-                                        <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
-                                               value="{{$user->name}}" minlength="19" maxlength="19" readonly/>
-                                        <label class="form-label" for="typeText">Name</label>
-                                    </div>
+                                <div class="form-outline mb-5">
+                                    <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                                           value="{{$user->name}}" minlength="19" maxlength="19" readonly/>
+                                    <label class="form-label" for="typeText">Name</label>
+                                </div>
 
-                                    <div class="form-outline mb-5">
-                                        <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
-                                               value="" name="loc" required/>
-                                        <label class="form-label" for="typeName">Location</label>
-                                    </div>
+                                <div class="form-outline mb-5">
+                                    <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
+                                           value="" name="loc" required/>
+                                    <label class="form-label" for="typeName">Location</label>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="col-md-6 mb-5">
-                                            <div class="form-outline">
-                                                <input type="text" id="typeExp" class="form-control form-control-lg" value="{{$user->phone}}"
-                                                       size="7" id="exp" minlength="7" maxlength="7" readonly />
-                                                <label class="form-label" for="typeExp">Mobile Number</label>
-                                            </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-5">
+                                        <div class="form-outline">
+                                            <input type="text" id="typeExp" class="form-control form-control-lg" value="{{$user->phone}}"
+                                                   size="7" id="exp" minlength="7" maxlength="7" readonly />
+                                            <label class="form-label" for="typeExp">Mobile Number</label>
                                         </div>
-
                                     </div>
 
-{{--                                    <p class="mb-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit <a--}}
-{{--                                            href="#!">obcaecati sapiente</a>.</p>--}}
+                                </div>
 
-                                    @if($show->Stock_Status === 'Available' && $show->date_status !== 'upcoming')
-                                    <button type="submit" name="action" value="add_to_cart" class="btn btn-primary btn-block btn-lg">Add to cart</button>
-                                    <div id="stockStatusMessage" style="display: none; color: black; background-color: #FFAAAA; border: 1px solid #FF0000; padding: 10px; font-weight: bold; border-radius: 10px; text-align: center; line-height: 1.5;">Out of Stock
-                                    This product will be available soon.</div>
-                                    <button type="submit" name="action" value="buy_now" class="btn btn-primary btn-primary2 btn-block btn-lg" style="background-color: #FE9601 ">Buy Now</button>
-                                    @elseif($show->Stock_Status !== 'Available' && $show->date_status === 'LIVE')
-                                    <p style="color: black; background-color: #FFAAAA; border: 1px solid #FF0000; padding: 10px; font-weight: bold; border-radius: 10px; text-align: center; line-height: 1.5;">Out of Stock</p>
-                                    @elseif($show->date_status === 'upcoming')
-                                    <p style="color: black; background-color: #2FFE01; border: 1px solid #FF0000; padding: 10px; font-weight: bold; border-radius: 10px; text-align: center; line-height: 1.5;">Upcoming Products</p>
+                                {{--                                    <p class="mb-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit <a--}}
+                                {{--                                            href="#!">obcaecati sapiente</a>.</p>--}}
 
-
-                                    @endif
-                                        @if($show->seller_id !== NULL)
-                                            <p>View Store</p>
-                                <input type="hidden" name="seller" value="{{$show->seller_id}}">
-                                        @endif
-                                    </form>
+                                <button type="submit" name="action" value="add_to_cart" class="btn btn-primary btn-block btn-lg">Add to cart</button>
+                                <button type="submit" name="action" value="buy_now" class="btn btn-primary btn-primary2 btn-block btn-lg" style="background-color: #FE9601 ">Buy Now</button>
+                                </form>
 
 
 
@@ -522,7 +453,7 @@
                             <div class="comment-form">
                                 <form action="{{ route('comment', ['id' => $user->id]) }}" method="post">
                                     @csrf
-                                    <input type="hidden" name="ids" value="{{$show->pro_id}}">
+                                    <input type="hidden" name="ids" value="{{$show->id}}">
                                     <label for="rating">Rating:</label>
                                     <div class="star-rating" id="rating">
                                         <input type="hidden" name="rating" id="rating-input" value="">
@@ -563,13 +494,13 @@
 
                         <!-- End of Example Comment -->
 
-                                <!-- You can dynamically add more comments here using JavaScript -->
-                            </div>
-                        </div>
+                        <!-- You can dynamically add more comments here using JavaScript -->
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 </section>
 
@@ -582,16 +513,16 @@
 
         <div class="row">
             @foreach($show2 as $sho)
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="{{asset('storage/' .$sho->pro_pic)}}" style="height: 150px; width: 150px;" class="card-img-top" alt="Product Image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{$sho->pro_name}}</h5>
-                        <p class="card-text">{{$sho->pro_des}}.</p>
-                        <a href="{{ route('product', ['id' => $sho->pro_id,'ids'=>$user->id,'category'=>$sho->category]) }}" class="btn btn-primary">View Details</a>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{asset('storage/' .$sho->pro_pic)}}" style="height: 150px; width: 150px;" class="card-img-top" alt="Product Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{$sho->pro_name}}</h5>
+                            <p class="card-text">{{$sho->pro_des}}.</p>
+                            <a href="{{ route('product', ['id' => $sho->pro_id,'ids'=>$user->id,'category'=>$sho->category]) }}" class="btn btn-primary">View Details</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
     </div>

@@ -419,6 +419,13 @@
                 </div>
             @endif
 
+            @if(session('info'))
+                <div class="alert alert-info">
+                    {{ session('info') }}
+                </div>
+            @endif
+
+
             <div class="form-style">
                 <form action="{{ route('form-container') }}" method="post">
                     @csrf

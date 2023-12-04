@@ -103,12 +103,14 @@
 
             <div class="header-search-container">
 
-                <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
+                <form action="{{route('allproduct')}}" method="get">
+                    @csrf
+                    <input type="search" name="search" class="search-field" value="" placeholder="Enter your product...">
 
-                <button class="search-btn">
-                    <ion-icon name="search-outline"></ion-icon>
-                </button>
-
+                    <button class="search-btn" type="submit">
+                        <i class="fa-solid fa-magnifying-glass" style="color: #ffae19;"></i>
+                    </button>
+                </form>
             </div>
 
             <div class="header-user-actions">
@@ -311,7 +313,7 @@
                 </li>
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Hot Offers</a>
+                    <a href="#" class="menu-title">Special Offers</a>
                 </li>
 
 
@@ -580,25 +582,7 @@
 
 {{--                                                            <p class="showcase-badge">15%</p>--}}
 
-                                <div class="showcase-actions">
 
-                                    <button class="btn-action">
-                                        <ion-icon name="heart-outline"></ion-icon>
-                                    </button>
-
-                                    <button class="btn-action">
-                                        <ion-icon name="eye-outline"></ion-icon>
-                                    </button>
-
-                                    <button class="btn-action">
-                                        <ion-icon name="repeat-outline"></ion-icon>
-                                    </button>
-
-                                    <button class="btn-action">
-                                        <ion-icon name="bag-add-outline"></ion-icon>
-                                    </button>
-
-                                </div>
 
                             </div>
 

@@ -5,123 +5,67 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>E-Commerce Website</title>
 
-    <!--
-      - favicon
-    -->
-    <link rel="shortcut icon" href="{{asset('logo/favicon.ico')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/images/logo/favicon.ico" type="image/x-icon">
 
-    <!--
-      - custom css link
-    -->
     <link rel="stylesheet" href="{{asset('css/style-prefix.css')}}">
-    <!--
-      - google font link*
-    -->
+
+    <script src="//code.tidio.co/2l8awmiopxub2rsj7vuajrnkxy2xnqln.js" async></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
     <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
-<style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        margin: 0;
-        padding: 0;
-    }
 
-    .main-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
-    .line-long {
-        width: 100%;
-        border: 1px solid #ddd; /* Adjust the color as needed */
-        margin: 20px 0;
-    }
+        .user-greeting {
+            font-size: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
 
-    .section-title {
-        text-align: center;
-        margin-bottom: 30px;
-    }
+        .dropdown ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            display: none; /* Add the "hidden" class to initially hide the dropdown menu */
+        }
 
-    .about-section {
-        margin-bottom: 40px;
-    }
+        .dropdown ul li {
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
 
-    .product-title {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        .dropdown ul li a {
+            text-decoration: none;
+            color: #000;
+            display: block;
+        }
 
-    .about-content {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-    }
+        .dropdown ul li:hover {
+            background-color: hsl(51 , 100% , 50%);; /* Add the hover effect color here */
+        }
 
-    .about-item {
-        flex: 0 1 30%; /* Adjust the width as needed */
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .about-item img {
-        width: 100%;
-        height: 70%;
-    }
-
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    .user-greeting {
-        font-size: 18px;
-        margin-right: 10px;
-        cursor: pointer;
-    }
-
-    .dropdown ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: #fff;
-        box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
-        z-index: 1;
-        display: none; /* Add the "hidden" class to initially hide the dropdown menu */
-    }
-
-    .dropdown ul li {
-        padding: 10px 15px;
-        transition: background-color 0.3s;
-    }
-
-    .dropdown ul li a {
-        text-decoration: none;
-        color: #000;
-        display: block;
-    }
-
-    .dropdown ul li:hover {
-        background-color: hsl(51 , 100% , 50%);; /* Add the hover effect color here */
-    }
-
-    .dropdown:hover ul {
-        display: block;
-    }
-
-</style>
+        .dropdown:hover ul {
+            display: block;
+        }
+    </style>
 </head>
+
 <body>
+
 <header>
 
     <div class="header-top">
@@ -160,10 +104,11 @@
 
             <div class="header-top-actions">
 
-                <select name="currency">
+                <select name="currency" id="currency">
 
                     <option value="usd">USD &dollar;</option>
                     <option value="eur">EUR &euro;</option>
+                    <option value="bdt">BDT &#2547;</option>
 
                 </select>
 
@@ -185,7 +130,7 @@
 
         <div class="container">
 
-            <a href="#" class="header-logo">
+            <a href="{{route('dashboard',['id'=>$user->id])}}" class="header-logo">
                 <img src="{{asset('logo/logo.svg')}}" alt="Anon's logo" width="120" height="36">
             </a>
 
@@ -198,7 +143,6 @@
                         <ion-icon name="search-outline"></ion-icon>
                     </button>
                 </form>
-
             </div>
 
             <div class="header-user-actions">
@@ -207,7 +151,7 @@
                 <div class="dropdown">
                     <span style="font-size: 15px;" class="user-greeting" onclick="toggleDropdown()">Hello, {{ implode(' ', array_slice(explode(' ', $user->name), 0, 3)) }}</span>
                     <ul>
-                        <li><a href="{{ route('purchase',['id'=>$user->id]) }}" style="font-size: 15px">Purchase History</a></li>
+                        <li><a href="{{ route('yourprducts',['id'=>$user->id]) }}" style="font-size: 15px">My Products</a></li>
                         <li><a href="/" style="font-size: 15px;">Logout</a></li>
                     </ul>
                 </div>
@@ -233,26 +177,28 @@
 
     <nav class="desktop-navigation-menu">
 
-
         <div class="container">
 
             <ul class="desktop-menu-category-list">
 
+
                 <li class="menu-category">
-                    <a href="{{ route('dashboard', ['id' => $user->id]) }}" class="menu-title">Home</a>
+                    <a href="#" class="menu-title" style="color: blue;">Home</a>
                 </li>
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title" style="color: blue;">About Us</a>
+                    <a href="{{route('postanadd',['id'=>$user->id])}}" class="menu-title">Post an Add</a>
                 </li>
-
+                <li class="menu-category">
+                    <a href="{{route('aboutus',['id'=>$user->id])}}" class="menu-title">About Us</a>
+                </li>
                 <li class="menu-category">
                     <a href="#" class="menu-title">Categories</a>
                     <ul class="dropdown-list">
 
                         @foreach($category as $cata)
                             <li class="dropdown-item">
-                                <a href="{{route('productlist2',['category'=>$cata->Category_Name,'id'=>$user->id])}}">{{$cata->Category_Name}}</a>
+                                <a href="{{route('productlist2',['id'=>$user->id,'category'=>$cata->Category_Name])}}">{{$cata->Category_Name}}</a>
                             </li>
                         @endforeach
 
@@ -260,17 +206,9 @@
                 </li>
 
 
-
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Special Offers</a>
+                    <a href="{{route('contactus2',['id'=>$user->id])}}" class="menu-title">Contact Us</a>
                 </li>
-                <li class="menu-category">
-                    <a href="#" class="menu-title">Contact Us</a>
-                </li>
-
-
-
-
 
             </ul>
 
@@ -284,18 +222,19 @@
             <ion-icon name="menu-outline"></ion-icon>
         </button>
 
-        <button class="action-btn">
+        <a href="{{ route('cart', ['id' => $user->id]) }}" class="action-btn">
             <ion-icon name="bag-handle-outline"></ion-icon>
-
-            <span class="count">0</span>
-        </button>
-
-        <a href="{{ route('dashboard', ['id' => $user->id]) }}" class="action-btn">
-            <ion-icon name="home-outline"></ion-icon>
+            <span class="count">{{ $total }}</span>
         </a>
+
+
+        <button class="action-btn">
+            <ion-icon name="home-outline"></ion-icon>
+        </button>
 
         <button class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
+
             <span class="count">0</span>
         </button>
 
@@ -318,7 +257,7 @@
         <ul class="mobile-menu-category-list">
 
             <li class="menu-category">
-                <a href="/" class="menu-title">Home</a>
+                <a href="#" class="menu-title">Home</a>
             </li>
 
             <li class="menu-category">
@@ -388,8 +327,9 @@
             </li>
 
 
+
             <li class="menu-category">
-                <a href="#" class="menu-title">About Us</a>
+                <a href="{{route('aboutus',['id'=>$user->id])}}" class="menu-title">About Us</a>
             </li>
 
             <li class="menu-category">
@@ -397,12 +337,30 @@
             </li>
 
             <li class="menu-category">
-                <a href="{{route('login')}}" class="menu-title">Sign in</a>
+
+                <button class="accordion-menu" data-accordion-btn>
+                    <p class="menu-title">{{ $user->name }}</p>
+
+                    <div>
+                        <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                        <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+                    </div>
+                </button>
+
+                <ul class="submenu-category-list" data-accordion>
+
+                    <li class="submenu-category">
+                        <a href="{{ route('purchase',['id'=>$user->id]) }}" class="submenu-title">Purchase History</a>
+                    </li>
+
+                    <li class="submenu-category">
+                        <a href="/" class="submenu-title">Logout</a>
+                    </li>
+
+                </ul>
+
             </li>
 
-            <li class="menu-category">
-                <a href="{{route('register')}}" class="menu-title">Sign up</a>
-            </li>
 
         </ul>
 
@@ -489,76 +447,100 @@
 
 </header>
 
-<main>
-    <div class="main-container">
 
-        <hr class="line-long">
+<div class="product-main">
 
-        <div class="section-title">
-            <h1>What's Important to Us</h1>
-        </div>
+    <h2 class="title">New Products</h2>
 
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Quality and Genuine Products</h2>
-            </div>
+    <div class="product-grid">
+        @foreach($products2 as $prod)
 
-            <div class="about-content">
-                <div class="about-item">
-                    <p>We believe in only the best, only genuine products will be displayed on our site.</p>
-                    <img src="{{asset('logo/ecommerce-product-images.jpg')}}" alt="Quality Product">
-                </div>
+            @if($prod->userid != $user->id)
+                <div class="showcase">
 
-                <div class="about-item">
-                    <p>Each product purchased from our site will be given a year Warranty.</p>
-                    <img src="{{asset('logo/french_fall_fashion_trends.jpg')}}" alt="Warranty">
-                </div>
+                    <div class="showcase-banner">
 
-                <div class="about-item">
-                    <p>Any pirated products shipped out by us will be fully refunded.</p>
-                    <img src="{{asset('logo/game-ps5-terbaik.jpg')}}" alt="Refund">
-                </div>
-            </div>
-        </section>
+                        <a href="{{ route('product2', ['id' => $prod->id,'ids'=>$user->id,'category'=>$prod->category]) }}">
+                            <img src="{{asset('storage/' .$prod->img1)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
+                            <img src="{{asset('storage/' .$prod->img2)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+                        </a>
+                        @if($prod->type === 'Standard')
+                            <p class="showcase-badge">{{$prod->end_date}}</p>
+                        @elseif($prod->type === 'Premium')
+                            <p class="showcase-badge">{{$prod->end_date}}</p>
+                        @endif
 
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Efficient Delivery</h2>
-            </div>
 
-            <div class="about-content">
-                <div class="about-item">
-                    <p>We don't like it when something takes forever, why should you?</p>
-                    <p>We provide efficient and accurate delivery service.</p>
-                    <p>One-day delivery will be available soon, stay tuned!</p>
-                    <img src="{{asset('logo/download.jpeg')}}" alt="Delivery" style="align-items: center">
-                </div>
-            </div>
-        </section>
+                    </div>
 
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Excellent Customer Service</h2>
-            </div>
+                    <div class="showcase-content">
 
-            <div class="about-content">
-                <div class="about-item">
-                    <p>Your satisfaction is our top priority.</p>
-                    <p>24-hour hotline is available to assist you with your needs anytime.</p>
-                    <p>Our team consists of professionals to handle all your requests.</p>
+                        <a href="#" class="showcase-category">{{$prod->name}}</a>
 
-                            <div style="width: 100%; height: 100%">
-                                <img src="{{asset('logo/customer.jpg')}}" alt="Customer Service">
-                            </div>
+                        <a href="#">
+                            <h3 class="showcase-title">{{$prod->description}}</h3>
+                        </a>
+
+                        <a href="tel:{{$prod->phone}}">
+                            <h3 class="showcase-title"><strong>{{$prod->phone}}</strong></h3>
+                        </a>
+
+
+                        <div class="price-box">
+                            <p class="price" data-price-usd="{{$prod->price}}">${{$prod->price}}</p>
+                        </div>
 
                     </div>
 
                 </div>
 
-        </section>
+
+
+            @else
+                <div class="showcase">
+
+                    <div class="showcase-banner">
+
+                        <img src="{{asset('storage/' .$prod->img1)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
+                        <img src="{{asset('storage/' .$prod->img2)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+
+                        {{$prod->userid}}
+                        @if($prod->type === 'Standard')
+                            <p class="showcase-badge">{{$prod->end_date}}</p>
+                        @elseif($prod->type === 'Premium')
+                            <p class="showcase-badge">{{$prod->end_date}}</p>
+                        @endif
+
+
+                    </div>
+
+                    <div class="showcase-content">
+
+                        <a href="#" class="showcase-category">{{$prod->name}}</a>
+
+                        <a href="#">
+                            <h3 class="showcase-title">{{$prod->description}}</h3>
+                        </a>
+
+                        <a href="tel:{{$prod->phone}}">
+                            <h3 class="showcase-title"><strong>{{$prod->phone}}</strong></h3>
+                        </a>
+
+
+                        <div class="price-box">
+                            <p class="price" data-price-usd="{{$prod->price}}">${{$prod->price}}</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            @endif
+        @endforeach
+
 
     </div>
-</main>
+
+</div>
 
 
 <footer>
@@ -644,7 +626,6 @@
         <div class="container">
 
             <ul class="footer-nav-list">
-
                 <li class="footer-nav-item">
                     <h2 class="nav-title">Popular Categories</h2>
                 </li>
@@ -674,7 +655,7 @@
             <ul class="footer-nav-list">
 
                 <li class="footer-nav-item">
-                    <h2 class="nav-title">Products</h2>
+                    <h2 class="nav-title">Usefull Links</h2>
                 </li>
 
                 <li class="footer-nav-item">
@@ -694,7 +675,7 @@
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Sitemap</a>
+                    <a href="{{route('sitemap',['id'=>$user->id])}}" class="footer-nav-link">Sitemap</a>
                 </li>
 
             </ul>
@@ -702,27 +683,27 @@
             <ul class="footer-nav-list">
 
                 <li class="footer-nav-item">
-                    <h2 class="nav-title">Our Company</h2>
+                    <h2 class="nav-title">Customer Policy</h2>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Delivery</a>
+                    <a href="{{route('privacypolicy')}}" class="footer-nav-link">Privacy Policy</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Legal Notice</a>
+                    <a href="#" class="footer-nav-link">FAQ</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Terms and conditions</a>
+                    <a href="#" class="footer-nav-link">Track Order</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">About us</a>
+                    <a href="#" class="footer-nav-link">Return Policy</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Secure payment</a>
+                    <a href="{{route('termsandcondition')}}" class="footer-nav-link">Term and Condition</a>
                 </li>
 
             </ul>
@@ -734,23 +715,23 @@
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Prices drop</a>
+                    <a href="#" class="footer-nav-link">World Wide Delivery</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">New products</a>
+                    <a href="#" class="footer-nav-link">Next Day delivery</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Best sales</a>
+                    <a href="#" class="footer-nav-link">Best online support</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Contact us</a>
+                    <a href="#" class="footer-nav-link">Return policy</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Sitemap</a>
+                    <a href="#" class="footer-nav-link">30% money back</a>
                 </li>
 
             </ul>
@@ -781,10 +762,18 @@
 
                 <li class="footer-nav-item flex">
                     <div class="icon-box">
+                        <ion-icon name="call-outline"></ion-icon>
+                    </div>
+
+                    <a href="tel:+607936-8058" class="footer-nav-link">016 38 75 23 71 </a>
+                </li>
+
+                <li class="footer-nav-item flex">
+                    <div class="icon-box">
                         <ion-icon name="mail-outline"></ion-icon>
                     </div>
 
-                    <a href="mailto:example@gmail.com" class="footer-nav-link">rubayetislam16@gmail.com</a>
+                    <a href="mailto:example@gmail.com" class="footer-nav-link">customer.support@gmail.com</a>
                 </li>
 
             </ul>
@@ -847,9 +836,87 @@
 
 </footer>
 
+
 <script src="{{asset('js/script.js')}}"></script>
 
 <script>
+    // JavaScript code to calculate and update the time elapsed
+    var soldTime = new Date("{{$product3->created_at}}");
+    var currentTime = new Date();
+    var timeDifference = currentTime - soldTime;
+
+    var timeElapsed = document.getElementById("timeElapsed");
+
+    function updateElapsedTime() {
+        var timeDifferenceMinutes = Math.floor(timeDifference / 60000); // Convert milliseconds to minutes
+        if (timeDifferenceMinutes < 120) {
+            // Less than 2 hours, show in minutes
+            timeElapsed.textContent = timeDifferenceMinutes + " Minute(s) ago";
+        } else {
+            // More than 2 hours, switch to hours
+            var timeDifferenceHours = Math.floor(timeDifferenceMinutes / 60); // Convert minutes to hours
+            timeElapsed.textContent = timeDifferenceHours + " Hour(s) ago";
+        }
+    }
+
+    // Update the time every minute
+    setInterval(updateElapsedTime, 60000); // Update every minute (60,000 milliseconds)
+    updateElapsedTime();
+
+
+    const exchangeRates = {
+        usd: 1,    // 1 USD to USD (base currency)
+        eur: 0.85, // Example: 1 USD to EUR is 0.85
+        bdt: 110.32 // Example: 1 USD to BDT is 110.32
+        // Add more currencies and exchange rates as needed
+    };
+
+    // Function to update the displayed price
+    function updatePrice(currency) {
+        const priceElements = document.querySelectorAll('.price');
+        const previousPriceElements = document.querySelectorAll('del[data-previous-price-usd]');
+        const selectedCurrency = document.getElementById('currency').value;
+        const exchangeRate = exchangeRates[selectedCurrency];
+        const currencySymbol = getCurrencySymbol(selectedCurrency);
+
+        priceElements.forEach(priceElement => {
+            const priceInUSD = parseFloat(priceElement.getAttribute('data-price-usd'));
+            const convertedPrice = (priceInUSD * exchangeRate).toFixed(2);
+            const formattedPrice = currency === 'usd' ? `$${priceInUSD}` : `${currencySymbol}${convertedPrice}`;
+            priceElement.textContent = formattedPrice;
+        });
+
+        previousPriceElements.forEach(previousPriceElement => {
+            const previousPriceInUSD = parseFloat(previousPriceElement.getAttribute('data-previous-price-usd'));
+            const convertedPreviousPrice = (previousPriceInUSD * exchangeRate).toFixed(2);
+            const formattedPreviousPrice = currency === 'usd' ? `$${previousPriceInUSD}` : `${currencySymbol}${convertedPreviousPrice}`;
+            previousPriceElement.textContent = formattedPreviousPrice;
+        });
+    }
+
+    // Function to get the currency symbol
+    function getCurrencySymbol(currency) {
+        switch (currency) {
+            case 'usd':
+                return '$';
+            case 'eur':
+                return '€'; // Euro symbol
+            case 'bdt':
+                return '৳'; // BDT symbol
+            default:
+                return currency;
+        }
+    }
+
+    // Attach an event listener to the currency select element
+    document.getElementById('currency').addEventListener('change', function() {
+        const selectedCurrency = this.value;
+        updatePrice(selectedCurrency);
+    });
+
+    // Initialize the price with the default currency (USD)
+    updatePrice('usd');
+
     function toggleDropdown() {
         var dropdown = document.querySelector(".dropdown ul");
         dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
@@ -872,6 +939,5 @@
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
-
 
 </html>

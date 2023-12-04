@@ -179,6 +179,12 @@ class ProjectControll extends Controller
 
         $user2 = DB::table('delivary')
             ->where('email',$email)
+            ->where('approval','Approved')
+            ->first();
+
+        $user3 = DB::table('selleraccount')
+            ->where('username',$email)
+            ->where('approval','Approved')
             ->first();
 //        event(new Registered($user));
         if($user && Hash::check($password, $user->password) && $user->email)
@@ -188,6 +194,11 @@ class ProjectControll extends Controller
         elseif ($user2 && ($user2->password))
         {
             return redirect()->route('delivaryboy', ['id' => $user2->id]);
+        }
+
+        elseif ($user3 && ($user3->password))
+        {
+            return redirect()->route('sellerhomepage', ['id' => $user3->seller_id]);
         }
 
         elseif($request->input('email') === 'addadmin@gmail.com' && $request->input('password') === 'admin')
@@ -208,6 +219,10 @@ class ProjectControll extends Controller
         {
             return redirect('admin');
         }
+        elseif ($user2 && $user2->approval === 'Pending')
+        {
+            return redirect()->back()->with('info' , 'Your profile is not approved by admin!!');
+        }
         else
         {
             return redirect()->back()->withErrors(['error' => 'Please check your credentials first!!!']);
@@ -223,7 +238,7 @@ class ProjectControll extends Controller
             ->leftJoin('discount_offer', 'product.category', '=', 'discount_offer.Name')
             ->latest()
             ->inRandomOrder()
-            ->get();
+            ->paginate(16);
 
         $upcoming = Product::where('date_status','upcoming')
             ->latest()->inRandomOrder()->limit(4)->get();
@@ -248,7 +263,7 @@ class ProjectControll extends Controller
 
         $trending_products = DB::table('product')
             ->where('Quantity_Sold', '>', 2)  // Order by sales count in descending order
-            ->limit(5) // Get the top 5 trending products
+            ->limit(4) // Get the top 5 trending products
             ->get();
 
         $dealoftheDay = DB::table('product')
@@ -262,7 +277,14 @@ class ProjectControll extends Controller
 
         $special_offers = DB::table('product')
             ->join('discount_offer', 'discount_offer.Name', '=', 'product.category')
-            ->where('date_status', '=', 'LIVE')
+            ->where('date_status', '!=', 'upcoming')
+            ->inRandomOrder()->limit(4)
+            ->select('product.*', 'discount_offer.*')
+            ->get();
+
+        $special_offers2 = DB::table('product')
+            ->join('discount_offer', 'discount_offer.Name', '=', 'product.category')
+            ->where('date_status', '!=', 'upcoming')
             ->inRandomOrder()->limit(4)
             ->select('product.*', 'discount_offer.*')
             ->get();
@@ -277,7 +299,7 @@ class ProjectControll extends Controller
         $subscribe = Subscriber::all();
         $total = DB::table('orderstatus')
             ->where('customer_id',$user->id)
-            ->whereIn('order_status', ['Pending', 'Shipping'])
+            ->whereIn('order_status', ['Pending'])
             ->count();
 
         $userfind = PendingOrder::where('customer_id',$user->id)->first();
@@ -293,7 +315,11 @@ class ProjectControll extends Controller
         $user = User::find($id);
         $category = Categories::get();
         $userfind = PendingOrder::where('customer_id',$user->id)->first();
-        return view('aboutus',compact('user','category','userfind'));
+        $total = DB::table('orderstatus')
+            ->where('customer_id',$user->id)
+            ->whereIn('order_status', ['Pending', 'Shipping'])
+            ->count();
+        return view('aboutus',compact('user','category','userfind','total'));
     }
 
     public function userPrfile($id){
@@ -309,7 +335,7 @@ class ProjectControll extends Controller
     public function product(Request $request){
         $product = Product::latest()->inRandomOrder()->limit(4)->get();
         $product2 = Product::inRandomOrder()->limit(4)->get();
-        $product4 = Product::latest()->inRandomOrder()->get();
+        $product4 = Product::orderby('created_at','asc')->paginate(16);
 
 
 
@@ -348,18 +374,18 @@ class ProjectControll extends Controller
         $trending_products = DB::table('product')
              // Considering only live products
             ->where('Quantity_Sold', '>', 2)  // Order by sales count in descending order
-            ->limit(5) // Get the top 5 trending products
+            ->limit(4) // Get the top 5 trending products
             ->get();
 
         $trending_products2 = DB::table('product')
             // Considering only live products
             ->orderBy('pro_name','asc')
             ->where('Quantity_Sold', '>', 2)  // Order by sales count in descending order
-            ->limit(5) // Get the top 5 trending products
+            ->limit(4) // Get the top 5 trending products
             ->get();
         $special_offers = DB::table('product')
             ->join('discount_offer', 'discount_offer.Name', '=', 'product.category')
-
+            ->where('date_status', '!=', 'upcoming')
             ->inRandomOrder()->limit(4)
             ->select('product.*', 'discount_offer.*')
             ->get();
@@ -369,6 +395,7 @@ class ProjectControll extends Controller
             ->orderBy('pro_name','asc')
             ->inRandomOrder()->limit(4)
             ->select('product.*', 'discount_offer.*')
+            ->where('date_status', '!=', 'upcoming')
             ->get();
 
         $product3 = DB::table('orderstatus')
@@ -396,12 +423,40 @@ class ProjectControll extends Controller
             ->orderBy('orderstatus.created_at', 'desc')
             ->paginate(5);
 
+        $see2 = DB::table('orderstatus')
+            ->join('sellsome', 'orderstatus.product_id', '=', 'sellsome.id')
+            ->where('orderstatus.customer_id', $id->id)
+            ->whereIn('orderstatus.order_status', ['Delivered', 'Shipping','Pending','On the Way'])
+            ->select('orderstatus.*', 'sellsome.*')
+            ->orderBy('orderstatus.created_at', 'desc')
+            ->paginate(5);
+
         $orders = DB::table('orderstatus')
             ->where('customer_id', $id->id)
             ->where('order_status', 'Pending')
             ->count();
 
-        return view('purchase',['id'=>$id,'see'=>$see,'orders'=>$orders,'category'=>$category]);
+        return view('purchase',['id'=>$id,'see'=>$see,'see2'=>$see2,'orders'=>$orders,'category'=>$category]);
+    }
+
+    public function cartView($id){
+        $user = User::find($id);
+
+        $orders = DB::table('orderstatus')
+            ->where('customer_id', $user->id)
+            ->where('order_status', 'Pending')
+            ->get();
+
+        $total = $orders->count();
+        $paymentstatus = DB::table('orderstatus')
+            ->where('customer_id', $user->id)
+            ->get();
+
+        $loc = DB::table('orderstatus')
+            ->where('customer_id', $user->id)
+            ->first();
+
+        return view('cart', ['user' => $user, 'total' => $total, 'orders' => $orders,'paymentstatus' => $paymentstatus,'loc'=>$loc]);
     }
 
     public function paymentoption($id)
@@ -637,17 +692,34 @@ class ProjectControll extends Controller
         return view('contact',['category'=>$category,'user'=>$user,'userfind'=>$userfind]);
     }
 
-//    public function testshoe($id){
-//        $user2 = User::find($id);
-//
-//        return view('test',['id'=>$user2]);
-//    }
+    public function termsandcondition()
+    {
+        $category = Categories::all();
 
+        return view('termsandcondition',['category'=>$category]);
+    }
 
-//    public function logout(){
-//        Auth::logout();
-//        session()->flash();
-//        return redirect('/');
-//    }
+    public function privacypolicy()
+    {
+        $category = Categories::all();
 
+        return view('privacypolicy',['category'=>$category]);
+    }
+
+    public function sitemap($id)
+    {
+        $user = User::find($id);
+
+        $product = Product::all();
+
+        $category = Categories::all();
+
+        $userfind = PendingOrder::where('customer_id',$user->id)->first();
+
+        $total = DB::table('orderstatus')
+            ->where('customer_id',$user->id)
+            ->whereIn('order_status', ['Pending'])
+            ->count();
+        return view('sitemap',['id'=>$user,'product'=>$product,'category'=>$category,'userfind'=>$userfind,'total'=>$total]);
+    }
 }

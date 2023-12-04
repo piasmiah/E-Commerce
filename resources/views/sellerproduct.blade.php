@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>E-Commerce Website</title>
 
@@ -18,110 +17,69 @@
       - custom css link
     -->
     <link rel="stylesheet" href="{{asset('css/style-prefix.css')}}">
-    <!--
-      - google font link*
-    -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
     <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
-<style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        margin: 0;
-        padding: 0;
-    }
 
-    .main-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
-    .line-long {
-        width: 100%;
-        border: 1px solid #ddd; /* Adjust the color as needed */
-        margin: 20px 0;
-    }
+        .user-greeting {
+            font-size: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
 
-    .section-title {
-        text-align: center;
-        margin-bottom: 30px;
-    }
+        .input-fields select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
 
-    .about-section {
-        margin-bottom: 40px;
-    }
+        .dropdown ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            display: none; /* Add the "hidden" class to initially hide the dropdown menu */
+        }
 
-    .product-title {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        .dropdown ul li {
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
 
-    .about-content {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-    }
+        .dropdown ul li a {
+            text-decoration: none;
+            color: #000;
+            display: block;
+        }
 
-    .about-item {
-        flex: 0 1 30%; /* Adjust the width as needed */
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        .dropdown ul li:hover {
+            background-color: hsl(51 , 100% , 50%);; /* Add the hover effect color here */
+        }
 
-    .about-item img {
-        width: 100%;
-        height: 70%;
-    }
-
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    .user-greeting {
-        font-size: 18px;
-        margin-right: 10px;
-        cursor: pointer;
-    }
-
-    .dropdown ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: #fff;
-        box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
-        z-index: 1;
-        display: none; /* Add the "hidden" class to initially hide the dropdown menu */
-    }
-
-    .dropdown ul li {
-        padding: 10px 15px;
-        transition: background-color 0.3s;
-    }
-
-    .dropdown ul li a {
-        text-decoration: none;
-        color: #000;
-        display: block;
-    }
-
-    .dropdown ul li:hover {
-        background-color: hsl(51 , 100% , 50%);; /* Add the hover effect color here */
-    }
-
-    .dropdown:hover ul {
-        display: block;
-    }
-
-</style>
+        .dropdown:hover ul {
+            display: block;
+        }
+    </style>
 </head>
+
 <body>
+
 <header>
 
     <div class="header-top">
@@ -156,14 +114,13 @@
 
             </ul>
 
-
-
             <div class="header-top-actions">
 
-                <select name="currency">
+                <select name="currency" id="currency">
 
                     <option value="usd">USD &dollar;</option>
                     <option value="eur">EUR &euro;</option>
+                    <option value="bdt">BDT &#2547;</option>
 
                 </select>
 
@@ -190,43 +147,23 @@
             </a>
 
             <div class="header-search-container">
-                <form action="{{route('allproduct2',['id'=>$user->id])}}" method="get">
-                    @csrf
-                    <input type="search" name="search" class="search-field" placeholder="Enter your product...">
 
-                    <button class="search-btn" type="submit">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </button>
-                </form>
+                <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
+
+                <button class="search-btn">
+                    <ion-icon name="search-outline"></ion-icon>
+                </button>
 
             </div>
 
-            <div class="header-user-actions">
-
-
-                <div class="dropdown">
-                    <span style="font-size: 15px;" class="user-greeting" onclick="toggleDropdown()">Hello, {{ implode(' ', array_slice(explode(' ', $user->name), 0, 3)) }}</span>
-                    <ul>
-                        <li><a href="{{ route('purchase',['id'=>$user->id]) }}" style="font-size: 15px">Purchase History</a></li>
-                        <li><a href="/" style="font-size: 15px;">Logout</a></li>
-                    </ul>
-                </div>
-
-                @if($userfind)
-                    <a class="action-btn" href="{{ route('cart',['id' => $user->id]) }}">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span class="count">{{ $total }}</span>
-                    </a>
-                @else
-                    <a class="action-btn" href="#">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </a>
-                @endif
-
-
-
+            <div class="dropdown">
+                <span style="font-size: 15px;" class="user-greeting" onclick="toggleDropdown()">Hello, {{ implode(' ', array_slice(explode(' ', $user->store_name), 0, 3)) }}</span>
+                <ul>
+                    <li><a href="{{route('sellerprofile',['id'=>$user->seller_id])}}" style="font-size: 15px">My Profile</a></li>
+                    <li><a href="#" style="font-size: 15px">Purchase History</a></li>
+                    <li><a href="/" style="font-size: 15px;">Logout</a></li>
+                </ul>
             </div>
-
         </div>
 
     </div>
@@ -239,20 +176,23 @@
             <ul class="desktop-menu-category-list">
 
                 <li class="menu-category">
-                    <a href="{{ route('dashboard', ['id' => $user->id]) }}" class="menu-title">Home</a>
+                    <a href="{{route('sellerhomepage',['id'=>$user->seller_id])}}" class="menu-title  toggle">Home</a>
+                </li>
+
+
+
+                <li class="menu-category">
+                    <a href="{{route('addproduct',['id'=>$user->seller_id])}}" class="menu-title">Add Product</a>
+
                 </li>
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title" style="color: blue;">About Us</a>
-                </li>
-
-                <li class="menu-category">
-                    <a href="#" class="menu-title">Categories</a>
+                    <a href="#" class="menu-title" style="color: blue;">Categories</a>
                     <ul class="dropdown-list">
 
                         @foreach($category as $cata)
                             <li class="dropdown-item">
-                                <a href="{{route('productlist2',['category'=>$cata->Category_Name,'id'=>$user->id])}}">{{$cata->Category_Name}}</a>
+                                <a href="{{route('sellerproduct',['id'=>$user->seller_id,'category'=>$cata->Category_Name])}}">{{$cata->Category_Name}}</a>
                             </li>
                         @endforeach
 
@@ -260,17 +200,24 @@
                 </li>
 
 
-
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Special Offers</a>
-                </li>
-                <li class="menu-category">
-                    <a href="#" class="menu-title">Contact Us</a>
+                    <a href="{{route('sellertotalsells',['id'=>$user->seller_id])}}" class="menu-title">Total Sells</a>
                 </li>
 
+{{--                <li class="menu-category">--}}
+{{--                    <a href="#" class="menu-title">{{$user->name}}</a>--}}
+{{--                    <ul class="dropdown-list">--}}
 
+{{--                        <li class="dropdown-item">--}}
+{{--                            <a href="{{ route('purchase',['id'=>$user->id]) }}">Purchase History</a>--}}
+{{--                        </li>--}}
 
+{{--                        <li class="dropdown-item">--}}
+{{--                            <a href="/">Logout</a>--}}
+{{--                        </li>--}}
 
+{{--                    </ul>--}}
+{{--                </li>--}}
 
             </ul>
 
@@ -290,12 +237,13 @@
             <span class="count">0</span>
         </button>
 
-        <a href="{{ route('dashboard', ['id' => $user->id]) }}" class="action-btn">
+        <button class="action-btn">
             <ion-icon name="home-outline"></ion-icon>
-        </a>
+        </button>
 
         <button class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
+
             <span class="count">0</span>
         </button>
 
@@ -318,7 +266,7 @@
         <ul class="mobile-menu-category-list">
 
             <li class="menu-category">
-                <a href="/" class="menu-title">Home</a>
+                <a href="#" class="menu-title" data-section="main">Home</a>
             </li>
 
             <li class="menu-category">
@@ -389,7 +337,7 @@
 
 
             <li class="menu-category">
-                <a href="#" class="menu-title">About Us</a>
+                <a class="menu-title" href="{{route('aboutuser')}}">About Us</a>
             </li>
 
             <li class="menu-category">
@@ -489,78 +437,113 @@
 
 </header>
 
-<main>
-    <div class="main-container">
+<div class="product-container">
 
-        <hr class="line-long">
+    <div class="container">
 
-        <div class="section-title">
-            <h1>What's Important to Us</h1>
-        </div>
 
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Quality and Genuine Products</h2>
-            </div>
+        <!--
+          - SIDEBAR
+        -->
 
-            <div class="about-content">
-                <div class="about-item">
-                    <p>We believe in only the best, only genuine products will be displayed on our site.</p>
-                    <img src="{{asset('logo/ecommerce-product-images.jpg')}}" alt="Quality Product">
-                </div>
 
-                <div class="about-item">
-                    <p>Each product purchased from our site will be given a year Warranty.</p>
-                    <img src="{{asset('logo/french_fall_fashion_trends.jpg')}}" alt="Warranty">
-                </div>
 
-                <div class="about-item">
-                    <p>Any pirated products shipped out by us will be fully refunded.</p>
-                    <img src="{{asset('logo/game-ps5-terbaik.jpg')}}" alt="Refund">
-                </div>
-            </div>
-        </section>
 
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Efficient Delivery</h2>
-            </div>
 
-            <div class="about-content">
-                <div class="about-item">
-                    <p>We don't like it when something takes forever, why should you?</p>
-                    <p>We provide efficient and accurate delivery service.</p>
-                    <p>One-day delivery will be available soon, stay tuned!</p>
-                    <img src="{{asset('logo/download.jpeg')}}" alt="Delivery" style="align-items: center">
-                </div>
-            </div>
-        </section>
+        <div class="product-box">
 
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Excellent Customer Service</h2>
-            </div>
+            <!--
+              - PRODUCT MINIMAL
+            -->
 
-            <div class="about-content">
-                <div class="about-item">
-                    <p>Your satisfaction is our top priority.</p>
-                    <p>24-hour hotline is available to assist you with your needs anytime.</p>
-                    <p>Our team consists of professionals to handle all your requests.</p>
 
-                            <div style="width: 100%; height: 100%">
-                                <img src="{{asset('logo/customer.jpg')}}" alt="Customer Service">
+            <!--
+              - PRODUCT FEATURED
+            -->
+
+
+
+
+            <!--
+              - PRODUCT GRID
+            -->
+
+            <div class="product-main">
+
+                <h2 class="title">{{$category2->Category_Name}}</h2>
+
+                <div class="product-grid">
+                    @foreach($products as $prod)
+                        <div class="showcase">
+
+                            <div class="showcase-banner">
+
+                                <a href="#">
+
+
+
+                                        <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
+
+                                        <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+
+
+
+                                </a>
+
+
+                                {{--                                                            <p class="showcase-badge">15%</p>--}}
+
+
+
                             </div>
 
-                    </div>
+                            <div class="showcase-content">
 
+
+
+                                <a href="#" class="showcase-category">{{$prod->pro_name}}</a>
+
+                                <a href="#">
+                                    <h3 class="showcase-title">{{$prod->pro_des}}</h3>
+                                </a>
+
+                                {{--                                                            <div class="showcase-rating">--}}
+                                {{--                                                                <ion-icon name="star"></ion-icon>--}}
+                                {{--                                                                <ion-icon name="star"></ion-icon>--}}
+                                {{--                                                                <ion-icon name="star"></ion-icon>--}}
+                                {{--                                                                <ion-icon name="star-outline"></ion-icon>--}}
+                                {{--                                                                <ion-icon name="star-outline"></ion-icon>--}}
+                                {{--                                                            </div>--}}
+
+                                <div class="price-box">
+                                    <p class="price" data-price-usd="{{$prod->price}}">${{$prod->price}}</p>
+                                    @if($prod->Previous_Price === NULL)
+
+                                    @elseif($prod->Previous_Price !== NULL)
+                                        <del data-previous-price-usd="{{$prod->Previous_Price}}">${{$prod->Previous_Price}}</del>
+                                    @endif
+                                </div>
+
+                                <div class="price-box">
+                                    @if($prod->date_status === 'upcoming')
+                                        <p>{{$prod->date_status}}</p>
+                                    @endif
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    @endforeach
                 </div>
 
-        </section>
+            </div>
+
+        </div>
 
     </div>
-</main>
 
-
+</div>
 <footer>
 
     <div class="footer-category">
@@ -849,29 +832,61 @@
 
 <script src="{{asset('js/script.js')}}"></script>
 
-<script>
-    function toggleDropdown() {
-        var dropdown = document.querySelector(".dropdown ul");
-        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
-    }
-
-    // Close the dropdown if the user clicks outside of it
-    window.onclick = function (event) {
-        if (!event.target.matches('.user-greeting')) {
-            var dropdowns = document.querySelectorAll(".dropdown ul");
-            dropdowns.forEach(function (dropdown) {
-                if (dropdown.style.display === "block") {
-                    dropdown.style.display = "none";
-                }
-            });
-        }
-    }
-</script>
-
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script>
+    const exchangeRates = {
+        usd: 1,    // 1 USD to USD (base currency)
+        eur: 0.85, // Example: 1 USD to EUR is 0.85
+        bdt: 110.32 // Example: 1 USD to BDT is 110.32
+        // Add more currencies and exchange rates as needed
+    };
 
+    // Function to update the displayed price
+    function updatePrice(currency) {
+        const priceElements = document.querySelectorAll('.price');
+        const previousPriceElements = document.querySelectorAll('del[data-previous-price-usd]');
+        const selectedCurrency = document.getElementById('currency').value;
+        const exchangeRate = exchangeRates[selectedCurrency];
+        const currencySymbol = getCurrencySymbol(selectedCurrency);
+
+        priceElements.forEach(priceElement => {
+            const priceInUSD = parseFloat(priceElement.getAttribute('data-price-usd'));
+            const convertedPrice = (priceInUSD * exchangeRate).toFixed(2);
+            const formattedPrice = currency === 'usd' ? `$${priceInUSD}` : `${currencySymbol}${convertedPrice}`;
+            priceElement.textContent = formattedPrice;
+        });
+
+        previousPriceElements.forEach(previousPriceElement => {
+            const previousPriceInUSD = parseFloat(previousPriceElement.getAttribute('data-previous-price-usd'));
+            const convertedPreviousPrice = (previousPriceInUSD * exchangeRate).toFixed(2);
+            const formattedPreviousPrice = currency === 'usd' ? `$${previousPriceInUSD}` : `${currencySymbol}${convertedPreviousPrice}`;
+            previousPriceElement.textContent = formattedPreviousPrice;
+        });
+    }
+
+    // Function to get the currency symbol
+    function getCurrencySymbol(currency) {
+        switch (currency) {
+            case 'usd':
+                return '$';
+            case 'eur':
+                return '€'; // Euro symbol
+            case 'bdt':
+                return '৳'; // BDT symbol
+            default:
+                return currency;
+        }
+    }
+
+    // Attach an event listener to the currency select element
+    document.getElementById('currency').addEventListener('change', function() {
+        const selectedCurrency = this.value;
+        updatePrice(selectedCurrency);
+    });
+
+    // Initialize the price with the default currency (USD)
+    updatePrice('usd');
+</script>
 </body>
-
-
 </html>

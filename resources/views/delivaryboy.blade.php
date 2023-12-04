@@ -6,6 +6,7 @@
     <title>E-Commerce | Delivery Boy</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/flag-icon-css/css/flag-icon.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -191,9 +192,17 @@
     <li class="nav-item">
         <a class="nav-link toggle-deliver" style="font-weight: bold;" href="#MyProfile">My Profile</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link disabled" aria-disabled="true" style="color: black; font-weight: bold">{{$id->name}}</a>
-    </li>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" style="background-color: black; color: white; font-weight: bold;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{$id->name}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/" onclick="selectOption('Option 1')">Logout</a>
+            <!-- Add more dropdown items as needed -->
+        </div>
+    </div>
+
+
 
 
 
@@ -213,7 +222,7 @@
             <caption>HI</caption>
             <thead class="table-dark">
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Id</th>
                 <th scope="col">Customer Name</th>
                 <th scope="col">Location</th>
                 <th scope="col">Product Id</th>
@@ -277,7 +286,7 @@
                     <caption>{{$id->name}}, you delivered {{$mydeliveries2}} product/products in {{$currentMonths}} month.</caption>
                     <thead class="table-dark">
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Id</th>
                         <th scope="col">Customer Name</th>
                         <th scope="col">Location</th>
                         <th scope="col">Product Id</th>
@@ -308,7 +317,7 @@
                     </tbody>
 
                 </table>
-                {{$order->links()}}
+                {{$mydeliveries->links()}}
             </div>
         </div>
     </section>

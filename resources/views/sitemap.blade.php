@@ -5,123 +5,71 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>E-Commerce Website</title>
 
-    <!--
-      - favicon
-    -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="shortcut icon" href="{{asset('logo/favicon.ico')}}" type="image/x-icon">
-
-    <!--
-      - custom css link
-    -->
     <link rel="stylesheet" href="{{asset('css/style-prefix.css')}}">
-    <!--
-      - google font link*
-    -->
+    <script src="//code.tidio.co/2l8awmiopxub2rsj7vuajrnkxy2xnqln.js" async></script>
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
-<style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        margin: 0;
-        padding: 0;
-    }
 
-    .main-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
-    .line-long {
-        width: 100%;
-        border: 1px solid #ddd; /* Adjust the color as needed */
-        margin: 20px 0;
-    }
+        .user-greeting {
+            font-size: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
 
-    .section-title {
-        text-align: center;
-        margin-bottom: 30px;
-    }
+        .dropdown ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            display: none; /* Add the "hidden" class to initially hide the dropdown menu */
+        }
 
-    .about-section {
-        margin-bottom: 40px;
-    }
+        .dropdown ul li {
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
 
-    .product-title {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        .dropdown ul li a {
+            text-decoration: none;
+            color: #000;
+            display: block;
+        }
 
-    .about-content {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-    }
+        .dropdown ul li:hover {
+            background-color: hsl(51 , 100% , 50%);; /* Add the hover effect color here */
+        }
 
-    .about-item {
-        flex: 0 1 30%; /* Adjust the width as needed */
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .about-item img {
-        width: 100%;
-        height: 70%;
-    }
-
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    .user-greeting {
-        font-size: 18px;
-        margin-right: 10px;
-        cursor: pointer;
-    }
-
-    .dropdown ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: #fff;
-        box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
-        z-index: 1;
-        display: none; /* Add the "hidden" class to initially hide the dropdown menu */
-    }
-
-    .dropdown ul li {
-        padding: 10px 15px;
-        transition: background-color 0.3s;
-    }
-
-    .dropdown ul li a {
-        text-decoration: none;
-        color: #000;
-        display: block;
-    }
-
-    .dropdown ul li:hover {
-        background-color: hsl(51 , 100% , 50%);; /* Add the hover effect color here */
-    }
-
-    .dropdown:hover ul {
-        display: block;
-    }
-
-</style>
+        .dropdown:hover ul {
+            display: block;
+        }
+    </style>
 </head>
+
 <body>
+
 <header>
 
     <div class="header-top">
@@ -130,29 +78,29 @@
 
             <ul class="header-social-container">
 
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="logo-facebook"></ion-icon>
-                    </a>
-                </li>
+                          <li>
+                            <a href="#" class="social-link">
+                              <ion-icon name="logo-facebook"></ion-icon>
+                            </a>
+                          </li>
 
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="logo-twitter"></ion-icon>
-                    </a>
-                </li>
+                          <li>
+                            <a href="#" class="social-link">
+                              <ion-icon name="logo-twitter"></ion-icon>
+                            </a>
+                          </li>
 
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="logo-instagram"></ion-icon>
-                    </a>
-                </li>
+                          <li>
+                            <a href="#" class="social-link">
+                              <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                          </li>
 
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="logo-linkedin"></ion-icon>
-                    </a>
-                </li>
+                          <li>
+                            <a href="#" class="social-link">
+                              <ion-icon name="logo-linkedin"></ion-icon>
+                            </a>
+                          </li>
 
             </ul>
 
@@ -160,10 +108,11 @@
 
             <div class="header-top-actions">
 
-                <select name="currency">
+                <select name="currency" id="currency">
 
                     <option value="usd">USD &dollar;</option>
                     <option value="eur">EUR &euro;</option>
+                    <option value="bdt">BDT &#2547;</option>
 
                 </select>
 
@@ -190,9 +139,10 @@
             </a>
 
             <div class="header-search-container">
-                <form action="{{route('allproduct2',['id'=>$user->id])}}" method="get">
+
+                <form action="{{route('allproduct')}}" method="get">
                     @csrf
-                    <input type="search" name="search" class="search-field" placeholder="Enter your product...">
+                    <input type="search" name="search" class="search-field" value="" placeholder="Enter your product...">
 
                     <button class="search-btn" type="submit">
                         <ion-icon name="search-outline"></ion-icon>
@@ -205,15 +155,15 @@
 
 
                 <div class="dropdown">
-                    <span style="font-size: 15px;" class="user-greeting" onclick="toggleDropdown()">Hello, {{ implode(' ', array_slice(explode(' ', $user->name), 0, 3)) }}</span>
+                    <span style="font-size: 15px;" class="user-greeting" onclick="toggleDropdown()">Hello, {{ implode(' ', array_slice(explode(' ', $id->name), 0, 3)) }}</span>
                     <ul>
-                        <li><a href="{{ route('purchase',['id'=>$user->id]) }}" style="font-size: 15px">Purchase History</a></li>
+                        <li><a href="{{ route('purchase',['id'=>$id->id]) }}" style="font-size: 15px">Purchase History</a></li>
                         <li><a href="/" style="font-size: 15px;">Logout</a></li>
                     </ul>
                 </div>
 
                 @if($userfind)
-                    <a class="action-btn" href="{{ route('cart',['id' => $user->id]) }}">
+                    <a class="action-btn" href="{{ route('cart',['id' => $id->id]) }}">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span class="count">{{ $total }}</span>
                     </a>
@@ -227,6 +177,7 @@
 
             </div>
 
+
         </div>
 
     </div>
@@ -239,11 +190,7 @@
             <ul class="desktop-menu-category-list">
 
                 <li class="menu-category">
-                    <a href="{{ route('dashboard', ['id' => $user->id]) }}" class="menu-title">Home</a>
-                </li>
-
-                <li class="menu-category">
-                    <a href="#" class="menu-title" style="color: blue;">About Us</a>
+                    <a href="#" class="menu-title" style="color: blue;">Home</a>
                 </li>
 
                 <li class="menu-category">
@@ -252,23 +199,168 @@
 
                         @foreach($category as $cata)
                             <li class="dropdown-item">
-                                <a href="{{route('productlist2',['category'=>$cata->Category_Name,'id'=>$user->id])}}">{{$cata->Category_Name}}</a>
+                                <a href="{{route('productlist',['category'=>$cata->Category_Name])}}">{{$cata->Category_Name}}</a>
                             </li>
                         @endforeach
 
                     </ul>
                 </li>
 
+                {{--          <li class="menu-category">--}}
+                {{--            <a href="#" class="menu-title">Categories</a>--}}
 
+                {{--            <div class="dropdown-panel">--}}
+
+                {{--              <ul class="dropdown-panel-list">--}}
+
+                {{--                <li class="menu-title">--}}
+                {{--                  <a href="#">Kids</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Shirt</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">T-Shirt</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Shoes</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Diaper</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Toy</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">--}}
+                {{--                    <img src="{{asset('logo/electronics-banner-1.jpg')}}" alt="headphone collection" width="250"--}}
+                {{--                      height="119">--}}
+                {{--                  </a>--}}
+                {{--                </li>--}}
+
+                {{--              </ul>--}}
+
+                {{--              <ul class="dropdown-panel-list">--}}
+
+                {{--                <li class="menu-title">--}}
+                {{--                  <a href="#">Men's</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Formal</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Casual</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Sports</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Jacket</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Sunglasses</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">--}}
+                {{--                    <img src="{{asset('logo/mens-banner.jpg')}}" alt="men's fashion" width="250" height="119">--}}
+                {{--                  </a>--}}
+                {{--                </li>--}}
+
+                {{--              </ul>--}}
+
+                {{--              <ul class="dropdown-panel-list">--}}
+
+                {{--                <li class="menu-title">--}}
+                {{--                  <a href="#">Women's</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Formal</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Casual</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Perfume</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Cosmetics</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Bags</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">--}}
+                {{--                    <img src="{{asset('logo/womens-banner.jpg')}}" alt="women's fashion" width="250" height="119">--}}
+                {{--                  </a>--}}
+                {{--                </li>--}}
+
+                {{--              </ul>--}}
+
+                {{--              <ul class="dropdown-panel-list">--}}
+
+                {{--                <li class="menu-title">--}}
+                {{--                  <a href="#">Electronics</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Smart Watch</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Smart TV</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Keyboard</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Mouse</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">Microphone</a>--}}
+                {{--                </li>--}}
+
+                {{--                <li class="panel-list-item">--}}
+                {{--                  <a href="#">--}}
+                {{--                    <img src="{{asset('logo/electronics-banner-2.jpg')}}" alt="mouse collection" width="250" height="119">--}}
+                {{--                  </a>--}}
+                {{--                </li>--}}
+
+                {{--              </ul>--}}
+
+                {{--            </div>--}}
+                {{--          </li>--}}
+
+                <li class="menu-category">
+                    <a class="menu-title" href="{{route('aboutuser')}}">About Us</a>
+                </li>
 
                 <li class="menu-category">
                     <a href="#" class="menu-title">Special Offers</a>
                 </li>
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Contact Us</a>
+                    <a href="{{route('contactus')}}" class="menu-title">Contact Us</a>
                 </li>
-
-
 
 
 
@@ -290,12 +382,13 @@
             <span class="count">0</span>
         </button>
 
-        <a href="{{ route('dashboard', ['id' => $user->id]) }}" class="action-btn">
+        <button class="action-btn">
             <ion-icon name="home-outline"></ion-icon>
-        </a>
+        </button>
 
         <button class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
+
             <span class="count">0</span>
         </button>
 
@@ -318,7 +411,7 @@
         <ul class="mobile-menu-category-list">
 
             <li class="menu-category">
-                <a href="/" class="menu-title">Home</a>
+                <a href="#" class="menu-title" data-section="main">Home</a>
             </li>
 
             <li class="menu-category">
@@ -389,7 +482,7 @@
 
 
             <li class="menu-category">
-                <a href="#" class="menu-title">About Us</a>
+                <a class="menu-title" href="{{route('aboutuser')}}">About Us</a>
             </li>
 
             <li class="menu-category">
@@ -489,77 +582,25 @@
 
 </header>
 
-<main>
-    <div class="main-container">
-
-        <hr class="line-long">
-
-        <div class="section-title">
-            <h1>What's Important to Us</h1>
+<div class="container">
+    <h2 class="text-center">Ecommerce: Sitemap</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-justify">
+            @foreach($category as $cate)
+            <strong>
+                {{$cate->Category_Name}}<br>
+            </strong>
+                <p>
+                    @foreach($product as $prod)
+                        @if($prod->category === $cate->Category_Name)
+                            <a href="http://127.0.0.1:8000/product/productid/{{$prod->pro_id}}/userid/{{$id->id}}/product/{{$prod->category}}" target="_blank">{{$prod->pro_des}} & {{$prod->category}}</a>
+                        @endif
+                    @endforeach
+                </p>
+            @endforeach
         </div>
-
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Quality and Genuine Products</h2>
-            </div>
-
-            <div class="about-content">
-                <div class="about-item">
-                    <p>We believe in only the best, only genuine products will be displayed on our site.</p>
-                    <img src="{{asset('logo/ecommerce-product-images.jpg')}}" alt="Quality Product">
-                </div>
-
-                <div class="about-item">
-                    <p>Each product purchased from our site will be given a year Warranty.</p>
-                    <img src="{{asset('logo/french_fall_fashion_trends.jpg')}}" alt="Warranty">
-                </div>
-
-                <div class="about-item">
-                    <p>Any pirated products shipped out by us will be fully refunded.</p>
-                    <img src="{{asset('logo/game-ps5-terbaik.jpg')}}" alt="Refund">
-                </div>
-            </div>
-        </section>
-
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Efficient Delivery</h2>
-            </div>
-
-            <div class="about-content">
-                <div class="about-item">
-                    <p>We don't like it when something takes forever, why should you?</p>
-                    <p>We provide efficient and accurate delivery service.</p>
-                    <p>One-day delivery will be available soon, stay tuned!</p>
-                    <img src="{{asset('logo/download.jpeg')}}" alt="Delivery" style="align-items: center">
-                </div>
-            </div>
-        </section>
-
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Excellent Customer Service</h2>
-            </div>
-
-            <div class="about-content">
-                <div class="about-item">
-                    <p>Your satisfaction is our top priority.</p>
-                    <p>24-hour hotline is available to assist you with your needs anytime.</p>
-                    <p>Our team consists of professionals to handle all your requests.</p>
-
-                            <div style="width: 100%; height: 100%">
-                                <img src="{{asset('logo/customer.jpg')}}" alt="Customer Service">
-                            </div>
-
-                    </div>
-
-                </div>
-
-        </section>
-
     </div>
-</main>
-
+</div>
 
 <footer>
 
@@ -644,7 +685,6 @@
         <div class="container">
 
             <ul class="footer-nav-list">
-
                 <li class="footer-nav-item">
                     <h2 class="nav-title">Popular Categories</h2>
                 </li>
@@ -674,7 +714,7 @@
             <ul class="footer-nav-list">
 
                 <li class="footer-nav-item">
-                    <h2 class="nav-title">Products</h2>
+                    <h2 class="nav-title">Usefull Links</h2>
                 </li>
 
                 <li class="footer-nav-item">
@@ -702,27 +742,27 @@
             <ul class="footer-nav-list">
 
                 <li class="footer-nav-item">
-                    <h2 class="nav-title">Our Company</h2>
+                    <h2 class="nav-title">Customer Policy</h2>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Delivery</a>
+                    <a href="#" class="footer-nav-link">Privacy Policy</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Legal Notice</a>
+                    <a href="#" class="footer-nav-link">FAQ</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Terms and conditions</a>
+                    <a href="#" class="footer-nav-link">Track Order</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">About us</a>
+                    <a href="#" class="footer-nav-link">Return Policy</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Secure payment</a>
+                    <a href="#" class="footer-nav-link">Term and Condition</a>
                 </li>
 
             </ul>
@@ -734,23 +774,23 @@
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Prices drop</a>
+                    <a href="#" class="footer-nav-link">World Wide Delivery</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">New products</a>
+                    <a href="#" class="footer-nav-link">Next Day delivery</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Best sales</a>
+                    <a href="#" class="footer-nav-link">Best online support</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Contact us</a>
+                    <a href="#" class="footer-nav-link">Return policy</a>
                 </li>
 
                 <li class="footer-nav-item">
-                    <a href="#" class="footer-nav-link">Sitemap</a>
+                    <a href="#" class="footer-nav-link">30% money back</a>
                 </li>
 
             </ul>
@@ -781,10 +821,18 @@
 
                 <li class="footer-nav-item flex">
                     <div class="icon-box">
+                        <ion-icon name="call-outline"></ion-icon>
+                    </div>
+
+                    <a href="tel:+607936-8058" class="footer-nav-link">016 38 75 23 71 </a>
+                </li>
+
+                <li class="footer-nav-item flex">
+                    <div class="icon-box">
                         <ion-icon name="mail-outline"></ion-icon>
                     </div>
 
-                    <a href="mailto:example@gmail.com" class="footer-nav-link">rubayetislam16@gmail.com</a>
+                    <a href="mailto:example@gmail.com" class="footer-nav-link">customer.support@gmail.com</a>
                 </li>
 
             </ul>
@@ -848,30 +896,14 @@
 </footer>
 
 <script src="{{asset('js/script.js')}}"></script>
-
-<script>
-    function toggleDropdown() {
-        var dropdown = document.querySelector(".dropdown ul");
-        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
-    }
-
-    // Close the dropdown if the user clicks outside of it
-    window.onclick = function (event) {
-        if (!event.target.matches('.user-greeting')) {
-            var dropdowns = document.querySelectorAll(".dropdown ul");
-            dropdowns.forEach(function (dropdown) {
-                if (dropdown.style.display === "block") {
-                    dropdown.style.display = "none";
-                }
-            });
-        }
-    }
-</script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
 
 </body>
-
 
 </html>
