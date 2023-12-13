@@ -17,7 +17,8 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="shortcut icon" href="{{asset('logo/favicon.ico')}}" type="image/x-icon">
 
   <!--
@@ -31,6 +32,46 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
 
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination .pagination-list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pagination .pagination-list li {
+            margin: 0 5px;
+        }
+
+        .pagination .pagination-list li a,
+        .pagination .pagination-list li span {
+            display: block;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .pagination .pagination-list li.active span {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .pagination .pagination-list li a:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+
+
 </head>
 
 
@@ -38,95 +79,6 @@
 <body>
 
 
-  <div class="overlay" data-overlay></div>
-
-  <!--
-    - MODAL
-  -->
-
-{{--  <div class="modal" data-modal>--}}
-
-{{--    <div class="modal-close-overlay" data-modal-overlay></div>--}}
-
-{{--    <div class="modal-content">--}}
-
-{{--      <button class="modal-close-btn" data-modal-close>--}}
-{{--        <ion-icon name="close-outline"></ion-icon>--}}
-{{--      </button>--}}
-
-{{--      <div class="newsletter-img">--}}
-{{--        <img src="{{asset('logo/cam-morin-knKm7u_7Ihw-unsplash.jpg')}}" alt="subscribe newsletter" width="400" height="400">--}}
-{{--      </div>--}}
-
-{{--      <div class="newsletter">--}}
-
-{{--        <form action="{{route('subscribe')}}" method="post">--}}
-{{--            @csrf--}}
-{{--          <div class="newsletter-header">--}}
-
-{{--            <h3 class="newsletter-title">Subscribe Newsletter.</h3>--}}
-
-{{--            <p class="newsletter-desc">--}}
-{{--              Subscribe the <b>Ecommrece</b> to get latest products and discount update.--}}
-{{--            </p>--}}
-
-{{--          </div>--}}
-
-{{--          <input type="email" name="email" class="email-field" placeholder="Email Address" required>--}}
-
-{{--          <button type="submit" class="btn-newsletter">Subscribe</button>--}}
-
-{{--        </form>--}}
-
-{{--      </div>--}}
-
-{{--    </div>--}}
-
-{{--  </div>--}}
-
-
-
-
-
-  <!--
-    - NOTIFICATION TOAST
-  -->
-
-{{--  <div class="notification-toast" data-toast>--}}
-
-{{--    <button class="toast-close-btn" data-toast-close>--}}
-{{--      <ion-icon name="close-outline"></ion-icon>--}}
-{{--    </button>--}}
-
-{{--    <div class="toast-banner">--}}
-{{--      <img src="{{asset('storage/' . $product3->pro_pic)}}" alt="Lafz Perfume" width="80" height="70">--}}
-{{--    </div>--}}
-
-{{--    <div class="toast-detail">--}}
-
-{{--      <p class="toast-message">--}}
-{{--          {{$product3->customer_name}} just bought--}}
-{{--      </p>--}}
-
-{{--      <p class="toast-title">--}}
-{{--      {{$product3->pro_des}}--}}
-{{--      </p>--}}
-
-{{--      <p class="toast-meta" id="timeElapsed">--}}
-{{--        <time datetime="PT2M">2 Minutes</time> ago--}}
-{{--      </p>--}}
-
-{{--    </div>--}}
-
-{{--  </div>--}}
-
-
-
-
-
-  <!--
-    - HEADER
-  -->
 
   <header>
 
@@ -136,39 +88,30 @@
 
         <ul class="header-social-container">
 
-{{--          <li>--}}
-{{--            <a href="#" class="social-link">--}}
-{{--              <ion-icon name="logo-facebook"></ion-icon>--}}
-{{--            </a>--}}
-{{--          </li>--}}
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
 
-{{--          <li>--}}
-{{--            <a href="#" class="social-link">--}}
-{{--              <ion-icon name="logo-twitter"></ion-icon>--}}
-{{--            </a>--}}
-{{--          </li>--}}
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
 
-{{--          <li>--}}
-{{--            <a href="#" class="social-link">--}}
-{{--              <ion-icon name="logo-instagram"></ion-icon>--}}
-{{--            </a>--}}
-{{--          </li>--}}
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
 
-{{--          <li>--}}
-{{--            <a href="#" class="social-link">--}}
-{{--              <ion-icon name="logo-linkedin"></ion-icon>--}}
-{{--            </a>--}}
-{{--          </li>--}}
-            <li>
-                <a href="{{route('delivaryregistration')}}" class="social-link">
-                    <p style="font-size: 10px;">Want to our Delivary Boy?</p>
-                </a>
-            </li>
-            <li>
-                <a href="{{route('sellerregistration')}}" class="social-link">
-                    <p style="font-size: 10px;">Become a seller?</p>
-                </a>
-            </li>
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+
 
         </ul>
 
@@ -213,7 +156,7 @@
           <input type="search" name="search" class="search-field" value="" placeholder="Enter your product...">
 
           <button class="search-btn" type="submit">
-            <ion-icon name="search-outline"></ion-icon>
+              <i class="fa-solid fa-magnifying-glass" style="color: #ffae19;"></i>
           </button>
             </form>
 
@@ -269,161 +212,44 @@
                 </ul>
             </li>
 
-{{--          <li class="menu-category">--}}
-{{--            <a href="#" class="menu-title">Categories</a>--}}
 
-{{--            <div class="dropdown-panel">--}}
-
-{{--              <ul class="dropdown-panel-list">--}}
-
-{{--                <li class="menu-title">--}}
-{{--                  <a href="#">Kids</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Shirt</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">T-Shirt</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Shoes</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Diaper</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Toy</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">--}}
-{{--                    <img src="{{asset('logo/electronics-banner-1.jpg')}}" alt="headphone collection" width="250"--}}
-{{--                      height="119">--}}
-{{--                  </a>--}}
-{{--                </li>--}}
-
-{{--              </ul>--}}
-
-{{--              <ul class="dropdown-panel-list">--}}
-
-{{--                <li class="menu-title">--}}
-{{--                  <a href="#">Men's</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Formal</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Casual</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Sports</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Jacket</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Sunglasses</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">--}}
-{{--                    <img src="{{asset('logo/mens-banner.jpg')}}" alt="men's fashion" width="250" height="119">--}}
-{{--                  </a>--}}
-{{--                </li>--}}
-
-{{--              </ul>--}}
-
-{{--              <ul class="dropdown-panel-list">--}}
-
-{{--                <li class="menu-title">--}}
-{{--                  <a href="#">Women's</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Formal</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Casual</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Perfume</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Cosmetics</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Bags</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">--}}
-{{--                    <img src="{{asset('logo/womens-banner.jpg')}}" alt="women's fashion" width="250" height="119">--}}
-{{--                  </a>--}}
-{{--                </li>--}}
-
-{{--              </ul>--}}
-
-{{--              <ul class="dropdown-panel-list">--}}
-
-{{--                <li class="menu-title">--}}
-{{--                  <a href="#">Electronics</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Smart Watch</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Smart TV</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Keyboard</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Mouse</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">Microphone</a>--}}
-{{--                </li>--}}
-
-{{--                <li class="panel-list-item">--}}
-{{--                  <a href="#">--}}
-{{--                    <img src="{{asset('logo/electronics-banner-2.jpg')}}" alt="mouse collection" width="250" height="119">--}}
-{{--                  </a>--}}
-{{--                </li>--}}
-
-{{--              </ul>--}}
-
-{{--            </div>--}}
-{{--          </li>--}}
-
-          <li class="menu-category">
-              <a class="menu-title" href="{{route('aboutuser')}}">About Us</a>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Special Offers</a>
-          </li>
             <li class="menu-category">
-                <a href="{{route('contactus')}}" class="menu-title">Contact Us</a>
+                <a href="#" class="menu-title">Special Offers</a>
             </li>
+
+
+
+            <li class="menu-category">
+                <a href="" class="menu-title">Looking for something?</a>
+                <ul class="dropdown-list">
+
+                    <li class="dropdown-item">
+                        <a class="menu-title" href="{{route('delivaryregistration')}}">Want to our delivery man?</a>
+                    </li>
+
+                    <li class="dropdown-item">
+                        <a href="{{route('sellerregistration')}}" class="menu-title">Become a seller?</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="menu-category">
+                <a href="" class="menu-title">More..</a>
+                <ul class="dropdown-list">
+
+                    <li class="dropdown-item">
+                        <a class="menu-title" href="{{route('aboutuser')}}">About Us</a>
+                    </li>
+
+                    <li class="dropdown-item">
+                        <a href="{{route('contactus')}}" class="menu-title">Contact Us</a>
+                    </li>
+
+                </ul>
+
+            </li>
+
 
 
 
@@ -655,111 +481,7 @@
 
   <main>
 
-    <!--
-      - BANNER
-    -->
 
-    <div class="banner">
-
-{{--        <div class="product-main">--}}
-
-{{--            <h2 class="title">New Products</h2>--}}
-
-{{--            <div class="product-grid">--}}
-{{--                @foreach($product5 as $prod)--}}
-{{--                    <div class="showcase">--}}
-
-{{--                        <div class="showcase-banner">--}}
-
-{{--                            <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">--}}
-{{--                            <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">--}}
-
-{{--                            --}}{{--                    <p class="showcase-badge">15%</p>--}}
-
-{{--                            <div class="showcase-actions">--}}
-
-{{--                                <button class="btn-action">--}}
-{{--                                    <ion-icon name="heart-outline"></ion-icon>--}}
-{{--                                </button>--}}
-
-{{--                                <button class="btn-action">--}}
-{{--                                    <ion-icon name="eye-outline"></ion-icon>--}}
-{{--                                </button>--}}
-
-{{--                                <button class="btn-action">--}}
-{{--                                    <ion-icon name="repeat-outline"></ion-icon>--}}
-{{--                                </button>--}}
-
-{{--                                <button class="btn-action">--}}
-{{--                                    <ion-icon name="bag-add-outline"></ion-icon>--}}
-{{--                                </button>--}}
-
-{{--                            </div>--}}
-
-{{--                        </div>--}}
-
-{{--                        <div class="showcase-content">--}}
-
-{{--                            <a href="#" class="showcase-category">{{$prod->pro_name}}</a>--}}
-
-{{--                            <a href="#">--}}
-{{--                                <h3 class="showcase-title">{{$prod->pro_des}}</h3>--}}
-{{--                            </a>--}}
-
-{{--                            @if($averageRatings[$prod->pro_id] > 0)--}}
-{{--                                {{ $averageRatings[$prod->pro_id] }}--}}
-
-
-{{--                                <div class="showcase-rating">--}}
-{{--                                    @for ($i = 1; $i <= 5; $i++)--}}
-{{--                                        @if ($i <= $averageRatings[$prod->pro_id])--}}
-{{--                                            <ion-icon name="star"></ion-icon>--}}
-{{--                                        @else--}}
-{{--                                            <ion-icon name="star-outline"></ion-icon>--}}
-{{--                                        @endif--}}
-{{--                                    @endfor--}}
-{{--                                </div>--}}
-{{--                            @else--}}
-
-{{--                            @endif--}}
-
-{{--                            <div class="price-box">--}}
-{{--                                <p class="price" data-price-usd="{{$prod->price}}">${{$prod->price}}</p>--}}
-{{--                                @if($prod->Previous_Price === NULL)--}}
-
-{{--                                @elseif($prod->Previous_Price !== NULL)--}}
-{{--                                    <del data-previous-price-usd="{{$prod->Previous_Price}}">${{$prod->Previous_Price}}</del>--}}
-{{--                                @endif--}}
-{{--                            </div>--}}
-
-{{--                        </div>--}}
-
-{{--                    </div>--}}
-{{--                @endforeach--}}
-
-
-{{--            </div>--}}
-{{--            <div class="swiper-pagination"></div>--}}
-{{--        </div>--}}
-
-    </div>
-
-
-
-
-
-    <!--
-      - CATEGORY
-    -->
-
-
-
-
-
-
-    <!--
-      - PRODUCT
-    -->
 
     <div class="product-container">
 
@@ -888,8 +610,12 @@
                                           @elseif($pro->Previous_Price !== NULL)
                                               <del data-previous-price-usd="{{$pro->Previous_Price}}">${{$pro->Previous_Price}}</del>
                                           @endif
+
+                                      </div>
+
+                                      <div>
                                           <p>{{ $pro->upcoming_date }}</p>
-                                          <span id="countdown_{{ $pro->pro_id }}"></span>
+                                          <div class="countdown" data-end-date="{{ $pro->upcoming_date }}"></div>
                                       </div>
 
                                   </div>
@@ -926,6 +652,7 @@
                                           @endif
 
                                           <p>{{ $pro->upcoming_date }}</p>
+                                          <div class="countdown" data-end-date="{{ $pro->upcoming_date }}"></div>
                                       </div>
 
                                   </div>
@@ -1068,16 +795,12 @@
 
                                 <div class="showcase-status">
                                     <div class="wrapper">
-                                        <p>
-                                            already sold: <b>20</b>
-                                        </p>
 
                                         <p>
                                             available: <b>{{$dealoftheDay->Stock}}</b>
                                         </p>
                                     </div>
 
-                                    <div class="showcase-status-bar"></div>
                                 </div>
 
                             </div>
@@ -1126,12 +849,8 @@
 
                                 <div class="showcase-status">
                                     <div class="wrapper">
-                                        <p> already sold: <b>15</b> </p>
-
                                         <p> available: <b>{{$dealoftheDay2->Stock}}</b> </p>
                                     </div>
-
-                                    <div class="showcase-status-bar"></div>
                                 </div>
 
 
@@ -1148,9 +867,12 @@
 
 
 
+
           <!--
             - PRODUCT GRID
           -->
+
+
 
           <div class="product-main">
 
@@ -1158,7 +880,7 @@
 
             <div class="product-grid">
                 @foreach($product4 as $prod)
-                    @if($prod->date_status !== 'upcoming')
+
               <div class="showcase">
 
                 <div class="showcase-banner">
@@ -1168,25 +890,7 @@
 
 {{--                    <p class="showcase-badge">15%</p>--}}
 
-                  <div class="showcase-actions">
 
-                    <button class="btn-action">
-                      <ion-icon name="heart-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                      <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
-
-                  </div>
 
                 </div>
 
@@ -1222,17 +926,23 @@
                       @elseif($prod->Previous_Price !== NULL)
                           <del data-previous-price-usd="{{$prod->Previous_Price}}">${{$prod->Previous_Price}}</del>
                       @endif
+
+                      @if($prod->date_status==='upcoming')
+                          <p class="price">{{$prod->date_status}}</p>
+                      @endif
                   </div>
 
                 </div>
 
               </div>
-                    @endif
+
                 @endforeach
 
 
             </div>
-
+              <div class="pagination-links">
+                  {{ $product4->links() }}
+              </div>
           </div>
 
         </div>
@@ -1249,180 +959,7 @@
       - TESTIMONIALS, CTA & SERVICE
     -->
 
-    <div>
 
-      <div class="container">
-
-        <div class="testimonials-box">
-
-          <!--
-            - TESTIMONIALS
-          -->
-
-          <div class="testimonial">
-
-            <h2 class="title">testimonial</h2>
-
-            <div class="testimonial-card">
-
-              <img src="{{asset('logo/testimonial-1.jpg')}}" alt="alan doe" class="testimonial-banner" width="80" height="80">
-
-
-              <p class="testimonial-name">Sheikh Rubayet Islam</p>
-
-              <p class="testimonial-title">CEO & Founder Invision</p>
-
-              <img src="{{asset('logo/icons/quotes.svg')}}" alt="quotation" class="quotation-img" width="26">
-
-              <p class="testimonial-desc">
-                Lorem ipsum dolor sit amet consectetur Lorem ipsum
-                dolor dolor sit amet.
-              </p>
-
-            </div>
-
-            <div class="testimonial-card">
-
-              <img src="{{asset('logo/IMG_2194.jpg')}}" alt="alan doe" class="testimonial-banner" width="80" height="80">
-
-
-              <p class="testimonial-name">Pias Miah</p>
-
-              <p class="testimonial-title">CEO & Founder Invision</p>
-
-              <img src="{{asset('logo/icons/quotes.svg')}}" alt="quotation" class="quotation-img" width="26">
-
-              <p class="testimonial-desc">
-                Lorem ipsum dolor sit amet consectetur Lorem ipsum
-                dolor dolor sit amet.
-              </p>
-
-            </div>
-
-          </div>
-
-
-
-
-
-          <!--
-            - CTA
-          -->
-
-          <div class="cta-container">
-
-            <img src="{{asset('logo/cta-banner.jpg')}}" alt="summer collection" class="cta-banner">
-
-            <a href="#" class="cta-content">
-
-              <p class="discount">25% Discount</p>
-
-              <h2 class="cta-title">Gaming Season</h2>
-
-              <p class="cta-text">Starting @ $10</p>
-
-              <button class="cta-btn">Shop now</button>
-
-            </a>
-
-          </div>
-
-
-
-          <!--
-            - SERVICE
-          -->
-
-          <div class="service">
-
-            <h2 class="title">Our Services</h2>
-
-            <div class="service-container">
-
-              <a href="#" class="service-item">
-
-                <div class="service-icon">
-                  <ion-icon name="boat-outline"></ion-icon>
-                </div>
-
-                <div class="service-content">
-
-                  <h3 class="service-title">Worldwide Delivery</h3>
-                  <p class="service-desc">For Order Over $100</p>
-
-                </div>
-
-              </a>
-
-              <a href="#" class="service-item">
-
-                <div class="service-icon">
-                  <ion-icon name="rocket-outline"></ion-icon>
-                </div>
-
-                <div class="service-content">
-
-                  <h3 class="service-title">Next Day delivery</h3>
-                  <p class="service-desc">BD Orders Only</p>
-
-                </div>
-
-              </a>
-
-              <a href="#" class="service-item">
-
-                <div class="service-icon">
-                  <ion-icon name="call-outline"></ion-icon>
-                </div>
-
-                <div class="service-content">
-
-                  <h3 class="service-title">Best Online Support</h3>
-                  <p class="service-desc">Hours: 8AM - 11PM</p>
-
-                </div>
-
-              </a>
-
-              <a href="#" class="service-item">
-
-                <div class="service-icon">
-                  <ion-icon name="arrow-undo-outline"></ion-icon>
-                </div>
-
-                <div class="service-content">
-
-                  <h3 class="service-title">Return Policy</h3>
-                  <p class="service-desc">Easy & Free Return</p>
-
-                </div>
-
-              </a>
-
-              <a href="#" class="service-item">
-
-                <div class="service-icon">
-                  <ion-icon name="ticket-outline"></ion-icon>
-                </div>
-
-                <div class="service-content">
-
-                  <h3 class="service-title">30% money back</h3>
-                  <p class="service-desc">For Order Over $100</p>
-
-                </div>
-
-              </a>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
 
 
 
@@ -1432,108 +969,123 @@
       - BLOG
     -->
 
-    <div class="blog">
+      <div class="blog">
 
-      <div class="container">
+          <div class="container">
 
-        <div class="blog-container has-scrollbar">
+              <h3 class="text-center">Our Services</h3>
+              <div class="blog-container has-scrollbar">
 
-          <div class="blog-card">
+                  <div class="blog-card">
 
-            <a href="#">
-              <img src="{{asset('logo/blog-1.jpg')}}" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" height="200" class="blog-banner">
-            </a>
+                      <div class="service-icon" >
+                          <ion-icon name="boat-outline"></ion-icon>
+                      </div>
 
-            <div class="blog-content">
+                      <div class="blog-content">
 
-              <a href="#" class="blog-category">Fashion</a>
 
-              <a href="#">
-                <h3 class="blog-title">Clothes Retail KPIs 2021 Guide for Clothes Executives.</h3>
-              </a>
+                          <a href="#">
+                              <h3 class="blog-title">Worldwide Delivery</h3>
+                          </a>
 
-              <p class="blog-meta">
-                By <cite>Mr Admin</cite> / <time datetime="2022-04-06">Apr 06, 2022</time>
-              </p>
+                          <p class="blog-meta">
+                              For Order Over $100
+                          </p>
 
-            </div>
+                      </div>
+
+                  </div>
+
+                  <div class="blog-card">
+
+                      <div class="service-icon" >
+                          <ion-icon name="rocket-outline"></ion-icon>
+                      </div>
+
+                      <div class="blog-content">
+
+
+                          <a href="#">
+                              <h3 class="blog-title">Next Day delivery</h3>
+                          </a>
+
+                          <p class="blog-meta">
+                              BD orders only
+                          </p>
+
+                      </div>
+
+                  </div>
+
+                  <div class="blog-card">
+
+                      <div class="service-icon" >
+                          <ion-icon name="call-outline"></ion-icon>
+                      </div>
+
+                      <div class="blog-content">
+
+
+                          <a href="#">
+                              <h3 class="blog-title">Best Online Support</h3>
+                          </a>
+
+                          <p class="blog-meta">
+                              Hours: 8AM-11PM
+                          </p>
+
+                      </div>
+
+                  </div>
+
+                  <div class="blog-card">
+
+                      <div class="service-icon" >
+                          <ion-icon name="boat-outline"></ion-icon>
+                      </div>
+
+                      <div class="blog-content">
+
+
+                          <a href="#">
+                              <h3 class="blog-title">Return Policy</h3>
+                          </a>
+
+                          <p class="blog-meta">
+                              Easy and Free Return
+                          </p>
+
+                      </div>
+
+                  </div>
+
+                  <div class="blog-card">
+
+                      <div class="service-icon" >
+                          <ion-icon name="boat-outline"></ion-icon>
+                      </div>
+
+                      <div class="blog-content">
+
+
+                          <a href="#">
+                              <h3 class="blog-title">30% money back</h3>
+                          </a>
+
+                          <p class="blog-meta">
+                              or Order Over $100
+                          </p>
+
+                      </div>
+
+                  </div>
+
+              </div>
 
           </div>
-
-          <div class="blog-card">
-
-            <a href="#">
-              <img src="{{asset('logo/blog-2.jpg')}}" alt="Curbside fashion Trends: How to Win the Pickup Battle."
-                class="blog-banner" width="300" height="200">
-            </a>
-
-            <div class="blog-content">
-
-              <a href="#" class="blog-category">Clothes</a>
-
-              <h3>
-                <a href="#" class="blog-title">Curbside fashion Trends: How to Win the Pickup Battle.</a>
-              </h3>
-
-              <p class="blog-meta">
-                By <cite>Mr Robin</cite> / <time datetime="2022-01-18">Jan 18, 2022</time>
-              </p>
-
-            </div>
-
-          </div>
-
-          <div class="blog-card">
-
-            <a href="#">
-              <img src="{{asset('logo/blog-3.jpg')}}" alt="EBT vendors: Claim Your Share of SNAP Online Revenue."
-                class="blog-banner" width="300" height="200">
-            </a>
-
-            <div class="blog-content">
-
-              <a href="#" class="blog-category">Shoes</a>
-
-              <h3>
-                <a href="#" class="blog-title">EBT vendors: Claim Your Share of SNAP Online Revenue.</a>
-              </h3>
-
-              <p class="blog-meta">
-                By <cite>Mr Selsa</cite> / <time datetime="2022-02-10">Feb 10, 2022</time>
-              </p>
-
-            </div>
-
-          </div>
-
-          <div class="blog-card">
-
-            <a href="#">
-              <img src="{{asset('logo/blog-4.jpg')}}" alt="Curbside fashion Trends: How to Win the Pickup Battle."
-                class="blog-banner" width="300" height="200">
-            </a>
-
-            <div class="blog-content">
-
-              <a href="#" class="blog-category">Electronics</a>
-
-              <h3>
-                <a href="#" class="blog-title">Curbside fashion Trends: How to Win the Pickup Battle.</a>
-              </h3>
-
-              <p class="blog-meta">
-                By <cite>Mr Pawar</cite> / <time datetime="2022-03-15">Mar 15, 2022</time>
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
 
       </div>
-
-    </div>
 
 {{-- --}}
   </main>
@@ -1546,292 +1098,299 @@
     - FOOTER
   -->
 
+
   <footer>
 
-    <div class="footer-category">
+      <div class="footer-category">
 
-      <div class="container">
+          <div class="container">
 
-        <h2 class="footer-category-title">Brand directory</h2>
+              <h2 class="footer-category-title">Brand directory</h2>
 
-        <div class="footer-category-box">
+              <div class="footer-category-box">
 
-          <h3 class="category-box-title">Fashion :</h3>
+                  <h3 class="category-box-title">Fashion :</h3>
 
-          <a href="#" class="footer-category-link">T-shirt</a>
-          <a href="#" class="footer-category-link">Shirts</a>
-          <a href="#" class="footer-category-link">shorts & jeans</a>
-          <a href="#" class="footer-category-link">jacket</a>
-          <a href="#" class="footer-category-link">dress & frock</a>
-          <a href="#" class="footer-category-link">innerwear</a>
-          <a href="#" class="footer-category-link">hosiery</a>
+                  <a href="#" class="footer-category-link">T-shirt</a>
+                  <a href="#" class="footer-category-link">Shirts</a>
+                  <a href="#" class="footer-category-link">shorts & jeans</a>
+                  <a href="#" class="footer-category-link">jacket</a>
+                  <a href="#" class="footer-category-link">dress & frock</a>
+                  <a href="#" class="footer-category-link">innerwear</a>
+                  <a href="#" class="footer-category-link">hosiery</a>
 
-        </div>
+              </div>
 
-        <div class="footer-category-box">
-          <h3 class="category-box-title">footwear :</h3>
+              <div class="footer-category-box">
+                  <h3 class="category-box-title">footwear :</h3>
 
-          <a href="#" class="footer-category-link">sport</a>
-          <a href="#" class="footer-category-link">formal</a>
-          <a href="#" class="footer-category-link">Boots</a>
-          <a href="#" class="footer-category-link">casual</a>
-          <a href="#" class="footer-category-link">cowboy shoes</a>
-          <a href="#" class="footer-category-link">safety shoes</a>
-          <a href="#" class="footer-category-link">Party wear shoes</a>
-          <a href="#" class="footer-category-link">Branded</a>
-          <a href="#" class="footer-category-link">Firstcopy</a>
-          <a href="#" class="footer-category-link">Long shoes</a>
-        </div>
+                  <a href="#" class="footer-category-link">sport</a>
+                  <a href="#" class="footer-category-link">formal</a>
+                  <a href="#" class="footer-category-link">Boots</a>
+                  <a href="#" class="footer-category-link">casual</a>
+                  <a href="#" class="footer-category-link">cowboy shoes</a>
+                  <a href="#" class="footer-category-link">safety shoes</a>
+                  <a href="#" class="footer-category-link">Party wear shoes</a>
+                  <a href="#" class="footer-category-link">Branded</a>
+                  <a href="#" class="footer-category-link">Firstcopy</a>
+                  <a href="#" class="footer-category-link">Long shoes</a>
+              </div>
 
-        <div class="footer-category-box">
-          <h3 class="category-box-title">jewellery :</h3>
+              <div class="footer-category-box">
+                  <h3 class="category-box-title">jewellery :</h3>
 
-          <a href="#" class="footer-category-link">Necklace</a>
-          <a href="#" class="footer-category-link">Earrings</a>
-          <a href="#" class="footer-category-link">Couple rings</a>
-          <a href="#" class="footer-category-link">Pendants</a>
-          <a href="#" class="footer-category-link">Crystal</a>
-          <a href="#" class="footer-category-link">Bangles</a>
-          <a href="#" class="footer-category-link">bracelets</a>
-          <a href="#" class="footer-category-link">nosepin</a>
-          <a href="#" class="footer-category-link">chain</a>
-          <a href="#" class="footer-category-link">Earrings</a>
-          <a href="#" class="footer-category-link">Couple rings</a>
-        </div>
+                  <a href="#" class="footer-category-link">Necklace</a>
+                  <a href="#" class="footer-category-link">Earrings</a>
+                  <a href="#" class="footer-category-link">Couple rings</a>
+                  <a href="#" class="footer-category-link">Pendants</a>
+                  <a href="#" class="footer-category-link">Crystal</a>
+                  <a href="#" class="footer-category-link">Bangles</a>
+                  <a href="#" class="footer-category-link">bracelets</a>
+                  <a href="#" class="footer-category-link">nosepin</a>
+                  <a href="#" class="footer-category-link">chain</a>
+                  <a href="#" class="footer-category-link">Earrings</a>
+                  <a href="#" class="footer-category-link">Couple rings</a>
+              </div>
 
-        <div class="footer-category-box">
-          <h3 class="category-box-title">cosmetics :</h3>
+              <div class="footer-category-box">
+                  <h3 class="category-box-title">cosmetics :</h3>
 
-          <a href="#" class="footer-category-link">Shampoo</a>
-          <a href="#" class="footer-category-link">Bodywash</a>
-          <a href="#" class="footer-category-link">Facewash</a>
-          <a href="#" class="footer-category-link">makeup kit</a>
-          <a href="#" class="footer-category-link">liner</a>
-          <a href="#" class="footer-category-link">lipstick</a>
-          <a href="#" class="footer-category-link">prefume</a>
-          <a href="#" class="footer-category-link">Body soap</a>
-          <a href="#" class="footer-category-link">scrub</a>
-          <a href="#" class="footer-category-link">hair gel</a>
-          <a href="#" class="footer-category-link">hair colors</a>
-          <a href="#" class="footer-category-link">hair dye</a>
-          <a href="#" class="footer-category-link">sunscreen</a>
-          <a href="#" class="footer-category-link">skin loson</a>
-          <a href="#" class="footer-category-link">liner</a>
-          <a href="#" class="footer-category-link">lipstick</a>
-        </div>
+                  <a href="#" class="footer-category-link">Shampoo</a>
+                  <a href="#" class="footer-category-link">Bodywash</a>
+                  <a href="#" class="footer-category-link">Facewash</a>
+                  <a href="#" class="footer-category-link">makeup kit</a>
+                  <a href="#" class="footer-category-link">liner</a>
+                  <a href="#" class="footer-category-link">lipstick</a>
+                  <a href="#" class="footer-category-link">prefume</a>
+                  <a href="#" class="footer-category-link">Body soap</a>
+                  <a href="#" class="footer-category-link">scrub</a>
+                  <a href="#" class="footer-category-link">hair gel</a>
+                  <a href="#" class="footer-category-link">hair colors</a>
+                  <a href="#" class="footer-category-link">hair dye</a>
+                  <a href="#" class="footer-category-link">sunscreen</a>
+                  <a href="#" class="footer-category-link">skin loson</a>
+                  <a href="#" class="footer-category-link">liner</a>
+                  <a href="#" class="footer-category-link">lipstick</a>
+              </div>
+
+          </div>
 
       </div>
 
-    </div>
+      <div class="footer-nav">
 
-    <div class="footer-nav">
+          <div class="container">
 
-      <div class="container">
+              <ul class="footer-nav-list">
+                  <li class="footer-nav-item">
+                      <h2 class="nav-title">Popular Categories</h2>
+                  </li>
 
-        <ul class="footer-nav-list">
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Fashion</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Popular Categories</h2>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Electronic</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Fashion</a>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Cosmetic</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Electronic</a>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Health</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Cosmetic</a>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Watches</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Health</a>
-          </li>
+              </ul>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Watches</a>
-          </li>
+              <ul class="footer-nav-list">
 
-        </ul>
+                  <li class="footer-nav-item">
+                      <h2 class="nav-title">Usefull Links</h2>
+                  </li>
 
-        <ul class="footer-nav-list">
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Prices drop</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Products</h2>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">New products</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Prices drop</a>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Best sales</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">New products</a>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Contact us</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Best sales</a>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Sitemap</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Contact us</a>
-          </li>
+              </ul>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Sitemap</a>
-          </li>
+              <ul class="footer-nav-list">
 
-        </ul>
+                  <li class="footer-nav-item">
+                      <h2 class="nav-title">Customer Policy</h2>
+                  </li>
 
-        <ul class="footer-nav-list">
+                  <li class="footer-nav-item">
+                      <a href="{{route('privacypolicy')}}" class="footer-nav-link">Privacy Policy</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Our Company</h2>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">FAQ</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Delivery</a>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Track Order</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Legal Notice</a>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Return Policy</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Terms and conditions</a>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="{{route('termsandcondition')}}" class="footer-nav-link">Term and Condition</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">About us</a>
-          </li>
+              </ul>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Secure payment</a>
-          </li>
+              <ul class="footer-nav-list">
 
-        </ul>
+                  <li class="footer-nav-item">
+                      <h2 class="nav-title">Services</h2>
+                  </li>
 
-        <ul class="footer-nav-list">
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">World Wide Delivery</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Services</h2>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Next Day delivery</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Prices drop</a>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Best online support</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">New products</a>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">Return policy</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Best sales</a>
-          </li>
+                  <li class="footer-nav-item">
+                      <a href="#" class="footer-nav-link">30% money back</a>
+                  </li>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Contact us</a>
-          </li>
+              </ul>
 
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Sitemap</a>
-          </li>
+              <ul class="footer-nav-list">
 
-        </ul>
+                  <li class="footer-nav-item">
+                      <h2 class="nav-title">Contact</h2>
+                  </li>
 
-        <ul class="footer-nav-list">
+                  <li class="footer-nav-item flex">
+                      <div class="icon-box">
+                          <ion-icon name="location-outline"></ion-icon>
+                      </div>
 
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Contact</h2>
-          </li>
+                      <address class="content">
+                          Mirpur-2, Dhaka - 1216
+                      </address>
+                  </li>
 
-          <li class="footer-nav-item flex">
-            <div class="icon-box">
-              <ion-icon name="location-outline"></ion-icon>
-            </div>
+                  <li class="footer-nav-item flex">
+                      <div class="icon-box">
+                          <ion-icon name="call-outline"></ion-icon>
+                      </div>
 
-            <address class="content">
-              Mirpur-2, Dhaka - 1216
-            </address>
-          </li>
+                      <a href="tel:+607936-8058" class="footer-nav-link">016 42 88 92 75 </a>
+                  </li>
 
-          <li class="footer-nav-item flex">
-            <div class="icon-box">
-              <ion-icon name="call-outline"></ion-icon>
-            </div>
+                  <li class="footer-nav-item flex">
+                      <div class="icon-box">
+                          <ion-icon name="call-outline"></ion-icon>
+                      </div>
 
-            <a href="tel:+607936-8058" class="footer-nav-link">016 42 88 92 75 </a>
-          </li>
+                      <a href="tel:+607936-8058" class="footer-nav-link">016 38 75 23 71 </a>
+                  </li>
 
-          <li class="footer-nav-item flex">
-            <div class="icon-box">
-              <ion-icon name="mail-outline"></ion-icon>
-            </div>
+                  <li class="footer-nav-item flex">
+                      <div class="icon-box">
+                          <ion-icon name="mail-outline"></ion-icon>
+                      </div>
 
-            <a href="mailto:example@gmail.com" class="footer-nav-link">rubayetislam16@gmail.com</a>
-          </li>
+                      <a href="mailto:example@gmail.com" class="footer-nav-link">customer.support@gmail.com</a>
+                  </li>
 
-        </ul>
+              </ul>
 
-        <ul class="footer-nav-list">
+              <ul class="footer-nav-list">
 
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Follow Us</h2>
-          </li>
+                  <li class="footer-nav-item">
+                      <h2 class="nav-title">Follow Us</h2>
+                  </li>
 
-          <li>
-            <ul class="social-link">
+                  <li>
+                      <ul class="social-link">
 
-              <li class="footer-nav-item">
-                <a href="#" class="footer-nav-link">
-                  <ion-icon name="logo-facebook"></ion-icon>
-                </a>
-              </li>
+                          <li class="footer-nav-item">
+                              <a href="#" class="footer-nav-link">
+                                  <ion-icon name="logo-facebook"></ion-icon>
+                              </a>
+                          </li>
 
-              <li class="footer-nav-item">
-                <a href="#" class="footer-nav-link">
-                  <ion-icon name="logo-twitter"></ion-icon>
-                </a>
-              </li>
+                          <li class="footer-nav-item">
+                              <a href="#" class="footer-nav-link">
+                                  <ion-icon name="logo-twitter"></ion-icon>
+                              </a>
+                          </li>
 
-              <li class="footer-nav-item">
-                <a href="#" class="footer-nav-link">
-                  <ion-icon name="logo-linkedin"></ion-icon>
-                </a>
-              </li>
+                          <li class="footer-nav-item">
+                              <a href="#" class="footer-nav-link">
+                                  <ion-icon name="logo-linkedin"></ion-icon>
+                              </a>
+                          </li>
 
-              <li class="footer-nav-item">
-                <a href="#" class="footer-nav-link">
-                  <ion-icon name="logo-instagram"></ion-icon>
-                </a>
-              </li>
+                          <li class="footer-nav-item">
+                              <a href="#" class="footer-nav-link">
+                                  <ion-icon name="logo-instagram"></ion-icon>
+                              </a>
+                          </li>
 
-            </ul>
-          </li>
+                      </ul>
+                  </li>
 
-        </ul>
+              </ul>
 
-      </div>
-
-    </div>
-
-    <div class="footer-bottom">
-
-      <div class="container">
-
-        <img src="{{asset('logo/payment.png')}}" alt="payment method" class="payment-img">
-
-        <p class="copyright">
-          Copyright &copy; <a href="#">E-Commerce</a> all rights reserved.
-        </p>
+          </div>
 
       </div>
 
-    </div>
+      <div class="footer-bottom">
+
+          <div class="container">
+
+              <img src="{{asset('logo/payment.png')}}" alt="payment method" class="payment-img">
+
+              <p class="copyright">
+                  Copyright &copy; <a href="#">E-Commerce</a> all rights reserved.
+              </p>
+
+          </div>
+
+      </div>
 
   </footer>
-
 
 
 
@@ -1847,7 +1406,7 @@
   -->
   <script>
       // JavaScript code to calculate and update the time elapsed
-      var soldTime = new Date("{{$product3->created_at}}");
+      {{--var soldTime = new Date("{{$product3->created_at}}");--}}
       var currentTime = new Date();
       var timeDifference = currentTime - soldTime;
 
@@ -1951,30 +1510,7 @@
       });
 
 
-      @foreach($upcoming as $product)
-      var releaseDate_{{ $product->pro_id }} = moment("{{ $product->upcoming_date }}");
-      var countdownElement_{{ $product->pro_id }} = document.getElementById('countdown_{{ $product->pro_id }}');
 
-      function updateCountdown_{{ $product->pro_id }}() {
-          var now = moment();
-          var diffSeconds = releaseDate_{{ $product->pro_id }}.diff(now, 'seconds');
-
-          if (diffSeconds > 0) {
-              var duration = moment.duration(diffSeconds, 'seconds');
-              var hours = duration.hours();
-              var minutes = duration.minutes();
-              var seconds = duration.seconds();
-
-              countdownElement_{{ $product->pro_id }}.innerText = hours + 'h ' + minutes + 'm ' + seconds + 's';
-          } else {
-              countdownElement_{{ $product->pro_id }}.innerText = 'Product released!';
-              clearInterval(interval_{{ $product->pro_id }});
-          }
-      }
-
-      updateCountdown_{{ $product->pro_id }}();
-      var interval_{{ $product->pro_id }} = setInterval(updateCountdown_{{ $product->pro_id }}, 1000);
-      @endforeach
 
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>

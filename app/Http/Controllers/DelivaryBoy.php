@@ -37,7 +37,8 @@ class DelivaryBoy extends Controller
                     'nid' => $request->input('nid'),
                     'password' => $password,
                     'photo'=>$path,
-                    'created_at'=> $now
+                    'created_at'=> $now,
+                    'approval'=>'Pending'
                 ]);
                 if ($isDelivary){
                     return redirect('delivaryregistration');

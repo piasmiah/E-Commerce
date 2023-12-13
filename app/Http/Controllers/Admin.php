@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use App\Models\Delivaries;
 use App\Models\PendingOrder;
 use App\Models\Product;
+use App\Models\SellerAcc;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Admin extends Controller
 {
     public function totalsell(Request $request)
     {
-        $total = PendingOrder::where('order_status','Delivered')->sum('Price');
+        $total = PendingOrder::where('order_status','Delivered')
+            ->where('seller_id',NULL)
+            ->sum('Price');
 
         $total2 = PendingOrder::where('order_status','Delivered')->count();
 
@@ -20,13 +25,22 @@ class Admin extends Controller
 
         $ship = PendingOrder::where('order_status','Shipping')->count();
 
-        $products = Product::all();
+        $products = DB::table('product')
+            ->leftJoin('selleraccount','selleraccount.seller_id','=','product.seller_id')
+            ->select('product.*','selleraccount.store_name')
+            ->get();
 
         $orderinfo = PendingOrder::inRandomOrder()->limit(10)->get();
 
-        $orderinfo2 = PendingOrder::all();
+        $orderinfo2 = DB::table('orderstatus')
+            ->leftJoin('selleraccount','selleraccount.seller_id','=','orderstatus.seller_id')
+            ->join('delivary','delivary.id','=','orderstatus.delivary_boy_id')
+            ->select('orderstatus.*','selleraccount.store_name','delivary.name')
+            ->get();
 
-        $sells = Product::all();
+        $sells = PendingOrder::select('products', DB::raw('SUM(Quantity) as total_quantity'), DB::raw('SUM(Price) as total_price'))
+            ->groupBy('products')
+            ->get();
 
         $total3 = Product::where('pro_id',$request->input('ids'))->sum('price');
 
@@ -43,9 +57,34 @@ class Admin extends Controller
 
         $product = $randomTopProducts->pluck('sold');
 
+        $delivary = DB::table('delivary')
+            ->get();
+
         $visitor = Visitor::all();
 
-        return view('admin',['visitor'=>$visitor,'product' => $product, 'product2' => $product2,'total'=>$total,'pen'=>$pen,'ship'=>$ship,'total2'=>$total2,'products'=>$products,'orderinfo'=>$orderinfo,'orderinfo2'=>$orderinfo2,'sells'=>$sells,'total3'=>$total3]);
+        $seller = SellerAcc::all();
+
+        return view('admin',['visitor'=>$visitor,'seller'=>$seller,'delivary'=>$delivary,'product' => $product, 'product2' => $product2,'total'=>$total,'pen'=>$pen,'ship'=>$ship,'total2'=>$total2,'products'=>$products,'orderinfo'=>$orderinfo,'orderinfo2'=>$orderinfo2,'sells'=>$sells,'total3'=>$total3]);
+    }
+
+    public function approval(Request $request)
+    {
+        $update = Delivaries::where('id',$request->input('id'))
+            ->update([
+                'approval'=>'Approved'
+            ]);
+
+        return redirect()->route('admin');
+    }
+
+    public function approval2(Request $request)
+    {
+        $update = SellerAcc::where('seller_id',$request->input('id'))
+            ->update([
+                'approval'=>'Approved'
+            ]);
+
+        return redirect()->route('admin');
     }
 
     public function totalsellsreport(Request $request)

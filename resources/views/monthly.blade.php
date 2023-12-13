@@ -59,15 +59,15 @@
             background-color: #f2f2f2;
         }
 
-    .print-button {
-    display: block;
-  }
+        .print-button {
+            display: block;
+        }
 
-  @media print {
-    .print-button {
-      display: none;
-    }
-  }
+        @media print {
+            .print-button {
+                display: none;
+            }
+        }
 
         .print-only {
             display: none;
@@ -89,8 +89,8 @@
 <body>
 <header>
     <h1>Welcome to Our Ecommerce Website</h1>
-    <p>Welcome to our e-commerce platform, where we bring together a wide range of high-quality products and services to cater to your every need. Our mission is to provide a seamless and enjoyable online shopping experience, offering an extensive selection of products in various categories, from electronics to fashion, home & garden to gadgets. We take pride in ensuring that each item we offer meets the highest standards of quality and affordability.
-
+    <p>As a seller on our platform, <strong>{{ $id->seller_name }}</strong>, examining the one-month sales report for your products sold via <strong>E-commerce</strong>, we provide comprehensive insights into your recent performance. This report offers valuable analytics and data reflecting your sales trends, customer engagement, and product performance, aiding in refining strategies for continued success on our platform.
+    </p>
         <!-- Our commitment to customer satisfaction is at the core of our business. We not only provide a diverse product catalog but also prioritize excellent customer service, secure payment options, and swift delivery. Our team works tirelessly to stay up to date with the latest trends and technologies to make your shopping experience as convenient as possible. -->
 
         <!-- Whether you're seeking the latest tech gadgets, stylish clothing, or practical home and garden essentials, we've got you covered. Explore our website, discover the perfect products for your lifestyle, and shop with confidence, knowing that you're in good hands. Thank you for choosing us as your trusted ecommerce destination.</p> -->
@@ -121,7 +121,7 @@
         </tr>
         <tr>
             <td>Average order value</td>
-            <td>${{$totalsales / $totalsales2}}</td>
+            <td>$0</td>
         </tr>
         </tbody>
     </table>
@@ -136,11 +136,11 @@
         </thead>
         <tbody>
         @foreach($categorySold as $category)
-        <tr>
-            <td>{{$category->category}}</td>
-            <td>{{$category->total_quantity_sold}}</td>
-            <td>${{ number_format($category->total_price, 2) }}</td>
-        </tr>
+            <tr>
+                <td>{{$category->category}}</td>
+                <td>{{$category->total_quantity_sold}}</td>
+                <td>${{ number_format($category->total_price, 2) }}</td>
+            </tr>
         @endforeach
         </tbody>
     </table>
@@ -176,7 +176,7 @@
                 <td>{{$top->pro_id}}</td>
                 <td>{{$top->total_sold}}</td>
                 <td>{{$top->avg_rating}}</td>
-        </tr>
+            </tr>
         @endforeach
         </tbody>
     </table>
@@ -198,142 +198,6 @@
                 <td>{{$top->pro_id}}</td>
                 <td>{{$top->total_sold}}</td>
                 <td>{{$top->avg_rating}}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-
-    <h2>Top Seller</h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Seller Name</th>
-            <th>Seller ID</th>
-            <th>Quantity Sold</th>
-            <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($topProducts3 as $top)
-            <tr>
-                <td>{{$top->seller_id}}</td>
-                <td>{{$top->store_name}}</td>
-                <td>{{$top->total_products_sold}}</td>
-                <td>{{$top->total_price}}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-
-    <h2>Less Seller</h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Seller Name</th>
-            <th>Seller ID</th>
-            <th>Quantity Sold</th>
-            <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($topProducts4 as $top)
-            <tr>
-                <td>{{$top->seller_id}}</td>
-                <td>{{$top->store_name}}</td>
-                <td>{{$top->total_products_sold}}</td>
-                <td>{{$top->total_price}}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-
-    <h2>Top Delivary Man</h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Total Delivary</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($delivary as $top)
-            <tr>
-                <td>{{$top->id}}</td>
-                <td>{{$top->name}}</td>
-                <td>{{$top->total}}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-
-    <h2>Less Delivary Man</h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Total Delivary</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($delivary2 as $top)
-            <tr>
-                <td>{{$top->id}}</td>
-                <td>{{$top->name}}</td>
-                <td>{{$top->total}}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-
-    <h2>Top Users</h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Total Quantity</th>
-            <th>Total Price</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($topUsers as $top)
-            <tr>
-                <td>{{$top->id}}</td>
-                <td>{{$top->name}}</td>
-                <td>{{$top->phone}}</td>
-                <td>{{$top->total_products_sold}}</td>
-                <td>{{$top->total_price}}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-
-    <h2>Top Conusmers</h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Total Sold</th>
-            <th>Total Price</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($topConsumers as $top)
-            <tr>
-                <td>{{$top->id}}</td>
-                <td>{{$top->name}}</td>
-                <td>{{$top->phone}}</td>
-                <td>{{$top->total_products_sold}}</td>
-                <td>{{$top->total_price}}</td>
             </tr>
         @endforeach
         </tbody>

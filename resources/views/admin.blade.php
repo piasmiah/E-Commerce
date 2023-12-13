@@ -68,14 +68,20 @@
                 <span class="text">Visitor</span>
             </a>
         </li>
-    </ul>
-    <ul class="side-menu">
         <li>
-            <a href="#">
-                <i class='bx bxs-cog' ></i>
-                <span class="text">Settings</span>
+            <a href="#" class="toggle-delivary">
+                <i class='bx bxs-group'></i>
+                <span class="text">Delivary Man</span>
             </a>
         </li>
+        <li>
+            <a href="#" class="toggle-seller">
+                <i class='bx bxs-group'></i>
+                <span class="text">Seller Account</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="side-menu">
         <li>
             <a href="/" class="logout">
                 <i class='bx bxs-log-out-circle' ></i>
@@ -128,10 +134,15 @@
                     </li>
                 </ul>
             </div>
-            <a href="{{route('report')}}" class="btn-download">
+            <a href="{{route('report')}}" class="btn-download" target="_blank">
                 <i class='bx bxs-cloud-download' ></i>
-                <span class="text">Download PDF</span>
+                <span class="text">One Month Report</span>
             </a>
+            <a href="{{route('report2')}}" class="btn-download" target="_blank">
+                <i class='bx bxs-cloud-download' ></i>
+                <span class="text">Daily Update Report</span>
+            </a>
+
         </div>
 
         <ul class="box-info">
@@ -239,6 +250,8 @@
                     <th>Description</th>
                     <th>Price</th>
                     <th>Pictuer</th>
+                    <th>Store Id</th>
+                    <th>Store Name</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -249,6 +262,8 @@
                     <td>{{ Str::limit($prod->pro_des, 30) }}</td>
                     <td>${{$prod->price}}</td>
                     <td><img src="{{asset('storage/' .$prod->pro_pic)}}"></td>
+                    <td>{{$prod->seller_id}}</td>
+                    <td>{{$prod->store_name}}</td>
                 </tr>
                 @endforeach
                 </tbody>
@@ -290,6 +305,12 @@
                     <thead>
                     <tr>
                         <th>User</th>
+                        <th>Product</th>
+                        <th>Location</th>
+                        <th>Seller Id</th>
+                        <th>Store Name</th>
+                        <th>Delivary Id</th>
+                        <th>Delivary Man Name</th>
                         <th>Date Order</th>
                         <th>Status</th>
                     </tr>
@@ -300,6 +321,12 @@
                             <td>
                                 <p>{{$order->customer_name}}</p>
                             </td>
+                            <td>{{$order->products}}</td>
+                            <td>{{$order->location}}</td>
+                            <td>{{$order->seller_id}}</td>
+                            <td>{{$order->store_name}}</td>
+                            <td>{{$order->delivary_boy_id}}</td>
+                            <td>{{$order->name}}</td>
                             <td>{{$order->Date}}</td>
                             @if($order->order_status==='Delivered')
                                 <td><span class="status completed">{{$order->order_status}}</span></td>
@@ -352,15 +379,17 @@
                         </thead>
                         <tbody>
                         @foreach($sells as $sel)
+                            @if($sel->seller_id === NULL)
                             <tr>
 {{--                                <td>{{ $sel->pro_id }}</td>--}}
-                                <input type="hidden" name="ids" value="{{ $sel->pro_id }}">
-                                <td>{{ $sel->pro_name }}</td>
+                                <input type="hidden" name="ids" value="{{ $sel->product_id }}">
+                                <td>{{ $sel->products }}</td>
 
-                                <td>{{ $sel->Quantity_Sold }}</td>
+                                <td>{{ $sel->total_quantity }}</td>
 
-                                <td>${{ $sel->price }}</td>
+                                <td>${{ $sel->total_price }}</td>
                             </tr>
+                            @endif
                         @endforeach
                         </tbody>
                     </table>
@@ -407,6 +436,107 @@
                                 <td>{{$visit->visited_at}}</td>
                             </tr>
                         @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="delivary" style="display: none">
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Delivary Man List</h3>
+                    </div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>NID</th>
+                            <th>Approved</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        @foreach($delivary as $visit)
+                            <form action="{{route('approval')}}" method="post">
+                                @csrf
+                            <tr>
+                                <td>{{$visit->id}}</td>
+                                <input type="hidden" value="{{$visit->id}}" name="id">
+                                <td>{{$visit->name}}</td>
+                                <td>{{$visit->address}}</td>
+                                <td>+880{{$visit->phone}}</td>
+                                <td>{{$visit->email}}</td>
+                                <td>{{$visit->nid}}</td>
+                                <td>
+                                    @if($visit->approval==='Approved')
+                                        <span class="status completed">{{$visit->approval}}</span>
+                                    @else
+                                    <button type="submit" class="status pending">{{$visit->approval}}</button>
+                                    @endif
+                                </td>
+                            </tr>
+                            </form>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="seller" style="display: none">
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Seller Account List</h3>
+                    </div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Seller Id</th>
+                            <th>Seller Name</th>
+                            <th>Store Name</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Business Certificate</th>
+                            <th>TIN</th>
+                            <th>Website</th>
+                            <th>Approved</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach($seller as $visit)
+                                <form action="{{route('approved')}}" method="post">
+                                    @csrf
+                                <tr>
+                                    <td>{{$visit->seller_id}}</td>
+                                    <input type="hidden" value="{{$visit->seller_id}}" name="id">
+                                    <td>{{$visit->seller_name}}</td>
+                                    <td>{{$visit->store_name}}</td>
+                                    <td>{{$visit->address}}</td>
+                                    <td>{{$visit->phone}}</td>
+                                    <td>
+                                        <a href="{{asset('storage/'.$visit->Business_certificate)}}" target="_blank">View</a></td>
+                                    <td>{{$visit->TIN}}</td>
+                                    <td><a href="{{$visit->Website}}" target="_blank">Go TO</a></td>
+                                    <td>
+                                        @if($visit->approval==='Approved')
+                                            <span class="status completed">{{$visit->approval}}</span>
+                                        @else
+                                            <button type="submit" class="status pending">{{$visit->approval}}</button>
+                                        @endif
+                                    </td>
+                                </tr>
+                                </form>
+                            @endforeach
+
                         </tbody>
                     </table>
                 </div>

@@ -1,127 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
 
-    <title>E-Commerce Website</title>
+        select#category {
+            width: 100%; /* Adjust the width as needed */
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        input[type="date"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            /* Add your custom styles here */
+        }
 
-    <!--
-      - favicon
-    -->
-    <link rel="shortcut icon" href="{{asset('logo/favicon.ico')}}" type="image/x-icon">
+        select#category2,select#time {
+            width: 100%; /* Adjust the width as needed */
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        select#category option:checked {
+            background-color: #007bff; /* Background color for the selected option */
+            color: #fff; /* Text color for the selected option */
+        }
+        a{
+            text-decoration: none;
+        }
+        #eyeIcon {
+            position: absolute;
+            right: 10px; /* Adjust the right position as needed */
+            top: 16%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
-    <!--
-      - custom css link
-    -->
+        .user-greeting {
+            font-size: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .input-fields select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .dropdown ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            display: none; /* Add the "hidden" class to initially hide the dropdown menu */
+        }
+
+        .dropdown ul li {
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown ul li a {
+            text-decoration: none;
+            color: #000;
+            display: block;
+        }
+
+        .dropdown ul li:hover {
+            background-color: hsl(51 , 100% , 50%);; /* Add the hover effect color here */
+        }
+
+        .dropdown:hover ul {
+            display: block;
+        }
+    </style>
+
+
+    <title>E - Commerce | Signup</title>
     <link rel="stylesheet" href="{{asset('css/style-prefix.css')}}">
-    <!--
-      - google font link*
-    -->
+    <script src="//code.tidio.co/2l8awmiopxub2rsj7vuajrnkxy2xnqln.js" async></script>
+    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
-<style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-
-    .main-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    .line-long {
-        width: 100%;
-        border: 1px solid #ddd; /* Adjust the color as needed */
-        margin: 20px 0;
-    }
-
-    .section-title {
-        text-align: center;
-        margin-bottom: 30px;
-    }
-
-    .about-section {
-        margin-bottom: 40px;
-    }
-
-    .product-title {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .about-content {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-    }
-
-    .about-item {
-        flex: 0 1 30%; /* Adjust the width as needed */
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .about-item img {
-        width: 100%;
-        height: 70%;
-    }
-
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    .user-greeting {
-        font-size: 18px;
-        margin-right: 10px;
-        cursor: pointer;
-    }
-
-    .dropdown ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: #fff;
-        box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
-        z-index: 1;
-        display: none; /* Add the "hidden" class to initially hide the dropdown menu */
-    }
-
-    .dropdown ul li {
-        padding: 10px 15px;
-        transition: background-color 0.3s;
-    }
-
-    .dropdown ul li a {
-        text-decoration: none;
-        color: #000;
-        display: block;
-    }
-
-    .dropdown ul li:hover {
-        background-color: hsl(51 , 100% , 50%);; /* Add the hover effect color here */
-    }
-
-    .dropdown:hover ul {
-        display: block;
-    }
-
-</style>
 </head>
 <body>
+
 <header>
 
     <div class="header-top">
@@ -153,17 +142,17 @@
                         <ion-icon name="logo-linkedin"></ion-icon>
                     </a>
                 </li>
-
             </ul>
 
 
 
             <div class="header-top-actions">
 
-                <select name="currency">
+                <select name="currency" id="currency">
 
                     <option value="usd">USD &dollar;</option>
                     <option value="eur">EUR &euro;</option>
+                    <option value="bdt">BDT &#2547;</option>
 
                 </select>
 
@@ -185,14 +174,15 @@
 
         <div class="container">
 
-            <a href="#" class="header-logo">
-                <img src="{{asset('logo/logo.svg')}}" alt="Anon's logo" width="120" height="36">
+            <a href="/" class="header-logo">
+                <img src="{{asset('logo/logo.svg')}}" alt="Ecommerce's logo" width="120" height="36">
             </a>
 
             <div class="header-search-container">
-                <form action="{{route('allproduct2',['id'=>$user->id])}}" method="get">
+
+                <form action="{{route('allproduct')}}" method="get">
                     @csrf
-                    <input type="search" name="search" class="search-field" placeholder="Enter your product...">
+                    <input type="search" name="search" class="search-field" value="" placeholder="Enter your product...">
 
                     <button class="search-btn" type="submit">
                         <ion-icon name="search-outline"></ion-icon>
@@ -205,25 +195,12 @@
 
 
                 <div class="dropdown">
-                    <span style="font-size: 15px;" class="user-greeting" onclick="toggleDropdown()">Hello, {{ implode(' ', array_slice(explode(' ', $user->name), 0, 3)) }}</span>
+                    <span style="font-size: 15px;" class="user-greeting" onclick="toggleDropdown()">Hello, {{ implode(' ', array_slice(explode(' ', $user->store_name), 0, 3)) }}</span>
                     <ul>
-                        <li><a href="{{ route('purchase',['id'=>$user->id]) }}" style="font-size: 15px">Purchase History</a></li>
+                        <li><a href="{{route('sellerprofile',['id'=>$user->seller_id])}}" style="font-size: 15px">My Profile</a></li>
                         <li><a href="/" style="font-size: 15px;">Logout</a></li>
                     </ul>
                 </div>
-
-                @if($userfind)
-                    <a class="action-btn" href="{{ route('cart',['id' => $user->id]) }}">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span class="count">{{ $total }}</span>
-                    </a>
-                @else
-                    <a class="action-btn" href="#">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </a>
-                @endif
-
-
 
             </div>
 
@@ -239,12 +216,20 @@
             <ul class="desktop-menu-category-list">
 
                 <li class="menu-category">
-                    <a href="{{ route('dashboard', ['id' => $user->id]) }}" class="menu-title">Home</a>
+                    <a href="{{route('sellerhomepage',['id'=>$user->seller_id])}}" class="menu-title  toggle">Home</a>
+                </li>
+
+
+
+                <li class="menu-category">
+                    <a href="#" class="menu-title" style="color: blue;">Add Product</a>
                 </li>
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title" style="color: blue;">About Us</a>
+                    <a href="{{route('sellermanage',['id'=>$user->seller_id])}}" class="menu-title">Manage Product</a>
                 </li>
+
+
 
                 <li class="menu-category">
                     <a href="#" class="menu-title">Categories</a>
@@ -252,7 +237,7 @@
 
                         @foreach($category as $cata)
                             <li class="dropdown-item">
-                                <a href="{{route('productlist2',['category'=>$cata->Category_Name,'id'=>$user->id])}}">{{$cata->Category_Name}}</a>
+                                <a href="{{route('sellerproduct',['id'=>$user->seller_id,'category'=>$cata->Category_Name])}}">{{$cata->Category_Name}}</a>
                             </li>
                         @endforeach
 
@@ -260,14 +245,9 @@
                 </li>
 
 
-
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Special Offers</a>
+                    <a href="{{route('sellertotalsells',['id'=>$user->seller_id])}}" class="menu-title">Total Sells</a>
                 </li>
-                <li class="menu-category">
-                    <a href="#" class="menu-title">Contact Us</a>
-                </li>
-
 
 
 
@@ -290,12 +270,13 @@
             <span class="count">0</span>
         </button>
 
-        <a href="{{ route('dashboard', ['id' => $user->id]) }}" class="action-btn">
+        <button class="action-btn">
             <ion-icon name="home-outline"></ion-icon>
-        </a>
+        </button>
 
         <button class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
+
             <span class="count">0</span>
         </button>
 
@@ -318,7 +299,7 @@
         <ul class="mobile-menu-category-list">
 
             <li class="menu-category">
-                <a href="/" class="menu-title">Home</a>
+                <a href="#" class="menu-title" data-section="main">Home</a>
             </li>
 
             <li class="menu-category">
@@ -389,7 +370,7 @@
 
 
             <li class="menu-category">
-                <a href="#" class="menu-title">About Us</a>
+                <a class="menu-title" href="{{route('aboutuser')}}">About Us</a>
             </li>
 
             <li class="menu-category">
@@ -489,77 +470,82 @@
 
 </header>
 
-<main>
-    <div class="main-container">
+<div class="container">
+    <div class="row justify-content-center">
 
-        <hr class="line-long">
+        <div class="col-md-6 bg-white p-5">
+            <h3 class="pb-3 text-center">Add Product</h3>
 
-        <div class="section-title">
-            <h1>What's Important to Us</h1>
-        </div>
-
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Quality and Genuine Products</h2>
-            </div>
-
-            <div class="about-content">
-                <div class="about-item">
-                    <p>We believe in only the best, only genuine products will be displayed on our site.</p>
-                    <img src="{{asset('logo/ecommerce-product-images.jpg')}}" alt="Quality Product">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
                 </div>
-
-                <div class="about-item">
-                    <p>Each product purchased from our site will be given a year Warranty.</p>
-                    <img src="{{asset('logo/french_fall_fashion_trends.jpg')}}" alt="Warranty">
-                </div>
-
-                <div class="about-item">
-                    <p>Any pirated products shipped out by us will be fully refunded.</p>
-                    <img src="{{asset('logo/game-ps5-terbaik.jpg')}}" alt="Refund">
-                </div>
-            </div>
-        </section>
-
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Efficient Delivery</h2>
-            </div>
-
-            <div class="about-content">
-                <div class="about-item">
-                    <p>We don't like it when something takes forever, why should you?</p>
-                    <p>We provide efficient and accurate delivery service.</p>
-                    <p>One-day delivery will be available soon, stay tuned!</p>
-                    <img src="{{asset('logo/download.jpeg')}}" alt="Delivery" style="align-items: center">
-                </div>
-            </div>
-        </section>
-
-        <section class="about-section">
-            <div class="product-title">
-                <h2>Excellent Customer Service</h2>
-            </div>
-
-            <div class="about-content">
-                <div class="about-item">
-                    <p>Your satisfaction is our top priority.</p>
-                    <p>24-hour hotline is available to assist you with your needs anytime.</p>
-                    <p>Our team consists of professionals to handle all your requests.</p>
-
-                            <div style="width: 100%; height: 100%">
-                                <img src="{{asset('logo/customer.jpg')}}" alt="Customer Service">
-                            </div>
-
+            @endif
+            <div class="form-style">
+                <form action="{{route('add')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id" value="{{$user->seller_id}}">
+                    <div class="form-group pb-3">
+                        <select id="category" name="category">
+                            <option value="-">Category</option>
+                            @foreach($category as $ss)
+                                <option value="{{$ss->Category_Name}}">{{$ss->Category_Name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group pb-3">
+                        <div>
+                        <select id="category2" name="product_name">
+                            <option value="-">Sub Category</option>
+                            @foreach($sub as $ss)
+                                <option value="{{$ss->pro_name}}">{{$ss->pro_name}}</option>
+                            @endforeach
+                            <option value="other">Other</option>
+                        </select>
+                            <input type="text" name="custom_product_name" id="custom_product_name" placeholder="Enter product name" aria-describedby="emailHelp" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="form-group pb-3">
+                        <input type="email" placeholder="Description" name="prodes" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                     </div>
 
-                </div>
+                    <div class="form-group pb-3">
+                        <input type="text" placeholder="Price" step="0.01" name="price" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    </div>
 
-        </section>
+                    <div class="form-group pb-3">
+                        <input type="hidden" name="status" value="Available">
+                        <input type="text" placeholder="Stock" name="stock" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    </div>
 
+                    <div class="form-group pb-3">
+                        <select id="time" name = "products">
+                            <option value ='LIVE'>LIVE</option>
+                            <option value ='upcoming'>Upcoming</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group pb-3">
+                        <input type="date" placeholder="Coming Date" name="date">
+                    </div>
+
+                    <div class="form-group pb-3">
+                        <input type="file" placeholder="Profile Pic" name="pic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    </div>
+
+
+                    <div class="pb-2">
+                        <button id="submitBtn" type="submit" style="background-color: hsl(51 , 100% , 50%); font-weight: bold; border-color: hsl(51 , 100% , 50%)" class="btn btn-dark w-100 font-weight-bold mt-2">
+                            <span class="submit-text" style="color: black;">Submit</span>
+                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</main>
-
+</div>
 
 <footer>
 
@@ -847,31 +833,55 @@
 
 </footer>
 
-<script src="{{asset('js/script.js')}}"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    function toggleDropdown() {
-        var dropdown = document.querySelector(".dropdown ul");
-        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
-    }
+    document.getElementById('category2').addEventListener('change', function () {
+        const select = this;
+        const customProductNameInput = document.getElementById('custom_product_name');
 
-    // Close the dropdown if the user clicks outside of it
-    window.onclick = function (event) {
-        if (!event.target.matches('.user-greeting')) {
-            var dropdowns = document.querySelectorAll(".dropdown ul");
-            dropdowns.forEach(function (dropdown) {
-                if (dropdown.style.display === "block") {
-                    dropdown.style.display = "none";
-                }
-            });
+        if (select.value === 'other') {
+            customProductNameInput.style.display = 'block';
+            // customProductNameInput.setAttribute('name', 'custom_product_name');
+        } else {
+            customProductNameInput.style.display = 'none';
+            // customProductNameInput.setAttribute('name', 'product_name');
         }
-    }
-</script>
+    });
 
+    $(document).ready(function () {
+        $("#submitBtn").click(function (event) {
+            // Prevent the form from being submitted
+            event.preventDefault();
+
+            // Toggle the visibility of the spinner and submit text
+            $(".spinner-border").toggleClass("d-none");
+            $(".submit-text").toggleClass("d-none");
+
+            // Simulate a delay (e.g., AJAX request) before form submission
+            setTimeout(function () {
+                // You can add your form submission code here if needed
+                // For demonstration purposes, we'll simply submit the form after a delay
+                $("form").submit();
+            }, 1000); // Adjust the delay as needed
+        });
+    });
+    $(document).ready(function () {
+        $("#eyeIcon").click(function () {
+            var passwordField = $("#exampleInputPassword1");
+
+            if (passwordField.attr("type") === "password") {
+                passwordField.attr("type", "text");
+                $("#eyeIcon").removeClass("fa-eye").addClass("fa-eye-slash");
+            } else {
+                passwordField.attr("type", "password");
+                $("#eyeIcon").removeClass("fa-eye-slash").addClass("fa-eye");
+            }
+        });
+    });
+</script>
+<script src="{{asset('js/script.js')}}"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
 </body>
-
-
 </html>
+

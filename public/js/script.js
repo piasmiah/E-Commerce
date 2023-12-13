@@ -104,3 +104,32 @@
 //     aboutus.style.display = 'block';
 // });
 
+function startCountdown(targetDate, element) {
+    let countdownInterval = setInterval(function() {
+        let now = new Date().getTime();
+        let distance = targetDate - now;
+
+        // Calculations for days, hours, minutes, and seconds
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        element.innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+
+        if (distance < 0) {
+            clearInterval(countdownInterval);
+            element.innerHTML = "Countdown expired";
+        }
+    }, 1000);
+}
+
+// Example: Set the target date/time for the countdown (adjust this as needed)
+let countdownElements = document.querySelectorAll('.countdown');
+
+countdownElements.forEach(function(element) {
+    let endDate = new Date(element.getAttribute('data-end-date')).getTime();
+    startCountdown(endDate, element);
+});
+

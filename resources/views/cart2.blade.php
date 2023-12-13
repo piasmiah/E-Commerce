@@ -103,9 +103,9 @@
                 <div class="graphic-path">
                     <p>Invoice</p>
                 </div>
-{{--                <div class="position-relative">--}}
-{{--                    <p>Invoice No. <span>XXXX</span></p>--}}
-{{--                </div>--}}
+                <div class="position-relative">
+                    <p>Invoice No. <span>XXXX</span></p>
+                </div>
             </div>
         </section>
 
@@ -115,20 +115,15 @@
                     <div class="col-7">
                         <p>Supplier,</p>
                         <h2>E Commerce</h2>
-                        <p class="address"> Duip R/A, <br> Mirpur-2, <br>Dhaka-1216</p>
-                        <div class="txn mt-2">TEL: 01642889275
-                        </div>
-                        <div class="txn mt-2">
-                            TEL: 01638752371
-                        </div>
-
+                        <p class="address"> 777 Brockton Avenue, <br> Abington MA 2351, <br>Vestavia Hills AL </p>
+                        <div class="txn mt-2">TXN: XXXXXXX</div>
                     </div>
                     <div class="col-5">
                         <p>Client,</p>
                         <h2>{{ $user->name }}</h2>
                         <h3>{{ $user->id }}</h3>
                         <p class="address"> {{$loc->location}} </p>
-                        <div class="txn mt-2">TEL: {{ $user->phone }}</div>
+                        <div class="txn mt-2">TXN: {{ $user->Phone }}</div>
                     </div>
                 </div>
 
@@ -141,37 +136,36 @@
                 <tr>
                     <td>Item Description</td>
                     <td>Price</td>
-                    <td>Quantity</td>
                     <td>Total</td>
                 </tr>
                 </thead>
                 <tbody>
 
-                    @php
-                        $total = 0; // Initialize total variable
-                    @endphp
+                @php
+                    $total = 0; // Initialize total variable
+                @endphp
 
-                    @foreach ($orders as $cartItem)
-                        <form action="{{ route('delete',['id'=>$user->id,'order_id' => $cartItem->order_id]) }}" method="post">
-                            @csrf
-                            <input type="hidden" name="name" value="{{$user->name}}">
-                            <input type="hidden" name="id" value="{{$user->id}}">
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <input type="hidden" name="orid" value="{{$cartItem->order_id}}">
-                                        <div class="media-body">
-                                            <p class="mt-0 title">Product Id: {{ $cartItem->product_id }}</p>
-                                            {{ $cartItem->products }}
-                                        </div>
+                @foreach ($orders as $cartItem)
+                    <form action="{{ route('delete',['id'=>$user->id,'order_id' => $cartItem->order_id]) }}" method="post">
+                        @csrf
+                        <input type="hidden" name="name" value="{{$user->name}}">
+                        <input type="hidden" name="id" value="{{$user->id}}">
+                        <tr>
+                            <td>
+                                <div class="media">
+                                    <input type="hidden" name="orid" value="{{$cartItem->order_id}}">
+                                    <div class="media-body">
+                                        <p class="mt-0 title">Product Id: {{ $cartItem->product_id }}</p>
+                                        {{ $cartItem->products }}
                                     </div>
-                                </td>
-                                <td data-price-usd="{{ $cartItem->Price/ $cartItem->Quantity }}">{{ $cartItem->Price/ $cartItem->Quantity}}</td>
-                                <td>{{ $cartItem->Quantity }}</td>
-                                <td data-price-usd="{{ $cartItem->Price }}">{{ $cartItem->Price }}</td>
-                            </tr>
-                        @php      $total +=   $cartItem->Price;        @endphp
-                    @endforeach
+                                </div>
+                            </td>
+                            <td data-price-usd="{{ $cartItem->Price }}">{{ $cartItem->Price}}</td>
+
+                            <td data-price-usd="{{ $cartItem->Price }}">{{ $cartItem->Price }}</td>
+                        </tr>
+                    @php      $total +=   $cartItem->Price;        @endphp
+                @endforeach
                 </tbody>
             </table>
         </section>
@@ -210,29 +204,29 @@
 
         <footer>
             <div class="footer-content">
-            @php
-                $paymentCompleted = true;
-                foreach ($paymentstatus as $orderStatus) {
-                    if ($orderStatus->Payment_Status !== 'paid') {
-                        $paymentCompleted = false;
-                         // No need to continue checking
-                         break;
+                @php
+                    $paymentCompleted = true;
+                    foreach ($paymentstatus as $orderStatus) {
+                        if ($orderStatus->Payment_Status !== 'paid') {
+                            $paymentCompleted = false;
+                             // No need to continue checking
+                             break;
+                        }
+
                     }
+                @endphp
+                <hr>
 
-                }
-            @endphp
-            <hr>
+                @if ($paymentCompleted)
 
-            @if ($paymentCompleted)
+                    {{--                <button class="btn btn-secondary" onclick="printInvoice()">Print Invoice</button>--}}
 
-                {{--                <button class="btn btn-secondary" onclick="printInvoice()">Print Invoice</button>--}}
-
-                <p class="m-0 text-center">
-                    Paid- <a href="#!"> invoice/saburbd.com/#868 </a>
-                </p>
-            @else
-                <a href="{{ route('payment',['id'=>$user->id]) }}" class="pay-now-link">Pay now</a>
-            @endif
+                    <p class="m-0 text-center">
+                        Paid- <a href="#!"> invoice/saburbd.com/#868 </a>
+                    </p>
+                @else
+                    <a href="{{ route('payment',['id'=>$user->id]) }}" class="pay-now-link">Pay now</a>
+                @endif
             </div>
         </footer>
     </div>

@@ -120,7 +120,9 @@ Route::get('/',[\App\Http\Controllers\ProjectControll::class,'product'])->name('
 
 Route::post('/oder',[\App\Http\Controllers\OrderControll::class,'pendingorder'])->name('order');
 
-Route::get('/cart/{id}', function ($id) {
+Route::get('/cart/{id}',[ProjectControll::class,'cartView'])->name('cart');
+
+Route::get('/cart2/{id}', function ($id) {
     $user = User::find($id);
 
     $orders = DB::table('orderstatus')
@@ -137,15 +139,20 @@ Route::get('/cart/{id}', function ($id) {
         ->where('customer_id', $user->id)
         ->first();
 
-    return view('cart', ['user' => $user, 'total' => $total, 'orders' => $orders,'paymentstatus' => $paymentstatus,'loc'=>$loc]);
-})->name('cart');
+    return view('cart2', ['user' => $user, 'total' => $total, 'orders' => $orders,'paymentstatus' => $paymentstatus,'loc'=>$loc]);
+})->name('cart2');
 
 Route::post('/insertorder/{id}',[\App\Http\Controllers\OrderControll::class,'orders'])->name('insertorder');
+
+Route::post('/insertorder2/{id}',[\App\Http\Controllers\OrderControll::class,'orders2'])->name('insertorder2');
 //Route::get('/cart/{id}',[\App\Http\Controllers\OrderControll::class,'orders'])->name('cart');
 
 //Route::get('/product/{id}/{ids}', [\App\Http\Controllers\OrderControll::class, 'order'])->name('product');
 
 Route::get('/product/productid/{id}/userid/{ids}/product/{category}', [\App\Http\Controllers\OrderControll::class, 'addtocart'])->name('product');
+
+Route::get('/product2/productid/{id}/userid/{ids}/product/{category}', [\App\Http\Controllers\OrderControll::class, 'addtocart2'])->name('product2');
+
 
 Route::post('/comment/{id}', [\App\Http\Controllers\OrderControll::class, 'commentrating'])->name('comment');
 
@@ -244,13 +251,21 @@ Route::get('/admin/One_Month_Report', function () {
     return view('report');
 })->name('report');
 
+Route::get('/admin/Daily_Update_Report', function () {
+    return view('report2');
+})->name('report2');
+
 Route::get('/welcome/Contact_Us', [ProjectControll::class,'showContact'])->name('contactus');
 
 Route::get('/welcome/Contact/{id}', [ProjectControll::class,'showContact2'])->name('contactus2');
 
+Route::post('/approval',[\App\Http\Controllers\Admin::class,'approval'])->name('approval');
+
 Route::middleware([\App\Http\Middleware\TrackVisitors::class])->group(function () {
     Route::get('/admin/One_Month_Report', [\App\Http\Controllers\Report::class, 'reportTotal'])->name('report');
 });
+
+Route::get('/admin/Daily_Update_Report', [\App\Http\Controllers\Report::class, 'reportTotal2'])->name('report2');
 
 Route::get('/allproduct/',[ProjectControll::class,'searchProduct'])->name('allproduct');
 
@@ -277,3 +292,58 @@ Route::get('/sellerregistration', function () {
 
 Route::get('/userprofile/{id}',[ProjectControll::class,'userPrfile'])->name('userprofile');
 
+Route::get('/sellerregistration',[\App\Http\Controllers\SellerController::class,'sellerregistrationpage'])->name('sellerregistration');
+
+Route::post('/sellerinsert',[\App\Http\Controllers\SellerController::class,'sellerregister'])->name('sellerinsert');
+
+Route::post('/approved',[\App\Http\Controllers\Admin::class,'approval2'])->name('approved');
+
+Route::get('/sellerhomepage/{id}', function ($id) {
+    return view('sellerhomepage', ['userId' => $id]);
+})->name('sellerhomepage');
+
+Route::get('/sellerhomepage/{id}',[\App\Http\Controllers\SellerController::class,'showDashboard'])->name('sellerhomepage');
+
+Route::post('/add',[\App\Http\Controllers\SellerController::class,'addproduct'])->name('add');
+
+Route::get('/sellerproduct/{id}/{category}',[\App\Http\Controllers\SellerController::class,'showList'])->name('sellerproduct');
+
+Route::get('/addproduct/{id}/',[\App\Http\Controllers\SellerController::class,'showAddProduct'])->name('addproduct');
+
+Route::get('/sellertotalsells/{id}/',[\App\Http\Controllers\SellerController::class,'totalsells'])->name('sellertotalsells');
+
+Route::get('/dailyupdate/{id}/',[\App\Http\Controllers\SellerController::class,'dailyupdate'])->name('dailyupdate');
+
+Route::get('/monthly/{id}/',[\App\Http\Controllers\SellerController::class,'monthly'])->name('monthly');
+
+Route::get('/sellermanage/{id}',[\App\Http\Controllers\SellerController::class,'manageProduct'])->name('sellermanage');
+
+Route::post('/sellerproducts/',[\App\Http\Controllers\SellerController::class,'updateproduct'])->name('sellerproducts');
+
+Route::get('/sellerprofile/{id}',[\App\Http\Controllers\SellerController::class,'sellerprofile'])->name('sellerprofile');
+
+Route::post('/sellerprofileupdate/{id}',[\App\Http\Controllers\SellerController::class,'sellerprofileupdate'])->name('sellerprofileupdate');
+
+Route::get('/termsandcondition', function () {
+    return view('termsandcondition');
+})->name('termsandcondition');
+
+Route::get('/termsandcondition',[ProjectControll::class,'termsandcondition'])->name('termsandcondition');
+
+Route::get('/privacypolicy',[ProjectControll::class,'privacypolicy'])->name('privacypolicy');
+
+Route::get('/sitemap/{id}',[ProjectControll::class,'sitemap'])->name('sitemap');
+
+Route::get('/sellsomething/{id}',[\App\Http\Controllers\SellSomething::class,'showSell'])->name('sellsomething');
+
+Route::get('/postanadd/{id}',[\App\Http\Controllers\SellSomething::class,'showPostADD'])->name('postanadd');
+
+Route::post('/posts/{id}',[\App\Http\Controllers\SellSomething::class,'post'])->name('posts');
+
+Route::get('/yourprducts/{id}',[\App\Http\Controllers\SellSomething::class,'yourpro'])->name('yourprducts');
+
+Route::post('/cancelition/{id}',[\App\Http\Controllers\SellSomething::class,'cancel'])->name('cancelition');
+
+Route::get('/payfile/{id}/{pro}',[\App\Http\Controllers\SellSomething::class,'pay'])->name('payfile');
+
+Route::post('/donepaym/{id}',[\App\Http\Controllers\SellSomething::class,'donepay'])->name('donepaym');

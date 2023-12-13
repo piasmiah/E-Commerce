@@ -23,7 +23,91 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
     <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
+        .user-greeting {
+            font-size: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            display: none; /* Add the "hidden" class to initially hide the dropdown menu */
+        }
+
+        .dropdown ul li {
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown ul li a {
+            text-decoration: none;
+            color: #000;
+            display: block;
+        }
+
+        .dropdown ul li:hover {
+            background-color: hsl(51 , 100% , 50%);; /* Add the hover effect color here */
+        }
+
+        .dropdown:hover ul {
+            display: block;
+        }
+
+        a,a:hover{
+            text-decoration: none;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination .pagination-list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pagination .pagination-list li {
+            margin: 0 5px;
+        }
+
+        .pagination .pagination-list li a,
+        .pagination .pagination-list li span {
+            display: block;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .pagination .pagination-list li.active span {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .pagination .pagination-list li a:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
 
 <body>
@@ -96,11 +180,14 @@
 
             <div class="header-search-container">
 
-                <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
+                <form action="{{route('allproduct2',['id'=>$user->id])}}" method="get">
+                    @csrf
+                    <input type="search" name="search" class="search-field" placeholder="Enter your product...">
 
-                <button class="search-btn">
-                    <ion-icon name="search-outline"></ion-icon>
-                </button>
+                    <button class="search-btn" type="submit">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </button>
+                </form>
 
             </div>
 
@@ -112,7 +199,14 @@
 {{--                <button class="action-btn">--}}
 {{--                   <p>{{$user->name}}</p>--}}
 {{--                </button>--}}
-                <p>Hello, {{ implode(' ', array_slice(explode(' ', $user->name), 0, 3)) }}</p>
+                <div class="dropdown">
+                    <span style="font-size: 15px;" class="user-greeting" onclick="toggleDropdown()">Hello, {{ implode(' ', array_slice(explode(' ', $user->name), 0, 3)) }}</span>
+                    <ul>
+                        <li><a href="{{ route('purchase',['id'=>$user->id]) }}" style="font-size: 15px">Purchase History</a></li>
+                        <li><a href="{{route('sellsomething',['id'=>$user->id])}}" style="font-size: 15px;">Want to sell something?</a></li>
+                        <li><a href="/" style="font-size: 15px;">Logout</a></li>
+                    </ul>
+                </div>
 
 
 
@@ -160,23 +254,9 @@
 
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Hot Offers</a>
+                    <a href="#" class="menu-title">Special Offers</a>
                 </li>
 
-                <li class="menu-category">
-                    <a href="#" class="menu-title">{{$user->name}}</a>
-                    <ul class="dropdown-list">
-
-                        <li class="dropdown-item">
-                            <a href="{{ route('purchase',['id'=>$user->id]) }}">Purchase History</a>
-                        </li>
-
-                        <li class="dropdown-item">
-                            <a href="/">Logout</a>
-                        </li>
-
-                    </ul>
-                </li>
 
             </ul>
 
@@ -436,41 +516,22 @@
                         <div class="showcase">
 
                             <div class="showcase-banner">
-<<<<<<< HEAD
+
                                 <a href="{{route('product',['ids'=>$user->id,'id'=>$prod->pro_id,'category'=>$prod->category])}}">
-=======
+
                             <a href="{{route('product',['ids'=>$user->id,'id'=>$prod->pro_id,'category'=>$prod->category])}}">
->>>>>>> 838dc469ea8db29580473a74f1f2957857b08567
+
                                 <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
-                  
+
                                 <img src="{{asset('storage/' .$prod->pro_pic)}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
-<<<<<<< HEAD
+
                                 </a>
-=======
+
                             </a>
 
->>>>>>> 838dc469ea8db29580473a74f1f2957857b08567
+
 {{--                                                            <p class="showcase-badge">15%</p>--}}
 
-                                <div class="showcase-actions">
-
-                                    <button class="btn-action">
-                                        <ion-icon name="heart-outline"></ion-icon>
-                                    </button>
-
-                                    <button class="btn-action">
-                                        <ion-icon name="eye-outline"></ion-icon>
-                                    </button>
-
-                                    <button class="btn-action">
-                                        <ion-icon name="repeat-outline"></ion-icon>
-                                    </button>
-
-                                    <button class="btn-action">
-                                        <ion-icon name="bag-add-outline"></ion-icon>
-                                    </button>
-
-                                </div>
 
                             </div>
 

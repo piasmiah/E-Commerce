@@ -459,13 +459,11 @@
                                 <td>${{$oder->Price}}</td>
                                 <td>{{ date('M d, Y', strtotime($oder->created_at)) }}</td>
                                     <td>
-<<<<<<< HEAD
-                                        @if($oder->order_status==='Delivered' || $oder->order_status==='Shipping' || $oder->order_status==='On the Way')
-=======
+
                                     @if($oder->order_status==='Delivered' || $oder->order_status==='Shipping' || $oder->order_status==='On the Way')
->>>>>>> 838dc469ea8db29580473a74f1f2957857b08567
+
                                             {{$oder->Date}}
-                                        @else
+                                        @elseif($oder->Payment_Status==='paid')
                                         <input type="date" name="date" id="calendar" min="2023-01-01" max="2023-12-31">
                                         @endif
                                     </td>
@@ -475,13 +473,8 @@
                                 @elseif($oder->order_status==='Shipping')
                                     <td><span class="status pending">{{$oder->order_status}}</span></td>
                                 @elseif($oder->Payment_Status==='On the Way')
-<<<<<<< HEAD
                                     <td><span class="status process">{{$oder->order_status}}</span></td>
-                                 @elseif($oder->Payment_Status==='paid')
-=======
-                                    <td><span class="status process">{{$oder->order_status}}</span></td>    
                                 @elseif($oder->Payment_Status==='paid')
->>>>>>> 838dc469ea8db29580473a74f1f2957857b08567
                                     <td><button type="submit" class="status process">{{$oder->order_status}}</button></td>
                                 @endif
                                 </form>
